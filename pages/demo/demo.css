@@ -1,0 +1,12 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.u-grid-checkbox-outline {
+  display: inline !important;
+}
+
+.u-grid-content-td-div .eType-input {
+  margin-left: 0 !important;
+}

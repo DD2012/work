@@ -1,0 +1,48 @@
+{
+  "result": 1,
+  "msg": null,
+  "data": {
+    "pbillType": [
+      {
+        "name": "板件",
+        "value": "1"
+      },
+      {
+        "name": "五金",
+        "value": "2"
+      },
+      {
+        "name": "其它",
+        "value": "3"
+      }
+    ],
+    "pbillReason": [
+      {
+        "name": "不想要",
+        "value": "1"
+      },
+      {
+        "name": "无理由补件",
+        "value": "2"
+      },
+      {
+        "name": "发错了",
+        "value": "3"
+      }
+    ],
+    "logisticsMode": [
+      {
+        "name": "发经销商",
+        "value": "1"
+      },
+      {
+        "name": "发办事处",
+        "value": "2"
+      },
+      {
+        "name": "发快递",
+        "value": "3"
+      }
+    ]
+  }
+}

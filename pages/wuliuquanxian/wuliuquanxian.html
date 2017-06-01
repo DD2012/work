@@ -1,0 +1,130 @@
+<div>
+	<div class="u-row">物流权限控制</div>
+	<hr class="u-row" />
+
+<!--弹窗-->
+	<div class="u-row margin-left-0 margin-right-0 u-not-visible padding-40" id="searchContent">
+		<div class="u-row">查询结果：</div>
+		<hr class="u-row">
+		<div class="u-form-inline u-row">
+			<div class="u-form-group">
+				<label for="exampleInput5">经销商编码:</label>
+				<div class="u-input-group u-has-feedback" style="display: inline-block;">
+					<input data-bind="value:disCode" type="text" class="u-form-control" id="exampleInput5" placeholder="输入经销商编码">
+				</div>
+			</div>
+			<div class="u-form-group">
+				<label for="exampleInput6">经销商名称:</label>
+				<div class="u-input-group u-has-feedback" style="display: inline-block;">
+					<input data-bind="value:disName" type="text" class="u-form-control" id="exampleInput6" placeholder="输入经销商名称">
+				</div>
+			</div>
+			<div class="u-form-group" style="vertical-align: top">
+				<button class="u-button u-button-primary" data-bind="click:event.search"> <span class="uf uf-search"></span>查询</button>
+			</div>
+		</div>
+		<div class="u-row" id="gridTest2"  u-meta='{
+				"contentSelect":"false",
+				"columnMenu":"false",
+				"canSwap":"false",
+				"sortable":"false",
+				"multiSelect":false,
+				"id":"search",
+				"type":"grid",
+				"data":"search"
+			}'>
+			<div options='{"field":"storeCode","dataType":"String","title":"经销商编码"}'></div>
+			<div options='{"field":"storeName","dataType":"String","title":"经销商名称"}'></div>
+			<div options='{"field":"officeCode","dataType":"String","title":"所属办事处"}'></div>
+			<div options='{"renderType":"handleRenderDialog","field":"handleHook","dataType":"string","title":"操作"}'></div>
+		</div>
+		<!--分页-->
+		<div class="paginationHook u-not-visible">
+			<div id='pagination1' class='u-pagination'></div>
+		</div>
+	</div>
+
+
+
+	<div class="u-row">
+		<div class="u-button u-button-primary add" data-bind="click:event.add"><span class="uf uf-add-c-o margin-right-10"></span>新增</div>
+		<div id="deleteWuliu" class="u-button u-button-primary" data-bind="click:event.mutipleDel"><span class="uf uf-del margin-right-10"></span>批量删除</div>
+		<div id="save" class="u-button u-button-primary" data-bind="click:event.save"><span class="uf uf-baoxue margin-right-10"></span>保存</div>
+		<div class="u-button u-button-primary"><span class="uf uf-2arrow-up margin-right-10"></span>导入</div>
+		<div class="u-button u-button-primary"><span class="uf uf-2arrow-up margin-right-10"></span>导出</div>
+		<div class="u-button u-button-primary"><span class="uf uf-2arrow-up margin-right-10"></span>审核</div>
+		<div class="u-button u-button-primary"><span class="uf uf-2arrow-up margin-right-10"></span>弃审</div>
+		<div data-bind="click:event.func" class="u-button u-button-primary"><span class="uf uf-2arrow-up margin-right-10"></span>测试</div>
+	</div>
+
+
+
+
+
+	<div class="u-row">
+<!--主页面-->
+		<div id="gridTest3"  u-meta='{
+					"showNumCol":true,
+					"headerHeight":20,
+					"maxHeaderLevel":2,
+					"onBeforeEditFun":"wuliueditFun",
+					"contentSelect":"false",
+					"editable":"true",
+					"columnMenu":"false",
+					"canSwap":"false",
+					"sortable":"false",
+					"multiSelect":true,
+					"id":"wuliu",
+					"type":"grid",
+					"data":"wuliu"
+				}'>
+			<div options='{"field":"businessAccount","dataType":"String","title":"经销商账号"}'></div>
+			<div options='{"field":"storeCode","dataType":"String","title":"经销商编码"}'></div>
+			<div options='{"renderType":"searchRender","field":"searchHook","dataType":"String","title":"","width":"80"}'></div>
+			<div options='{"field":"storeName","dataType":"String","title":"经销商名称"}'></div>
+			<div options='{"field":"officeCode","dataType":"String","title":"所属办事处"}'></div>
+			<div options='{"width":"400","field":"logisticsId","dataType":"string","title":"物流方式","editOptions":{"id":"wuliuMethod","type":"combo","single":false,"mutil":true,"datasource":"wuliuMethodCombo"},"editType":"combo","renderType":"comboRender"}'></div>
+			<div options='{"renderType":"handleRender","field":"handleHook","dataType":"string","title":"操作"}'></div>
+		</div>
+		<!--分页-->
+		<div class="mainPaginationHook">
+			<div id='mainPagination' class='u-pagination'></div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

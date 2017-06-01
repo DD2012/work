@@ -1,0 +1,76 @@
+{
+  "result": 1,
+  "msg": null,
+  "data": {
+    "patchCategory": [
+      {
+        "name": "沙发",
+        "value": "1"
+      },
+      {
+        "name": "实木",
+        "value": "2"
+      },
+      {
+        "name": "餐桌椅",
+        "value": "3"
+      }
+    ],
+    "pbillType": [
+      {
+        "name": "真皮",
+        "value": "1"
+      },
+      {
+        "name": "布艺",
+        "value": "2"
+      },
+      {
+        "name": "大理石",
+        "value": "3"
+      }
+    ],
+    "unit": [
+      {
+        "name": "个",
+        "value": "1"
+      },
+      {
+        "name": "头",
+        "value": "2"
+      },
+      {
+        "name": "只",
+        "value": "3"
+      }
+    ],
+    "patchReason": [
+      {
+        "name": "发漏了",
+        "value": "1"
+      },
+      {
+        "name": "退货",
+        "value": "2"
+      },
+      {
+        "name": "不想要了",
+        "value": "3"
+      }
+    ],
+    "logisticsMode": [
+      {
+        "name": "直发消费者",
+        "value": "1"
+      },
+      {
+        "name": "直发办事处",
+        "value": "2"
+      },
+      {
+        "name": "直发经销商",
+        "value": "3"
+      }
+    ]
+  }
+}

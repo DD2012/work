@@ -1,0 +1,23 @@
+var supplementReportSimpleData = [
+    {
+        supplementOrderNum:'QY00000000000001',
+        consumerName:'顾客名字',
+        phone:'13000000000',
+        sellOrderNum:'00000',
+        supplementMode:'00000',
+        supplementType:'沙发',
+        sellProduceNum:'661671001',
+        sellProductName:'61671三门酒柜233#哑',
+        seriesName:'616西海岸风情系列',
+        productionState:'在产',
+        supplementName:'6171三门酒柜左下门板',
+        supplementVersion:'中心板',
+        num:1,
+        unit:'个',
+        supplementReason:'0',
+        logisticsMetho:'0',
+        receivingLocation:'内蒙古包头市九原区马池沃土壕宅',
+        remark:'加急，客诉件',
+        uploadImg:'111.jpg'
+    }
+];

@@ -1,0 +1,37 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.BillFinshedDeclare{
+    #mainTable{
+        #supplementReport_header_thead{
+            tr{
+                height: 48px;
+            }
+        }
+        #supplementReport_content_tbody{
+            tr{
+                height: 48px;
+            }
+        }
+        #supplementReport_content_multiSelect{
+            div{
+                height: 48px;
+            }
+        }
+        #supplementReport_content_numCol{
+            div{
+                height: 48px;
+            }
+        }
+
+    }
+}
+#orderNumSearchDialog{
+    .u-grid-content-multiSelect{
+        height: 2.75em!important;
+    }
+    .u-grid-content-num{
+        height: 2.75em!important;
+    }
+}

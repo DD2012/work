@@ -1,0 +1,45 @@
+var tableData = [
+    {
+        xinhao:'QY000000001212',
+        mingchen:'沙发维修材料',
+        danwei:'瓶/支',
+        jiage:'12',
+        canEdit:false
+    }, {
+        xinhao:'QY000000001213',
+        mingchen:'沙发维修材料',
+        danwei:'瓶/支',
+        jiage:'12',
+        canEdit:false
+    },{
+        xinhao:'QY000000001214',
+        mingchen:'沙发维修材料',
+        danwei:'瓶/支',
+        jiage:'12',
+        canEdit:false
+    },{
+        xinhao:'QY000000001215',
+        mingchen:'沙发维修材料',
+        danwei:'瓶/支',
+        jiage:'12',
+        canEdit:false
+    },{
+        xinhao:'QY000000001216',
+        mingchen:'沙发维修材料',
+        danwei:'瓶/支',
+        jiage:'12',
+        canEdit:false
+    },{
+        xinhao:'QY000000001217',
+        mingchen:'沙发维修材料',
+        danwei:'瓶/支',
+        jiage:'12',
+        canEdit:false
+    },{
+        xinhao:'QY000000001218',
+        mingchen:'沙发维修材料',
+        danwei:'瓶/支',
+        jiage:'12',
+        canEdit:false
+    }
+];

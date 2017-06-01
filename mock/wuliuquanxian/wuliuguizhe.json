@@ -1,0 +1,23 @@
+{
+  "result": "success",
+  "msg": null,
+  "data": [
+    {
+      "logisticsId": "bsc",
+      "logistics": "发办事处"
+    },
+    {
+      "logisticsId": "fzmd",
+      "logistics": "发专卖店"
+    },
+    {
+      "logisticsId": "fkd",
+      "logistics": "发快递"
+    },
+    {
+      "logisticsId": "fkd2",
+      "logistics": "发快递2"
+    }
+  ]
+}
+

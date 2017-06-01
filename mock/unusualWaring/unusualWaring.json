@@ -1,0 +1,54 @@
+{
+  "result": 1,
+  "msg": null,
+  "data": [
+    {
+      "pbillCode": "00000000001",
+      "pbillTime": "a",
+      "productName": "a",
+      "seriesName": "a",
+      "partsCode": "a",
+      "pbillName": "a",
+      "pbillType": "a",
+      "num": "1",
+      "unit": "a",
+      "quAppraisal": "a",
+      "currentState": "a",
+      "stayTime": "a",
+      "handle": "a",
+      "reportModel": "a"
+    },{
+      "pbillCode": "00000000002",
+      "pbillTime": "a",
+      "productName": "a",
+      "seriesName": "a",
+      "partsCode": "a",
+      "pbillName": "a",
+      "pbillType": "a",
+      "num": "1",
+      "unit": "a",
+      "quAppraisal": "a",
+      "currentState": "a",
+      "stayTime": "a",
+      "handle": "a",
+      "reportModel": "a"
+    },{
+      "pbillCode": "00000000003",
+      "pbillTime": "a",
+      "productName": "a",
+      "seriesName": "a",
+      "partsCode": "a",
+      "pbillName": "a",
+      "pbillType": "a",
+      "num": "1",
+      "unit": "a",
+      "quAppraisal": "a",
+      "currentState": "a",
+      "stayTime": "a",
+      "handle": "a",
+      "reportModel": "a"
+    }
+  ],
+  "total": 5,
+  "pageIndex": 2
+}

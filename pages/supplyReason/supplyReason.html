@@ -1,0 +1,37 @@
+<div class="supplyReason">
+	<div class="u-row">图片管理</div>
+	<hr class="u-row"/>
+	<!--页面功能按钮行-->
+	<div class="u-row u-button-group-lg">
+		<div data-bind="click:event.add" class="u-button u-button-primary"><span class="uf uf-add-c-o"></span>新增</div>
+		<div data-bind="click:event.save" class="u-button u-button-primary"><span class="uf uf-baoxue"></span>保存</div>
+		<div data-bind="click:event.mutipleDel" class="u-button u-button-primary"><span class="uf uf-del"></span>批量删除</div>
+		<div class="u-button u-button-primary"><span class="uf uf-baoxue"></span>审核</div>
+		<div class="u-button u-button-primary"><span class="uf uf-baoxue"></span>弃审</div>
+		<div class="u-button u-button-primary" data-bind="click:event.func"><span class="uf uf-baoxue"></span>测试</div>
+	</div>
+	<!--主表格-->
+	<div class="u-row">
+		<div u-meta='{
+						"showNumCol":true,
+						"contentSelect":"false",
+						"editable":"true",
+						"columnMenu":"false",
+						"canSwap":"false",
+						"sortable":"false",
+						"multiSelect":true,
+						"id":"supplyReason",
+						"type":"grid",
+						"data":"supplyReason",
+						"onBeforeEditFun":"onBeforeEditFun"
+					}'>
+			<div options='{"field":"name","dataType":"String","title":"名称"}'></div>
+			<div options='{"field":"remark","dataType":"String","title":"备注"}'></div>
+			<div options='{"renderType":"handleHookRender","field":"handleHook","dataType":"String","title":"操作"}'></div>
+		</div>
+		<!--分页-->
+		<div class="paginationHook">
+			<div id='pagination1' class='u-pagination margin-left-0'></div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,61 @@
+{
+  "result": 1,
+  "msg": null,
+  "data": [
+    {
+      "plateCode": "2000000000001",
+      "plateName": "脚底",
+      "strNum": 2,
+      "unit": "个",
+      "patchModel": "20170",
+      "productionCode": "661671001",
+      "productionName": "61671三门酒柜233#哑",
+      "seriesName": "616西海岸风情系列",
+      "productStatus": "在产",
+      "pbillType": "中心板",
+      "id": "idiidididi"
+    },
+    {
+      "plateCode": "2000000000002",
+      "plateName": "脚底",
+      "strNum": 2,
+      "unit": "个",
+      "patchModel": "20170",
+      "productionCode": "661671001",
+      "productionName": "61671三门酒柜233#哑",
+      "seriesName": "616西海岸风情系列",
+      "productStatus": "在产",
+      "pbillType": "中心板",
+      "id": "idiidididi"
+    },
+    {
+      "plateCode": "21000000000003",
+      "plateName": "脚底",
+      "strNum": 2,
+      "unit": "个",
+      "patchModel": "20170",
+      "productionCode": "661671001",
+      "productionName": "61671三门酒柜233#哑",
+      "seriesName": "616西海岸风情系列",
+      "productStatus": "在产",
+      "pbillType": "中心板",
+      "id": "idiidididi"
+    },
+    {
+      "plateCode": "21000000000004",
+      "plateName": "脚底",
+      "strNum": 2,
+      "unit": "个",
+      "patchModel": "20170",
+      "productionCode": "661671001",
+      "productionName": "61671三门酒柜233#哑",
+      "seriesName": "616西海岸风情系列",
+      "productStatus": "在产",
+      "pbillType": "中心板",
+      "id": "idiidididi"
+    }
+  ],
+  "total": 3,
+  "pageIndex": 2,
+  "imgAddress": "../static/1.png"
+}

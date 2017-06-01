@@ -1,0 +1,53 @@
+{
+  "result": 1,
+  "msg": null,
+  "data": [
+    {
+      "businessAccount": 111,
+      "storeCode": "61013010901",
+      "storeName": "修改后门店",
+      "logisticsId": "bsc,fzmd",
+      "logistics": "发办事处,发专卖店",
+      "officeCode": 111,
+      "id": "55ed7dc5-98b8-44c9-92f0-42ad97d84b72"
+    },
+    {
+      "businessAccount": 111,
+      "storeCode": "61013010902",
+      "storeName": "修改后门店",
+      "logisticsId": "bsc,fzmd",
+      "logistics": "发办事处,发专卖店",
+      "officeCode": 2222,
+      "id": "55ed7dc5-98b8-44c9-92f0-42ad97d84b72"
+    },
+    {
+      "businessAccount": 111,
+      "storeCode": "61013010903",
+      "storeName": "修改后门店",
+      "logisticsId": "bsc,fzmd",
+      "logistics": "发办事处,发专卖店",
+      "officeCode": 111,
+      "id": "55ed7dc5-98b8-44c9-92f0-42ad97d84b72"
+    },
+    {
+      "businessAccount": 111,
+      "storeCode": "61013010904",
+      "storeName": "修改后门店",
+      "logisticsId": "bsc,fzmd",
+      "logistics": "发办事处,发专卖店",
+      "officeCode": 111,
+      "id": "55ed7dc5-98b8-44c9-92f0-42ad97d84b72"
+    },
+    {
+      "businessAccount": 111,
+      "storeCode": "61013010905",
+      "storeName": "修改后门店",
+      "logisticsId": "bsc,fzmd",
+      "logistics": "发办事处,发专卖店",
+      "officeCode": 111,
+      "id": "55ed7dc5-98b8-44c9-92f0-42ad97d84b72"
+    }
+  ],
+  "total": 4,
+  "pageIndex": 1
+}

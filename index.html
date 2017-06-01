@@ -1,0 +1,248 @@
+<!doctype html >
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>iuap design</title>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="./static/ios-desktop.png">
+    <meta name="msapplication-TileImage" content="./static/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+    <link rel="shortcut icon" href="./static/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="./vendor/fontAwesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="./vendor/googleapis/roboto.css">
+    <link rel="stylesheet" type="text/css" href="./vendor/googleapis/icon.css">
+    <link rel="stylesheet" type="text/css" href="./vendor/uui/css/u.css">
+    <!--<link rel="stylesheet" type="text/css" href="./style/style.css">-->
+    <link rel="stylesheet" type="text/css" href="./style/widget.css">
+    <script type="text/javascript" src="./vendor/html5shiv.min.js"></script>
+    <!--[if lt IE 9]>
+    	<script src="vendor/es5-shim.min.js"></script>
+	    <script type="text/javascript" charset="utf-8" src="vendor/uui/js/u-polyfill.js"></script>
+      <script src="vendor/es5-sham.min.js"></script>
+	  <![endif]-->
+
+
+</head>
+
+<style>
+
+</style>
+
+<body>
+    <div class="demo-layout u-navlayout u-navlayout-fixed-drawer u-navlayout-fixed-header">
+        <header>
+            <div class="u-container">
+                <div class="u-row">
+                    <div class="col-xs-12 col-sm-12 height-full ">
+                        <div class="foldingpad"><i class="uf uf-navmenu"></i></div>
+                        <a href="javascript:void (0);" style="position: absolute;display: inline-block;left: 100px;">
+                            <div class="logo">
+                                <img id="syslogo" src="./static/logo.png">
+                            </div>
+                        </a>
+                        <div class="text-right" style="position: absolute;right: 0;">
+                            <ul class="nav-list u-navbar-toolbar u-navbar-right u-navbar-toolbar-right margin-top-0">
+                                <li class="dropdown">
+                                    <a class="u-avatar w-32  u-avatar-online">
+                                        <img src="./static/avator.png" alt="..." class="img-circle">
+                                        <i></i>
+                                    </a>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="u-badge w-20 m margin-right-5" data-badge="1">
+                                        <i class="uf uf-bell"></i>
+                                    </a>
+
+                                </li>
+                                <li class="dropdown">
+                                    <a class="u-badge u-badge-info w-20 m" data-badge="3">
+                                        <i class="uf uf-mail"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav-list u-navbar-toolbar u-navbar-right margin-top-0">
+                                <li class="dropdown">
+                                    <a>
+                                        <span>管理员</span><i class="uf uf-arrow-down"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="page-sidebar" style="overflow: scroll;width: 90px;">
+            <ul class="nav-menu height-full" id="menu">
+                <!--<li class='nav-li'>-->
+                    <!--<a href="#mainPage/main">-->
+                        <!--<i class="uf uf-home"></i>-->
+                        <!--<span class="nav-title">首页</span>-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!-- 新增应用管理入口代码 begin -->
+                <!--<li class='nav-li'>-->
+                    <!--&lt;!&ndash; a标签地址要指向到你想去的页面的路由地址 &ndash;&gt;-->
+                    <!--<a href="#cardtable/cardtable">-->
+                        <!--<i class="uf uf-4square-3"></i>-->
+                        <!--<span class="nav-title">应用管理</span>-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--&lt;!&ndash; 新增应用管理入口代码 end &ndash;&gt;-->
+                <!--<li class="nav-li">-->
+                    <!--<a href="#test/test">-->
+                        <!--<span style="color: yellow;">click</span>-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<li class="nav-li">-->
+                    <!--<a href="#test1/test1">-->
+                        <!--<span style="color: yellow;">click11</span>-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<li class="nav-li">-->
+                    <!--<a href="#right/right">-->
+                        <!--<span style="color: yellow;">right</span>-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<li class="nav-li">-->
+                    <!--<a href="#demo/demo">-->
+                        <!--<span style="color: yellow;">demo</span>-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<li class="nav-li">-->
+                    <!--<a href="#zhuangtai/zhuangtai">-->
+                        <!--<span style="color: yellow;">状态周期</span>-->
+                    <!--</a>-->
+                <!--</li>-->
+
+                <!--<li class="nav-li">-->
+                    <!--<a href="#wuliufangshi/wuliufangshi">-->
+                        <!--<span style="color: yellow;">物流方式</span>-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<li class="nav-li">-->
+                    <!--<a href="#bujianleibie/bujianleibie">-->
+                        <!--<span style="color: yellow;">补件类别</span>-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<li class="nav-li">-->
+                    <!--<a href="#bujiancailiao/bujiancailiao">-->
+                        <!--<span style="color: yellow;">补件材料</span>-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<li class="nav-li">-->
+                    <!--<a href="#liaoping/liaoping">-->
+                        <!--<span style="color: yellow;">料品清单</span>-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<li class="nav-li">-->
+                    <!--<a href="#chengpingshengbao/chengpingshengbao">-->
+                        <!--<span style="color: yellow;">成品申报</span>-->
+                    <!--</a>-->
+                <!--</li>-->
+                <li class="nav-li">
+                    <a href="#supplementCycleMaintain/supplementCycleMaintain">
+                        <span style="color: yellow;">生产周期</span>
+                    </a>
+                </li>
+                <li class="nav-li">
+                    <a href="#handleCycleMaintain/handleCycleMaintain">
+                        <span style="color: yellow;">处理周期</span>
+                    </a>
+                </li>
+                <li class="nav-li">
+                    <a href="#wuliuquanxian/wuliuquanxian">
+                        <span style="color: yellow;">物流权限</span>
+                    </a>
+                </li>
+                <li class="nav-li">
+                    <a href="#patchType/patchType">
+                        <span style="color: yellow;">补件类型</span>
+                    </a>
+                </li>
+                <li class="nav-li">
+                    <a href="#patchClasses/patchClasses">
+                        <span style="color: yellow;">补件类别</span>
+                    </a>
+                </li>
+                <li class="nav-li">
+                    <a href="#materialMaintain/materialMaintain">
+                        <span style="color: yellow;">材料维护</span>
+                    </a>
+                </li>
+                <li class="nav-li">
+                    <a href="#productStructure/productStructure">
+                        <span style="color: yellow;">产品结构</span>
+                    </a>
+                </li>
+                <li class="nav-li">
+                    <a href="#partBase/partBase">
+                        <span style="color: yellow;">部件基础</span>
+                    </a>
+                </li>
+                <li class="nav-li">
+                    <a href="#imgManage/imgManage">
+                        <span style="color: yellow;">图片管理</span>
+                    </a>
+                </li>
+                <li class="nav-li">
+                    <a href="#supplyReason/supplyReason">
+                        <span style="color: yellow;">补件原因</span>
+                    </a>
+                </li>
+                <li class="nav-li">
+                    <a href="#BillFinshedDeclare/BillFinshedDeclare">
+                        <span style="color: yellow;">补件申报</span>
+                    </a>
+                </li>
+                <li class="nav-li">
+                    <a href="#BillCustomDeclare/BillCustomDeclare">
+                        <span style="color: yellow;">定制申报</span>
+                    </a>
+                </li>
+                <li class="nav-li">
+                    <a href="#BillAuditFirst/BillAuditFirst">
+                        <span style="color: yellow;">补件初审</span>
+                    </a>
+                </li>
+                <li class="nav-li">
+                    <a href="#BillAuitRecheck/BillAuitRecheck">
+                        <span style="color: yellow;">补件复审</span>
+                    </a>
+                </li>
+                <li class="nav-li">
+                    <a href="#productionConfirm/productionConfirm">
+                        <span style="color: yellow;">生产确认</span>
+                    </a>
+                </li>
+                <li class="nav-li">
+                    <a href="#productionMethodConfirm/productionMethodConfirm">
+                        <span style="color: yellow;">生产方式确认</span>
+                    </a>
+                </li>
+                <li class="nav-li">
+                    <a href="#pbillOrderFollow/pbillOrderFollow">
+                        <span style="color: yellow;">订单跟进</span>
+                    </a>
+                </li>
+                <li class="nav-li">
+                    <a href="#unusualWaring/unusualWaring">
+                        <span style="color: yellow;">异常预警</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- 内容 -->
+        <div id="content" class="demo-content u-color-grey-100 page-container" style="margin-top:60px"></div>
+    </div>
+    <script type="text/javascript" data-main="config/require.config" src="./vendor/requirejs/require.js"></script>
+</body>
+
+</html>

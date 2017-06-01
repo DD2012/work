@@ -1,0 +1,106 @@
+<div class="imgManage">
+	<div class="u-row">图片管理</div>
+	<hr class="u-row"/>
+	<!--页面功能按钮行-->
+	<div class="u-row u-button-group-lg">
+		<div data-bind="click:event.add" class="u-button u-button-primary"><span class="uf uf-add-c-o"></span>新增</div>
+		<div data-bind="click:event.save" class="u-button u-button-primary"><span class="uf uf-baoxue"></span>保存</div>
+		<div data-bind="click:event.del" class="u-button u-button-primary"><span class="uf uf-del"></span>删除</div>
+		<div class="u-button u-button-primary"><span class="uf uf-baoxue"></span>审核</div>
+		<div class="u-button u-button-primary"><span class="uf uf-baoxue"></span>弃审</div>
+		<div class="u-button u-button-primary"><span class="uf uf-baoxue"></span>导入</div>
+		<div class="u-button u-button-primary"><span class="uf uf-baoxue"></span>导出</div>
+
+		<div class="u-button u-button-primary" data-bind="click:event.func"><span class="uf uf-baoxue"></span>测试</div>
+	</div>
+	<div class="u-row margin-top-15">
+		<input type="text" class="u-form-control u-col-3" placeholder="请输入套件名称" data-bind="value:setCodeSearch">
+		<div data-bind="click:event.search" class="u-button u-button-primary u-col-1"><span class="uf uf-search"></span>查询
+		</div>
+	</div>
+	<!--页面主框-->
+	<table class="u-table" style="width:100%;">
+		<thead>
+		<tr>
+			<th>
+				<label class="u-checkbox only-style"
+					   data-bind="click: imgManage.toggleAllSelect.bind(imgManage), css:{'is-checked': imgManage.allSelected()}">
+					<input id="checkInput" type="checkbox" class="u-checkbox-input">
+					<span class="u-checkbox-label"></span>
+				</label>
+			</th>
+			<th>套件编码</th>
+			<th>套件名称</th>
+			<th>产品型号</th>
+			<th>系列名称</th>
+			<th>URL地址</th>
+			<th>上传图片</th>
+		</tr>
+		</thead>
+		<tbody data-bind="foreach:{data:imgManage.rows(), as: 'row', afterAdd: event.afterAdd}">
+
+		<tr data-bind="css: { 'is-selected' : row.selected() }, attr: {'rowindex': $index}">
+			<td>
+				<label class="u-checkbox only-style"
+					   data-bind="click: row.multiSelect, css:{'is-checked': row.selected()}">
+					<input type="checkbox" class="u-checkbox-input">
+					<span class="u-checkbox-label"></span>
+				</label>
+			</td>
+			<td data-bind="text: row.ref('suiteCode')"></td>
+			<td data-bind="text: row.ref('suiteName')"></td>
+			<td data-bind="text: row.ref('productType')"></td>
+			<td data-bind="text: row.ref('seriesName')"></td>
+			<td><a data-bind="attr: {href:row.ref('picPath')}" target="_blank">查看图片</a></td>
+			<td>
+				<input data-bind="attr: {id:'mainImg_' + $index()}" type="file" data-bind="value: row.ref('fileName')">
+			</td>
+		</tr>
+		</tbody>
+	</table>
+	<div class="paginationHook hidden">
+		<div id='pagination1' class='u-pagination margin-left-0'></div>
+	</div>
+
+
+	<!--新增-->
+	<table class="u-table" style="width:100%;">
+		<thead>
+		<tr>
+			<th>
+				<label class="u-checkbox only-style"
+					   data-bind="click: imgManage.toggleAllSelect.bind(imgManage), css:{'is-checked': imgManage.allSelected()}">
+					<input id="checkInput1" type="checkbox" class="u-checkbox-input">
+					<span class="u-checkbox-label"></span>
+				</label>
+			</th>
+			<th>套件编码</th>
+			<th>套件名称</th>
+			<th>产品型号</th>
+			<th>系列名称</th>
+			<th>URL地址</th>
+			<th>上传图片</th>
+		</tr>
+		</thead>
+		<tbody data-bind="foreach:{data:imgManageAdd.rows(), as: 'row', afterAdd: event.afterAdd}">
+
+		<tr data-bind="css: { 'is-selected' : row.selected() }, attr: {'rowindex': $index}">
+			<td>
+				<label class="u-checkbox only-style"
+					   data-bind="click: row.multiSelect, css:{'is-checked': row.selected()}">
+					<input  type="checkbox" class="u-checkbox-input">
+					<span class="u-checkbox-label"></span>
+				</label>
+			</td>
+			<td><input type="text" data-bind="value: row.ref('suiteCode')"></td>
+			<td><input type="text" data-bind="value: row.ref('suiteName')"></td>
+			<td><input type="text" data-bind="value: row.ref('productType')"></td>
+			<td><input type="text" data-bind="value: row.ref('seriesName')"></td>
+			<td><input type="text" data-bind="value: row.ref('picPath')"></td>
+			<td><input data-bind="attr: {id:'addImg_' + $index()}" type="file" data-bind="value: row.ref('fileName')"></td>
+		</tr>
+		</tbody>
+	</table>
+
+
+</div>

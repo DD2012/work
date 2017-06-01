@@ -1,0 +1,42 @@
+<div>
+	<div style="margin-left: -15px">补件状态周期维护</div>
+	<hr style="margin-left: -15px" />
+	<div class="u-row">
+		<div class="u-col-3 no-padding">
+			<input type="text" class="u-form-control" placeholder="输入单位编码/名称">
+		</div>
+		<div class="u-col-3">
+			<button class="u-button u-button-primary" data-bind="click:event.search">查询</button>
+			<button class="u-button u-button-primary" data-bind="click:event.func">测试</button>
+		</div>
+	</div>
+	<div class="u-row margin-top-15">
+		<button class="u-button u-button-primary" data-bind="click:event.add">新增</button>
+		<button class="u-button u-button-primary" data-bind="click:event.edit">修改</button>
+		<button class="u-button u-button-primary" data-bind="click:event.del">删除</button>
+		<button class="u-button u-button-primary">保存</button>
+	</div>
+
+
+	<div class="u-row margin-top-10">
+		<div id="gridTest1" style="display: none" u-meta='{"onBeforeEditFun":"onBeforeEditFun1","contentSelect":"false","editable":"true","id":"grid","columnMenu":"false","canSwap":"false","sortable":"false","multiSelect":true,"id":"grid","type":"grid","data":"table1"}'>
+			<div options='{"renderType":"xuhaoRender1","field":"mingcheng","dataType":"String","title":"序号"}'></div>
+			<div options='{"field":"mingcheng","dataType":"String","title":"名称"}'></div>
+			<div options='{"renderType":"table1Render","field":"zhouqi","dataType":"String","title":"时间周期"}'></div>
+		</div>
+	</div>
+	<div class="u-row margin-top-10">
+		<div id="gridTest2" style="display: none" u-meta='{"onBeforeEditFun":"onBeforeEditFun2","contentSelect":"false","editable":"true","id":"grid","columnMenu":"false","canSwap":"false","sortable":"false","multiSelect":true,"id":"grid1","type":"grid","data":"table2"}'>
+			<div options='{"renderType":"xuhaoRender2","field":"mingcheng","dataType":"String","title":"序号"}'></div>
+			<div options='{"renderType":"renderType1","field":"mingcheng","dataType":"String","title":"名称"}'></div>
+			<div options='{"renderType":"renderType2","width":"90","field":"zhouqi","dataType":"String","title":"时间周期"}'></div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+</div>

@@ -1,0 +1,71 @@
+{
+  "result": 1,
+  "msg": null,
+  "data": {
+    "plate": [
+      {
+        "plateCode": "0000000000001",
+        "plateAlias": "K-1",
+        "plateName": "脚底",
+        "strNum": 1,
+        "unit": "个",
+        "id": "idiidididi"
+      },
+      {
+        "plateCode": "0000000000002",
+        "plateAlias": "K-1",
+        "plateName": "脚底",
+        "strNum": 1,
+        "unit": "个",
+        "id": "idiidididi"
+      },
+      {
+        "plateCode": "0000000000003",
+        "plateAlias": "K-1",
+        "plateName": "脚底",
+        "strNum": 1,
+        "unit": "个",
+        "id": "idiidididi"
+      },
+      {
+        "plateCode": "0000000000004",
+        "plateAlias": "K-1",
+        "plateName": "脚底",
+        "strNum": 1,
+        "unit": "个",
+        "id": "idiidididi"
+      }
+    ],
+    "fiveGold": [
+      {
+        "plateCode": "1000000000008",
+        "plateName": "脚底",
+        "strNum": 2,
+        "unit": "个",
+        "id": "idiidididi"
+      },
+      {
+        "plateCode": "1000000000009",
+        "plateName": "脚底",
+        "strNum": 2,
+        "unit": "个",
+        "id": "idiidididi"
+      },
+      {
+        "plateCode": "10000000000010",
+        "plateName": "脚底",
+        "strNum": 2,
+        "unit": "个",
+        "id": "idiidididi"
+      },
+      {
+        "plateCode": "10000000000011",
+        "plateName": "脚底",
+        "strNum": 2,
+        "unit": "个",
+        "id": "idiidididi"
+      }
+    ],
+    "imgAddress": "../static/1.png"
+  }
+}

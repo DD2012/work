@@ -1,0 +1,79 @@
+<div class="productStructure">
+	<div class="u-row">部件基础信息维护</div>
+	<hr class="u-row" />
+	<!--页面功能按钮行-->
+	<div class="u-row u-button-group-lg">
+		<div data-bind="click:event.add" class="u-button u-button-primary"><span class="uf uf-add-c-o"></span>新增</div>
+		<div data-bind="click:event.save" class="u-button u-button-primary"><span class="uf uf-baoxue"></span>保存</div>
+		<div data-bind="click:event.mutipleDel" class="u-button u-button-primary"><span class="uf uf-del"></span>批量删除</div>
+		<div class="u-button u-button-primary"><span class="uf uf-baoxue"></span>审核</div>
+		<div class="u-button u-button-primary"><span class="uf uf-baoxue"></span>弃审</div>
+		<div class="u-button u-button-primary"><span class="uf uf-baoxue"></span>导入</div>
+		<div class="u-button u-button-primary"><span class="uf uf-baoxue"></span>导出</div>
+
+		<div class="u-button u-button-primary" data-bind="click:event.func"><span class="uf uf-baoxue"></span>测试</div>
+	</div>
+	<div class="u-row margin-top-15">
+		<div class="u-col-2 no-padding">
+			<div id="searchCombo" class="u-combo u-text u-label-floating" u-meta='{"id":"search","type":"u-combobox","data":"search","field":"plateType","datasource":"searchData"}'>
+				<div class="u-input-group u-has-feedback">
+					<input class="u-form-control" placeholder="---请选择部件类型---"/>
+					<span class="u-form-control-feedback uf uf-arrow-down" data-role="combo-button"></span>
+				</div>
+			</div>
+		</div>
+		<input u-meta='{"data":"search","field":"plateCode"}' type="text" class="u-form-control u-col-2" placeholder="输入部件编码查询">
+		<div data-bind="click:event.search" class="u-button u-button-primary u-col-1"><span class="uf uf-search"></span>查询</div>
+	</div>
+	<!--页面主框-->
+	<div class="u-row">
+		<div u-meta='{
+					"showNumCol":true,
+					"contentSelect":"false",
+					"editable":"true",
+					"columnMenu":"false",
+					"canSwap":"false",
+					"sortable":"false",
+					"multiSelect":true,
+					"id":"partBase",
+					"type":"grid",
+					"data":"partBase",
+					"onBeforeEditFun":"onBeforeEditFun"
+				}'>
+			<div options='{"field":"plateCode","dataType":"String","title":"部件编码"}'></div>
+			<div options='{"field":"plateParentCode","dataType":"String","title":"上级编码"}'></div>
+			<div options='{"field":"plateAlias","dataType":"String","title":"板件代号"}'></div>
+			<div options='{"field":"plateName","dataType":"String","title":"部件名称"}'></div>
+			<div options='{"field":"strType","dataType":"String","title":"部件类别","editOptions":{"id":"strType","type":"combo","datasource":"strType"},"editType":"combo","renderType":"comboRender"}'></div>
+			<div options='{"field":"strNum","dataType":"String","title":"数量"}'></div>
+			<div options='{"field":"unit","dataType":"String","title":"单位","editOptions":{"id":"unit","type":"combo","datasource":"unit"},"editType":"combo","renderType":"comboRender"}'></div>
+			<div options='{"field":"patchType","dataType":"String","title":"补件类型","editOptions":{"id":"patchType","type":"combo","datasource":"patchType"},"editType":"combo","renderType":"comboRender"}'></div>
+			<div options='{"field":"isPatch","dataType":"String","title":"是否可补件","editOptions":{"id":"isPatch","type":"combo","datasource":"isPatch"},"editType":"combo","renderType":"comboRender"}'></div>
+			<div options='{"field":"isSelf","dataType":"String","title":"是否自制委外同款","editOptions":{"id":"isSelf","type":"combo","datasource":"isSelf"},"editType":"combo","renderType":"comboRender"}'></div>
+			<div options='{"field":"productionMode","dataType":"String","title":"生产方式名称","editOptions":{"id":"productionMode","type":"combo","datasource":"productionMode"},"editType":"combo","renderType":"comboRender"}'></div>
+			<div options='{"field":"plantName","dataType":"String","title":"生产工厂名称","editOptions":{"id":"plantName","type":"combo","datasource":"plantName"},"editType":"combo","renderType":"comboRender"}'></div>
+			<div options='{"renderType":"handleHookRender","field":"handleHook","dataType":"String","title":"操作"}'></div>
+		</div>
+		<!--分页-->
+		<div class="paginationHook u-not-visible">
+			<div id='pagination1' class='u-pagination margin-left-0'></div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

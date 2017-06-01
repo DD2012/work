@@ -1,0 +1,76 @@
+{
+  "result": 1,
+  "msg": null,
+  "data": {
+    "strType": [
+      {
+        "name": "板件",
+        "value": "1"
+      },
+      {
+        "name": "五金",
+        "value": "2"
+      }
+    ],
+    "unit": [
+      {
+        "name": "个",
+        "value": "1"
+      },
+      {
+        "name": "块",
+        "value": "2"
+      }
+    ],
+    "patchType": [
+      {
+        "name": "板件1",
+        "value": "1"
+      },
+      {
+        "name": "五金1",
+        "value": "2"
+      }
+    ],
+    "isPatch": [
+      {
+        "name": "是",
+        "value": "1"
+      },
+      {
+        "name": "否",
+        "value": "0"
+      }
+    ],
+    "isSelf": [
+      {
+        "name": "是",
+        "value": "1"
+      },
+      {
+        "name": "否",
+        "value": "0"
+      }
+    ],
+    "productionMode": [
+      {
+        "name": "自制生产",
+        "value": "1"
+      },
+      {
+        "name": "OE(D)M",
+        "value": "2"
+      }
+    ],
+    "plantName": [
+      {
+        "name": "板式售后补件工厂",
+        "value": "1"
+      },
+      {
+        "name": "实木售后补件工厂",
+        "value": "2"
+      }
+    ]
+  }
+}

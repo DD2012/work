@@ -1,0 +1,306 @@
+<div class="productionConfirm">
+
+
+	<div data-bind="click:event.func" class="u-button u-button-primary margin-bottom-15">测试</div>
+
+
+	<div class="u-widget-body no-padding">
+		<div class="u-tabs u-tabs-pill">
+			<div class="u-tabs__tab-bar">
+				<div style="position: absolute;left: 0;">
+					<a href="#tab-pills-panel-1" class="u-tabs__tab is-active">标准件</a>
+					<a href="#tab-pills-panel-2" class="u-tabs__tab">定制件</a>
+				</div>
+			</div>
+			<div class="u-tabs__panel is-active" id="tab-pills-panel-1">
+				<!--标准件-->
+
+
+
+
+
+				<div class="standard">
+					<div class="title">补件生产确定</div>
+					<div class="u-row margin-top-15">
+						<div class="u-col-4">
+							<div class="u-col-5"><span class="pull-right margin-top-5">补件申请单号：</span></div>
+							<div class="u-col-7">
+								<input type="text" u-meta='{"data":"standardSearch","field":"pbillCode"}' class="u-form-control">
+							</div>
+						</div>
+						<div class="u-col-4">
+							<div class="u-col-5"><span class="pull-right margin-top-5">补件申请人：</span></div>
+							<div class="u-col-7">
+								<input type="text" u-meta='{"data":"standardSearch","field":"pbillPame"}' class="u-form-control">
+							</div>
+						</div>
+						<div class="u-col-4">
+							<div class="u-col-5"><span class="pull-right margin-top-5">商品名称：</span></div>
+							<div class="u-col-7">
+								<input type="text" u-meta='{"data":"standardSearch","field":"productName"}' class="u-form-control">
+							</div>
+						</div>
+					</div>
+					<div class="u-row margin-top-15">
+						<div class="u-col-4">
+							<div class="u-col-5"><span class="pull-right margin-top-5">系列名称：</span></div>
+							<div class="u-col-7">
+								<input type="text" u-meta='{"data":"standardSearch","field":"seriesName"}' class="u-form-control">
+							</div>
+						</div>
+
+
+
+						<div class="u-col-4">
+							<div class="u-col-5"><span class="pull-right margin-top-5">生产厂：</span></div>
+							<div class="u-col-7">
+								<div class="u-combo" id="Factory"
+									 u-meta='{"id":"single2","type":"u-combobox","data":"standardSearch","field":"factory","datasource":"factory"}'>
+									<div class="u-input-group u-has-feedback">
+										<input class="u-form-control"/>
+										<span class="u-form-control-feedback uf uf-arrow-down" data-role="combo-button"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+
+
+						<div class="margin-top-15 clearfix">
+							<span class="pull-right">
+								<button class="u-button u-button-primary">取消</button>
+								<button data-bind="click:event.standardSearch" class="u-button u-button-primary">搜索</button>
+							</span>
+						</div>
+					</div>
+					<div class="u-row">
+						<button class="u-button u-button-primary">审核通过</button>
+						<button class="u-button u-button-primary">退回</button>
+						<button class="u-button u-button-primary">导入</button>
+						<button class="u-button u-button-primary">导出</button>
+					</div>
+					<div class="u-row">
+						<div u-meta='{
+						"showNumCol":true,
+						"contentSelect":"false",
+						"editable":"true",
+						"columnMenu":"false",
+						"canSwap":"false",
+						"sortable":"false",
+						"multiSelect":true,
+						"id":"standardGrid",
+						"type":"grid",
+						"data":"standardGrid"
+					}'>
+							<div options='{"field":"pbillApplyCode","dataType":"String","title":"补件申请单号"}'></div>
+							<div options='{"field":"pbillPame","dataType":"String","title":"补件申请人"}'></div>
+							<div options='{"field":"pbillTime","dataType":"String","title":"报单时间"}'></div>
+							<div options='{"field":"productCode","dataType":"String","title":"销售产品编码"}'></div>
+							<div options='{"field":"productName","dataType":"String","title":"销售产品名称"}'></div>
+							<div options='{"field":"pbillCode","dataType":"String","title":"补件编码"}'></div>
+							<div options='{"field":"seriesName","dataType":"String","title":"系列名称"}'></div>
+							<div options='{"field":"pbillName","dataType":"String","title":"补件名称"}'></div>
+							<div options='{"field":"pbillType","dataType":"String","title":"补件类型"}'></div>
+							<div options='{"field":"isPbill","dataType":"String","title":"是否可补件","editOptions":{"id":"isPbill","type":"combo","datasource":"isPbill"},"editType":"combo","renderType":"comboRender"}'></div>
+							<div options='{"field":"num","dataType":"String","title":"数量"}'></div>
+							<div options='{"field":"firstAuditNum","dataType":"String","title":"初审数量"}'></div>
+							<div options='{"field":"unit","dataType":"String","title":"单位"}'></div>
+							<div options='{"field":"logisticsMode","dataType":"String","title":"物流方式"}'></div>
+							<div options='{"field":"pbillReason","dataType":"String","title":"补件原因"}'></div>
+							<div options='{"field":"picAddress","dataType":"String","title":"见证图"}'></div>
+							<div options='{"field":"quAppraisal","dataType":"String","title":"原因鉴定","editOptions":{"id":"quAppraisal","type":"combo","datasource":"quAppraisal"},"editType":"combo","renderType":"comboRender"}'></div>
+							<div options='{"field":"reportModel","dataType":"String","title":"填报方式"}'></div>
+						</div>
+						<!--分页-->
+						<div class="standardPagination">
+							<div id='standardPagination' class='u-pagination margin-left-0'></div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+			</div>
+			<div class="u-tabs__panel" id="tab-pills-panel-2">
+				<!--定制件-->
+
+
+
+
+
+
+				<div class="standard">
+					<div class="title">补件生产确定</div>
+					<div class="u-row margin-top-15">
+						<div class="u-col-4">
+							<div class="u-col-5"><span class="pull-right margin-top-5">补件申请单号：</span></div>
+							<div class="u-col-7">
+								<input type="text" u-meta='{"data":"customizationSearch","field":"pbillCode"}' class="u-form-control">
+							</div>
+						</div>
+						<div class="u-col-4">
+							<div class="u-col-5"><span class="pull-right margin-top-5">补件申请人：</span></div>
+							<div class="u-col-7">
+								<input type="text" u-meta='{"data":"customizationSearch","field":"pbillPame"}' class="u-form-control">
+							</div>
+						</div>
+						<div class="u-col-4">
+							<div class="u-col-5"><span class="pull-right margin-top-5">商品名称：</span></div>
+							<div class="u-col-7">
+								<input type="text" u-meta='{"data":"customizationSearch","field":"productName"}' class="u-form-control">
+							</div>
+						</div>
+					</div>
+					<div class="u-row margin-top-15">
+						<div class="u-col-4">
+							<div class="u-col-5"><span class="pull-right margin-top-5">系列名称：</span></div>
+							<div class="u-col-7">
+								<input type="text" u-meta='{"data":"customizationSearch","field":"seriesName"}' class="u-form-control">
+							</div>
+						</div>
+						<div class="u-col-4">
+							<div class="u-col-5"><span class="pull-right margin-top-5">补件名称：</span></div>
+							<div class="u-col-7">
+								<input type="text" u-meta='{"data":"customizationSearch","field":"pbillName"}' class="u-form-control">
+							</div>
+						</div>
+						<div class="u-col-4">
+							<div class="u-col-5"><span class="pull-right margin-top-5">是否传见证图：</span></div>
+							<div class="u-col-7">
+								<div class="u-combo" id="picAddress1"
+									 u-meta='{"id":"single3","type":"u-combobox","data":"customizationSearch","field":"hasImg","datasource":"hasImg"}'>
+									<div class="u-input-group u-has-feedback">
+										<input class="u-form-control"/>
+										<span class="u-form-control-feedback uf uf-arrow-down" data-role="combo-button"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="u-row margin-top-15">
+						<div class="u-col-4">
+							<div class="u-col-5"><span class="pull-right margin-top-5">填报方式：</span></div>
+							<div class="u-col-7">
+								<div class="u-combo" id="reportModel1"
+									 u-meta='{"id":"single4","type":"u-combobox","data":"customizationSearch","field":"reportModel","datasource":"reportModel"}'>
+									<div class="u-input-group u-has-feedback">
+										<input class="u-form-control"/>
+										<span class="u-form-control-feedback uf uf-arrow-down" data-role="combo-button"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="u-col-4">
+							<div class="u-col-5"><span class="pull-right margin-top-5">保单时间：</span></div>
+							<div class="u-col-7">
+								<div class='u-datepicker'
+									 u-meta='{"id":"udatetime3","type":"u-date","data":"customizationSearch","field":"startTime","format":"YYYY-MM-DD"}'>
+									<div class="u-input-group u-has-feedback">
+										<input class="u-form-control"/>
+										<span class="u-form-control-feedback uf uf-calendar" data-role="combo-button"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="u-col-4">
+							<div class="u-col-1"><span class="pull-right margin-top-5">至</span></div>
+							<div class="u-col-7">
+								<div class='u-datepicker'
+									 u-meta='{"id":"udatetime4","type":"u-date","data":"customizationSearch","field":"endTime","format":"YYYY-MM-DD"}'>
+									<div class="u-input-group u-has-feedback">
+										<input class="u-form-control"/>
+										<span class="u-form-control-feedback uf uf-calendar" data-role="combo-button"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="margin-top-15 clearfix">
+				<span class="pull-right">
+					<button class="u-button u-button-primary">取消</button>
+					<button data-bind="click:event.customizationSearch" class="u-button u-button-primary">搜索</button>
+				</span>
+						</div>
+					</div>
+					<div class="u-row">
+						<button class="u-button u-button-primary">审核通过</button>
+						<button class="u-button u-button-primary">退回</button>
+						<button class="u-button u-button-primary">导入</button>
+						<button class="u-button u-button-primary">导出</button>
+					</div>
+
+
+
+
+					<div class="u-row">
+						<div u-meta='{
+						"showNumCol":true,
+						"contentSelect":"false",
+						"editable":"true",
+						"columnMenu":"false",
+						"canSwap":"false",
+						"sortable":"false",
+						"multiSelect":true,
+						"id":"customizationGrid",
+						"type":"grid",
+						"data":"customizationGrid"
+					}'>
+							<div options='{"field":"pbillApplyCode","dataType":"String","title":"补件申请单号"}'></div>
+							<div options='{"field":"pbillPame","dataType":"String","title":"补件申请人"}'></div>
+							<div options='{"field":"pbillTime","dataType":"String","title":"报单时间"}'></div>
+							<div options='{"field":"pbillName","dataType":"String","title":"补件名称"}'></div>
+
+							<div options='{"field":"color","dataType":"String","title":"补件颜色"}'></div>
+							<div options='{"field":"length","dataType":"String","title":"长"}'></div>
+							<div options='{"field":"wide","dataType":"String","title":"宽"}'></div>
+							<div options='{"field":"thick","dataType":"String","title":"厚"}'></div>
+
+							<div options='{"field":"num","dataType":"String","title":"数量"}'></div>
+							<div options='{"field":"firstAuditNum","dataType":"String","title":"初审数量"}'></div>
+							<div options='{"field":"unit","dataType":"String","title":"单位"}'></div>
+							<div options='{"field":"area","dataType":"String","title":"面积"}'></div>
+							<div options='{"field":"thinEdge","dataType":"String","title":"薄封边"}'></div>
+							<div options='{"field":"thickBand","dataType":"String","title":"厚封边"}'></div>
+
+							<div options='{"field":"logisticsMode","dataType":"String","title":"物流方式"}'></div>
+							<div options='{"field":"pbillReason","dataType":"String","title":"补件原因"}'></div>
+							<div options='{"field":"picAddress","dataType":"String","title":"见证图"}'></div>
+							<div options='{"field":"quAppraisal","dataType":"String","title":"原因鉴定","editOptions":{"id":"quAppraisal","type":"combo","datasource":"quAppraisal"},"editType":"combo","renderType":"comboRender"}'></div>
+							<div options='{"field":"remark","dataType":"String","title":"备注"}'></div>
+							<div options='{"field":"reportModel","dataType":"String","title":"填报方式"}'></div>
+						</div>
+						<!--分页-->
+						<div class="customizationPagination">
+							<div id='customizationPagination' class='u-pagination margin-left-0'></div>
+						</div>
+					</div>
+
+
+
+
+				</div>
+
+
+
+
+
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

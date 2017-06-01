@@ -1,0 +1,37 @@
+<div class="demo">
+	<div>补件材料</div>
+	<hr />
+	<div class="u-form-group" style="margin-left: -30px;">
+		<div class="u-col-3">
+			<input type="text" class="u-form-control" placeholder="输入单位编码/名称">
+		</div>
+		<div class="u-col-3">
+			<div id="search" class="u-button u-button-primary" data-bind="click:func">查询</div>
+		</div>
+	</div>
+	<div class="u-row">查询结果</div>
+	<div class="u-row">
+		<div data-bind="click:event.addOneRow" style="background: white;color:black;" class="u-button u-button-primary u-button-sm">
+			<span class="uf uf-add-c-o" style="margin-right: 5px;color:green;"></span>
+			新增
+		</div>
+		<div data-bind="click:event.xiugai" style="background: white;color:black;" class="u-button u-button-primary u-button-sm">
+			<span class="uf uf-pencil" style="margin-right: 5px;color:green;"></span>
+			修改
+		</div>
+		<div data-bind="click:event.delete" style="background: white;color:black;" class="u-button u-button-primary u-button-sm">
+			<span class="uf uf-del" style="margin-right: 5px;color:green;"></span>
+			删除
+		</div>
+	</div>
+	<div class="u-row margin-top-10">
+		<div id="gridTest" u-meta='{"onBeforeEditFun":"onBeforeEditFun","contentSelect":"false","editable":"true","id":"grid1","columnMenu":"false","canSwap":"false","sortable":"false","multiSelect":true,"id":"grid","type":"grid","data":"table"}'>
+			<div options='{"renderType":"renderType","field":"xinhao","dataType":"String","title":"型号"}'></div>
+			<div options='{"renderType":"renderType","field":"mingchen","dataType":"String","title":"名称"}'></div>
+			<div options='{"renderType":"renderType","field":"danwei","dataType":"String","title":" 单位"}'></div>
+			<div options='{"editType":"editType","renderType":"renderType2","field":"jiage","dataType":"String","title":"价格"}'></div>
+		</div>
+	</div>
+	<div class="u-button u-button-primary pull-right margin-top-15">保存</div>
+
+</div>

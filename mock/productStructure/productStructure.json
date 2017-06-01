@@ -1,0 +1,60 @@
+{
+  "result": 1,
+  "msg": null,
+  "data": [
+    {
+      "productCode": "668872001",
+      "productName": "68872四门酒柜219#哑",
+      "productStatus": "在产",
+      "seriesName": "688简美系列",
+      "productModel": "未知",
+      "productType": "板式",
+      "suiteCode": "668872001",
+      "suiteName": "68872四门酒柜219#哑",
+      "plateCode": "105000227",
+      "plateName": "82799茶几46#(TT)",
+      "id": "ididiidiidid"
+    },
+    {
+      "productCode": "668872003",
+      "productName": "68872四门酒柜219#哑",
+      "productStatus": "在产",
+      "seriesName": "688简美系列",
+      "productModel": "未知",
+      "productType": "板式",
+      "suiteCode": "668872001",
+      "suiteName": "68872四门酒柜219#哑",
+      "plateCode": "105000227",
+      "plateName": "82799茶几46#(TT)",
+      "id": "ididiidiidid"
+    },
+    {
+      "productCode": "668872004",
+      "productName": "68872四门酒柜219#哑",
+      "productStatus": "在产",
+      "seriesName": "688简美系列",
+      "productModel": "未知",
+      "productType": "板式",
+      "suiteCode": "668872001",
+      "suiteName": "68872四门酒柜219#哑",
+      "plateCode": "105000227",
+      "plateName": "82799茶几46#(TT)",
+      "id": "ididiidiidid"
+    },
+    {
+      "productCode": "668872005",
+      "productName": "68872四门酒柜219#哑",
+      "productStatus": "在产",
+      "seriesName": "688简美系列",
+      "productModel": "未知",
+      "productType": "板式",
+      "suiteCode": "668872001",
+      "suiteName": "68872四门酒柜219#哑",
+      "plateCode": "105000227",
+      "plateName": "82799茶几46#(TT)",
+      "id": "ididiidiidid"
+    }
+  ],
+  "total": 15,
+  "pageIndex": 1
+}

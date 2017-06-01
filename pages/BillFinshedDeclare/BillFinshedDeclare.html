@@ -1,0 +1,237 @@
+<div class="BillFinshedDeclare">
+
+
+	<div class="u-row">成品补件申报</div>
+	<hr class="u-row"/>
+
+	<div class="u-row">
+		<div data-bind="click:event.add" class="u-button u-button-primary"><span
+				class="uf uf-add-c-o margin-right-10"></span>新增
+		</div>
+		<div id="delete" data-bind="click:event.mutipleDel" class="u-button u-button-primary"><span
+				class="uf uf-del margin-right-10"></span>批量删除
+		</div>
+		<div id="save" data-bind="click:event.save" class="u-button u-button-primary"><span
+				class="uf uf-baoxue margin-right-10"></span>保存
+		</div>
+		<div id="submit" data-bind="click:event.submit" class="u-button u-button-primary"><span
+				class="uf uf-baoxue margin-right-10"></span>提交
+		</div>
+		<div data-bind="click:event.func" class="u-button u-button-primary"><span
+				class="uf uf-baoxue margin-right-10"></span>测试
+		</div>
+	</div>
+
+
+	<div class="u-row">
+		<div class="u-col-12 no-padding" id="mainTable" u-meta='{
+						"showNumCol":true,
+						"contentSelect":"false",
+						"editable":"true",
+						"columnMenu":"false",
+						"canSwap":"false",
+						"sortable":"false",
+						"multiSelect":true,
+						"id":"BillFinshedDeclare",
+						"type":"grid",
+						"data":"BillFinshedDeclare",
+						"onBeforeEditFun":"mainOnBeforeEditFun"
+					}'>
+			<div options='{"field":"supplementOrderNum","dataType":"String","title":"补件订单号"}'></div>
+			<div options='{"field":"consumer","dataType":"String","title":"消费者姓名"}'></div>
+			<div options='{"field":"telphone","dataType":"String","title":"联系电话"}'></div>
+			<div options='{"field":"orderNum","dataType":"String","title":"销售订单编号"}'></div>
+			<div options='{"renderType":"orderNumSearchRender","field":"orderNumHook","dataType":"String","title":"","width":"80"}'></div>
+			<div options='{"field":"patchModel","dataType":"String","title":"补件型号"}'></div>
+			<div options='{"renderType":"patchModelSearchRender","field":"patchModelHook","dataType":"String","title":"","width":"80"}'></div>
+			<div options='{"field":"patchCategory","dataType":"String","title":"补件类别","editOptions":{"id":"patchCategory","type":"combo","datasource":"patchCategory"},"editType":"combo","renderType":"comboRender"}'></div>
+			<div options='{"field":"productionCode","dataType":"String","title":"销售产品编码"}'></div>
+			<div options='{"field":"productionName","dataType":"String","title":"销售产品名称"}'></div>
+			<div options='{"field":"seriesName","dataType":"String","title":"系列名称"}'></div>
+			<div options='{"field":"productStatus","dataType":"String","title":"商品生产状态"}'></div>
+			<div options='{"field":"pbillCode","dataType":"String","title":"补件编码"}'></div>
+			<div options='{"field":"pbillName","dataType":"String","title":"补件名称"}'></div>
+			<div options='{"field":"pbillType","dataType":"String","title":"补件类型","editOptions":{"id":"pbillType","type":"combo","datasource":"pbillType"},"editType":"combo","renderType":"comboRender"}'></div>
+			<div options='{"field":"num","dataType":"String","title":"需求数量"}'></div>
+			<div options='{"field":"unit","dataType":"String","title":"单位","editOptions":{"id":"unit","type":"combo","datasource":"unit"},"editType":"combo","renderType":"comboRender"}'></div>
+			<div options='{"field":"patchReason","dataType":"String","title":"补件原因","editOptions":{"id":"patchReason","type":"combo","datasource":"patchReason"},"editType":"combo","renderType":"comboRender"}'></div>
+			<div options='{"field":"logisticsMode","dataType":"String","title":"物流方式","editOptions":{"id":"logisticsMode","type":"combo","datasource":"logisticsMode"},"editType":"combo","renderType":"comboRender"}'></div>
+			<div options='{"field":"address","dataType":"String","title":"收获地址"}'></div>
+			<div options='{"field":"remarks","dataType":"String","title":"备注"}'></div>
+			<div options='{"renderType":"imgRender","field":"picAddress","dataType":"String","title":"上传图片"}'></div>
+			<div options='{"renderType":"handleHookRender","field":"handleHook","dataType":"String","title":"操作"}'></div>
+		</div>
+
+
+	</div>
+
+	<!--按补件型号搜索弹出框 dialog1-->
+
+	<div id="patchModelSearchDialog" class="u-row u-not-visible margin-right-0 margin-left-0">
+		<div class="u-col-4 padding-left-0 padding-right-0">
+			<img id="plateImg" src="" alt="图片" style="width: 100%;height: 100%">
+
+		</div>
+		<div class="u-col-8 padding-left-0 padding-right-0 margin-top-0 margin-right-0 u-widget  u-widget-right">
+			<div class="u-widget-body padding-top-0 padding-right-0 padding-left-0 padding-bottom-0">
+				<div class="u-tabs u-tabs-pill">
+					<div class="u-tabs__tab-bar">
+						<a href="#tab-pills-panel-1" class="u-tabs__tab is-active">板件</a>
+						<a href="#tab-pills-panel-2" class="u-tabs__tab">五金件</a>
+					</div>
+					<div class="u-tabs__panel is-active" id="tab-pills-panel-1">
+						<div style="width: 100%;" class="u-col-11 no-padding" id="banjian" u-meta='{
+							"showNumCol":true,
+							"contentSelect":"false",
+							"editable":"true",
+							"columnMenu":"false",
+							"canSwap":"false",
+							"sortable":"false",
+							"multiSelect":true,
+							"id":"plate",
+							"type":"grid",
+							"data":"plate"
+						}'>
+							<div options='{"field":"plateCode","dataType":"String","title":"板件编码"}'></div>
+							<div options='{"field":"plateAlias","dataType":"String","title":"板件代号"}'></div>
+							<div options='{"field":"plateName","dataType":"String","title":"板件名称"}'></div>
+							<div options='{"field":"strNum","dataType":"String","title":"数量"}'></div>
+							<div options='{"field":"unit","dataType":"String","title":"单位"}'></div>
+						</div>
+						<!--分页-->
+						<div class="">
+							<div id='platePagination' class='u-pagination margin-left-0'></div>
+						</div>
+					</div>
+					<div class="u-tabs__panel" id="tab-pills-panel-2">
+						<div style="width: 100%;" class="u-col-11 no-padding" id="wujin" u-meta='{
+							"showNumCol":true,
+							"contentSelect":"false",
+							"editable":"true",
+							"columnMenu":"false",
+							"canSwap":"false",
+							"sortable":"false",
+							"multiSelect":true,
+							"id":"gold",
+							"type":"grid",
+							"data":"fiveGold"
+						}'>
+							<div options='{"field":"plateCode","dataType":"String","title":"五金件编码"}'></div>
+							<div options='{"field":"plateName","dataType":"String","title":"五金件名称"}'></div>
+							<div options='{"field":"strNum","dataType":"String","title":"数量"}'></div>
+							<div options='{"field":"unit","dataType":"String","title":"单位"}'></div>
+						</div>
+						<!--分页-->
+						<div class="">
+							<div id='fiveGoldPagination' class='u-pagination margin-left-0'></div>
+						</div>
+					</div>
+				</div>
+				<div class="u-row">
+					<button data-bind="click:event.patchModelSearchDialogConfirm"
+							class="u-button u-button-primary pull-right margin-right-40 margin-top-15">确定
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--按订单编号搜索 orderNumSearchDialog1-->
+	<div id="orderNumSearchDialog1" class="padding-15 u-not-visible">
+		<div class="u-row"><div class="width-200 center-block font-size-24 font-weight-bold">订单信息</div></div>
+		<div class="searchHeader margin-top-20 u-row">
+			<div class="u-col-3 padding-left-0 padding-right-0 margin-left-15">
+				<div class="u-col-4 padding-left-0 padding-right-0 margin-top-5"><label for="inp1">订单编号：</label></div>
+				<div class="u-col-6 padding-left-0 padding-right-0">
+					<input data-bind="value:orderNumSearch" id="inp1" type="text" class="u-form-control width-full">
+				</div>
+			</div>
+			<div class="u-col-3 padding-left-0 padding-right-0">
+				<div class="u-col-4 padding-left-0 padding-right-0 margin-top-5"><label for="inp2">产品名称：</label></div>
+				<div class="u-col-6 padding-left-0 padding-right-0">
+					<input data-bind="value:productionNameSearch" id="inp2" type="text"
+						   class="u-form-control width-full">
+				</div>
+			</div>
+			<div class="u-col-3 padding-left-0 padding-right-0">
+				<div class="u-col-4 padding-left-0 padding-right-0 margin-top-5"><label for="inp3">产品系列：</label></div>
+				<div class="u-col-6 padding-left-0 padding-right-0">
+					<input data-bind="value:seriesNameSearch" id="inp3" type="text" class="u-form-control width-full">
+				</div>
+			</div>
+			<div class="u-col-1 padding-left-0 padding-right-0">
+				<button data-bind="click:event.orderNumSearchDialog1Search" class="u-button u-button-primary"><i class="uf uf-search"></i>搜索</button>
+			</div>
+		</div>
+		<div class="searchBody margin-left-0 margin-right-0 margin-top-15 u-row">
+			<div>查询结果</div>
+			<div u-meta='{
+							"showNumCol":true,
+							"contentSelect":"false",
+							"editable":"false",
+							"columnMenu":"false",
+							"canSwap":"false",
+							"sortable":"false",
+							"multiSelect":false,
+							"id":"orderNumSearchDialog1DataTable",
+							"type":"grid",
+							"data":"orderNumSearchDialog1DataTable"
+						}'>
+				<div options='{"field":"orderNum","dataType":"String","title":"订单编号"}'></div>
+				<div options='{"field":"orderName","dataType":"String","title":"订单名称"}'></div>
+				<div options='{"field":"productStatus","dataType":"String","title":"生产状态"}'></div>
+				<div options='{"field":"seriesName","dataType":"String","title":"系列"}'></div>
+				<div options='{"renderType":"orderNumSearchDialog1HandleRender","field":"seriesName","dataType":"String","title":"操作"}'></div>
+			</div>
+			<!--分页-->
+			<div class="orderNumSearchDialog1Pagination u-not-visible">
+				<div id='orderNumSearchDialog1Pagination' class='u-pagination margin-left-0'></div>
+			</div>
+		</div>
+
+	</div>
+	<!--套件信息 orderNumSearchDialog2-->
+	<div id="orderNumSearchDialog2" class="u-not-visible">
+		<div class="suiteInfo margin-left-0 margin-right-0 margin-top-15 u-row padding-15">
+			<div class="width-100 center-block font-size-24">套件信息</div>
+			<div u-meta='{
+								"showNumCol":true,
+								"contentSelect":"false",
+								"editable":"false",
+								"columnMenu":"false",
+								"canSwap":"false",
+								"sortable":"false",
+								"multiSelect":false,
+								"id":"orderNumSearchDialog2DataTable",
+								"type":"grid",
+								"data":"orderNumSearchDialog2DataTable"
+							}'>
+				<div options='{"field":"suiteCode","dataType":"String","title":"套件编码"}'></div>
+				<div options='{"field":"suiteName","dataType":"String","title":"套件名称"}'></div>
+				<div options='{"field":"productStatus","dataType":"String","title":"生产状态"}'></div>
+				<div options='{"field":"seriesName","dataType":"String","title":"系列"}'></div>
+				<div options='{"field":"standard","dataType":"String","title":"规格"}'></div>
+				<div options='{"field":"standardPartsInfo","dataType":"String","title":"标准零部件信息"}'></div>
+				<div options='{"renderType":"orderNumSearchDialog2HandleRender","field":"standardPartsInfo","dataType":"String","title":"补部件"}'></div>
+			</div>
+			<!--分页-->
+			<div class="orderNumSearchDialog2Pagination">
+				<div id='orderNumSearchDialog2Pagination' class='u-pagination margin-left-0'></div>
+			</div>
+		</div>
+	</div>
+
+	<div id="upLoadImgDialog" class="u-not-visible">
+		<div>
+			<label for="upLoadImg">选择需要上传当图片</label>
+		</div>
+		<input id="upLoadImg" type="file">
+		<div>
+			<button data-bind="click:event.upLoadImgCancel" class="u-button u-button-primary">取消</button>
+			<button data-bind="click:event.upLoadImgConfirm" class="u-button u-button-primary">确定</button>
+		</div>
+	</div>
+
+</div>
+
+

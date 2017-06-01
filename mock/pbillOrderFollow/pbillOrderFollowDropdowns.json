@@ -1,0 +1,89 @@
+{
+  "result": 1,
+  "msg": null,
+  "data": {
+    "pbillOrderType": [
+      {
+        "name": "a",
+        "value": "1"
+      },
+      {
+        "name": "b",
+        "value": "2"
+      }
+    ],
+    "pbillType": [
+      {
+        "name": "c",
+        "value": "1"
+      },
+      {
+        "name": "d",
+        "value": "2"
+      }
+    ],
+    "pbillReason": [
+      {
+        "name": "e",
+        "value": "1"
+      },
+      {
+        "name": "f",
+        "value": "2"
+      }
+    ],
+    "handleState": [
+      {
+        "name": "g",
+        "value": "1"
+      },
+      {
+        "name": "h",
+        "value": "2"
+      }
+    ],
+    "reportModel": [
+      {
+        "name": "i",
+        "value": "1"
+      },
+      {
+        "name": "j",
+        "value": "2"
+      }
+    ],
+    "productionMethod": [
+      {
+        "name": "k",
+        "value": "1"
+      },
+      {
+        "name": "l",
+        "value": "2"
+      }
+    ],
+    "productionFactory": [
+      {
+        "name": "m",
+        "value": "1"
+      },
+      {
+        "name": "n",
+        "value": "2"
+      }
+    ],
+    "logisticsMode": [
+      {
+        "name": "o",
+        "value": "1"
+      },
+      {
+        "name": "p",
+        "value": "2"
+      }
+    ]
+  }
+}
+
+
+

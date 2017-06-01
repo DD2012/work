@@ -1,0 +1,121 @@
+<div>
+	<div class="u-row">补件生产周期维护</div>
+	<hr class="u-row"/>
+	<div class="u-row margin-top-15">
+		<button class="u-button u-button-primary add" data-bind="click:event.add">新增</button>
+		<button class="u-button u-button-primary" data-bind="click:event.mutipleDel">批量删除</button>
+		<button class="u-button u-button-primary" data-bind="click:event.save">保存</button>
+		<button class="u-button u-button-primary">审核</button>
+		<button class="u-button u-button-primary">弃审</button>
+		<button  id="search" class="u-button u-button-primary" data-bind="click:event.func">测试</button>
+	</div>
+	<div class="u-row" id="grid2" u-meta='{
+			"showNumCol":"true",
+			"contentSelect":"false",
+			"editable":"true",
+			"columnMenu":"false",
+			"canSwap":"false",
+			"sortable":"false",
+			"multiSelect":true,
+			"id":"supplementCycleMaintain",
+			"type":"grid",
+			"data":"supplementCycleMaintain",
+			"onBeforeEditFun":"onBeforeEditFun"
+		}'>
+		<div options='{"field":"name","dataType":"String","title":"名称"}'></div>
+		<div options='{"field":"searchHook","dataType":"String","title":"","width":"80"}'></div>
+		<div options='{"field":"cycleTime","dataType":"String","title":"时间周期"}'></div>
+		<div options='{"renderType":"mainHandleRender","field":"hook1","dataType":"String","title":"操作"}'></div>
+	</div>
+	<div class="paginationHook1 u-row">
+		<div id='mainPagination' class='u-pagination'></div>
+	</div>
+
+
+<!--弹框-->
+
+	<div class="u-not-visible padding-15" id="dialog_content" style="display: none">
+		<div class="u-row margin-left-15 margin-top-15">
+			<div class="u-form-inline">
+				<div class="u-form-group">
+					<lable>编码</lable>
+					<input type="text" class="u-form-control" data-bind="value:searchCode">
+				</div>
+				<div class="u-form-group">
+					<lable>名称</lable>
+					<input type="text" class="u-form-control" data-bind="value:searchName">
+				</div>
+				<div class="u-form-group">
+					<button data-bind="click:event.search" class="u-button u-button-primary">搜索</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="u-row margin-left-0 margin-right-0" id="grid3" u-meta='{
+			"contentSelect":"false",
+			"columnMenu":"false",
+			"canSwap":"false",
+			"sortable":"false",
+			"id":"search3",
+			"type":"grid",
+			"data":"search",
+			"onBeforeEdit":"onBeforeEdit"
+		}'>
+			<div options='{"field":"code","dataType":"String","title":"编码"}'></div>
+			<div options='{"field":"name","dataType":"String","title":"名称"}'></div>
+			<div options='{"renderType":"manualRender","field":"name","dataType":"String","title":"操作"}'></div>
+		</div>
+		<div class="u-not-visible paginationHook">
+			<div id='pagination' class='u-pagination'></div>
+		</div>
+
+
+
+
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

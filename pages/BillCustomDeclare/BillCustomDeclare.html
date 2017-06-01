@@ -1,0 +1,88 @@
+<div class="BillCustomDeclare">
+	<!--板件-->
+	<div class="banjian">
+		<div class="title">
+			<button data-bind="click:event.plankAdd" class="u-button u-button-primary">新增</button>
+			<button data-bind="click:event.plankMutipleDel" class="u-button u-button-primary">批量删除</button>
+			<button data-bind="click:event.plankSave" class="u-button u-button-primary">保存</button>
+			<button data-bind="click:event.plankCommit" class="u-button u-button-primary">提交</button>
+			<button data-bind="click:event.func" class="u-button u-button-primary">测试</button>
+		</div>
+		<div class="content">
+			<div u-meta='{
+						"showNumCol":true,
+						"contentSelect":"false",
+						"editable":"true",
+						"columnMenu":"false",
+						"canSwap":"false",
+						"sortable":"false",
+						"multiSelect":true,
+						"id":"plank",
+						"type":"grid",
+						"data":"plank"
+					}'>
+				<div options='{"field":"pbillCode","dataType":"String","title":"补件编码"}'></div>
+				<div options='{"field":"pbillType","dataType":"String","title":"补件类型","editOptions":{"id":"pbillType","type":"combo","datasource":"pbillType"},"editType":"combo","renderType":"comboRender"}'></div>
+				<div options='{"field":"pbillName","dataType":"String","title":"补件名称"}'></div>
+				<div options='{"field":"color","dataType":"String","title":"补件颜色"}'></div>
+				<div options='{"field":"length","dataType":"String","title":"长"}'></div>
+				<div options='{"field":"wide","dataType":"String","title":"宽"}'></div>
+				<div options='{"field":"thick","dataType":"String","title":"厚"}'></div>
+				<div options='{"field":"count","dataType":"String","title":"数量"}'></div>
+				<div options='{"field":"unit","dataType":"String","title":"单位"}'></div>
+				<div options='{"field":"area","dataType":"String","title":"面积"}'></div>
+				<div options='{"field":"thinEdge","dataType":"String","title":"薄封边"}'></div>
+				<div options='{"field":"thickBand","dataType":"String","title":"厚封边"}'></div>
+				<div options='{"field":"pbillReason","dataType":"String","title":"补件原因","editOptions":{"id":"pbillReason","type":"combo","datasource":"pbillReason"},"editType":"combo","renderType":"comboRender"}'></div>
+				<div options='{"field":"picAddress","dataType":"String","title":"图片"}'></div>
+				<div options='{"field":"logisticsMode","dataType":"String","title":"物流方式","editOptions":{"id":"logisticsMode","type":"combo","datasource":"logisticsMode"},"editType":"combo","renderType":"comboRender"}'></div>
+				<div options='{"field":"address","dataType":"String","title":"收货地址（送达方）"}'></div>
+				<div options='{"field":"remark","dataType":"String","title":"备注"}'></div>
+				<div options='{"field":"reportModel","dataType":"String","title":"填报方式"}'></div>
+				<div options='{"renderType":"plankHandleHookRender","field":"handleHook","dataType":"String","title":"操作"}'></div>
+			</div>
+
+		</div>
+	</div>
+	<!--五金配件-->
+
+	<div class="banjian">
+		<div class="title">
+			<button data-bind="click:event.fiveGoldAdd" class="u-button u-button-primary">新增</button>
+			<button data-bind="click:event.fiveGoldMutipleDel" class="u-button u-button-primary">批量删除</button>
+			<button data-bind="click:event.fiveGoldSave" class="u-button u-button-primary">保存</button>
+			<button data-bind="click:event.fiveGoldCommit" class="u-button u-button-primary">提交</button>
+		</div>
+		<div class="content">
+			<div u-meta='{
+						"showNumCol":true,
+						"contentSelect":"false",
+						"editable":"true",
+						"columnMenu":"false",
+						"canSwap":"false",
+						"sortable":"false",
+						"multiSelect":true,
+						"id":"fiveGold",
+						"type":"grid",
+						"data":"fiveGold"
+					}'>
+				<div options='{"field":"pbillCode","dataType":"String","title":"补件编码"}'></div>
+				<div options='{"field":"pbillType","dataType":"String","title":"补件类型"}'></div>
+				<div options='{"field":"pbillName","dataType":"String","title":"补件名称"}'></div>
+				<div options='{"field":"count","dataType":"String","title":"数量"}'></div>
+				<div options='{"field":"unit","dataType":"String","title":"单位"}'></div>
+				<div options='{"field":"pbillReason","dataType":"String","title":"补件原因","editOptions":{"id":"pbillReason","type":"combo","datasource":"pbillReason"},"editType":"combo","renderType":"comboRender"}'></div>
+				<div options='{"field":"picAddress","dataType":"String","title":"图片"}'></div>
+				<div options='{"field":"logisticsMode","dataType":"String","title":"物流方式","editOptions":{"id":"logisticsMode","type":"combo","datasource":"logisticsMode"},"editType":"combo","renderType":"comboRender"}'></div>
+				<div options='{"field":"address","dataType":"String","title":"收货地址（送达方）"}'></div>
+				<div options='{"field":"remark","dataType":"String","title":"备注"}'></div>
+				<div options='{"field":"reportModel","dataType":"String","title":"填报方式"}'></div>
+				<div options='{"renderType":"fiveGoldHandleHookRender","field":"handleHook","dataType":"String","title":"操作"}'></div>
+			</div>
+
+		</div>
+	</div>
+
+
+
+</div>

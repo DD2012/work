@@ -1,0 +1,56 @@
+{
+  "result": 1,
+  "msg": null,
+  "data": [
+    {
+      "mCode": "S001",
+      "mName": "板件",
+      "mSpec": "A",
+      "mCategory": "材料",
+      "mUnit": "瓶/支",
+      "id":"ididiidiididi"
+    },
+    {
+      "mCode": "S002",
+      "mName": "板件",
+      "mSpec": "A",
+      "mCategory": "材料",
+      "mUnit": "瓶/支",
+      "id":"ididiidiididi"
+    },
+    {
+      "mCode": "S003",
+      "mName": "板件",
+      "mSpec": "A",
+      "mCategory": "材料",
+      "mUnit": "瓶/支",
+      "id":"ididiidiididi"
+    },
+    {
+      "mCode": "S004",
+      "mName": "板件",
+      "mSpec": "A",
+      "mCategory": "材料",
+      "mUnit": "瓶/支",
+      "id":"ididiidiididi"
+    },
+    {
+      "mCode": "S005",
+      "mName": "板件",
+      "mSpec": "A",
+      "mCategory": "材料",
+      "mUnit": "瓶/支",
+      "id":"ididiidiididi"
+    },
+    {
+      "mCode": "S006",
+      "mName": "板件",
+      "mSpec": "A",
+      "mCategory": "材料",
+      "mUnit": "瓶/支",
+      "id":"ididiidiididi"
+    }
+  ],
+  "total": 10,
+  "pageIndex": 2
+}

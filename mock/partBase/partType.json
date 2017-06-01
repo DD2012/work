@@ -1,0 +1,9 @@
+{
+  "result": "success",
+  "msg": null,
+  "data":[
+    {"name":"板件","value":"1"},
+    {"name":"五金","value":"2"},
+    {"name":"快递","value":"3"}
+  ]
+}

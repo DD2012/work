@@ -1,0 +1,73 @@
+{
+  "result": 1,
+  "msg": null,
+  "data": {
+    "hasImg": [
+      {
+        "name": "是",
+        "value": "1"
+      },
+      {
+        "name": "否",
+        "value": "2"
+      }
+    ],
+    "reportModel": [
+      {
+        "name": "是",
+        "value": "1"
+      },
+      {
+        "name": "否",
+        "value": "2"
+      }
+    ],
+    "quAppraisal": [
+      {
+        "name": "认为损坏",
+        "value": "1"
+      },
+      {
+        "name": "自然损坏",
+        "value": "2"
+      }
+    ],
+    "isPbill": [
+      {
+        "name": "是",
+        "value": "1"
+      },
+      {
+        "name": "否",
+        "value": "2"
+      }
+    ],
+    "factory": [
+      {
+        "name": "生产厂一",
+        "value": "1"
+      },
+      {
+        "name": "生产厂二",
+        "value": "2"
+      },
+      {
+        "name": "生产厂三",
+        "value": "3"
+      }
+    ],"pbillName": [
+      {
+        "name": "生产厂一",
+        "value": "1"
+      },
+      {
+        "name": "生产厂二",
+        "value": "2"
+      },
+      {
+        "name": "生产厂三",
+        "value": "3"
+      }
+    ]
+  }
+}

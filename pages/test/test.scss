@@ -1,0 +1,149 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: white;
+}
+#content{
+    background-color: white!important;
+}
+
+#test {
+    .container {
+        .title {
+            border-bottom: 1px solid #666666;
+            line-height: 30px;
+            font-size: 20px;
+            font-weight: bold;
+            padding-bottom: 7px;
+
+        }
+        .search {
+            margin-top: 15px;
+            .u-col-3 {
+                .label{
+                    display: inline-block;
+                }
+                .u-combo {
+                    display: inline-block;
+                    width: auto;
+                    .u-input {
+                        border: 1px solid black;
+                        border-radius: 4px;
+                        display: inline-block;
+                        width: 80%;
+                    }
+                    span {
+                        position: relative;
+                        left: -30px;
+
+                    }
+                }
+                &:last-child{
+                    .u-button{
+                        height: 25px;
+                        line-height: 15px;
+                    }
+                }
+            }
+
+        }
+        .grid {
+            margin-top: 30px;
+            .u-grid-header{
+                .u-grid-header-left{
+                    background: cornflowerblue ;
+                }
+                #grid_header_thead{
+                    th{
+                        background: cornflowerblue;
+                    }
+
+                }
+            }
+            .u-grid-content{
+                .u-grid-content-left{
+                    div{
+                        &:nth-child(odd){
+                            background: #6d8764;
+                        }
+                    }
+                }
+                tr{
+                    &:nth-child(odd){
+                        background: #6d8764;
+
+                    }
+                }
+            }
+
+        }
+
+    }
+}
+.u-msg-dialog{
+    .u-msg-close{
+        span{
+            font-size: 30px;
+            position: relative;
+            top:-20px;
+        }
+    }
+    #dialog1{
+        background: white;
+        padding: 20px;
+        .head{
+            span{
+                color: black;
+                border:1px solid blue;
+                font-size: 20px;
+                font-weight: bold;
+                padding: 5px 8px;
+                border-top-right-radius: 9px;
+                border-top-left-radius: 9px;
+                margin-right: 15px;
+                cursor: pointer;
+                user-select: none;
+            }
+        }
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,45 @@
+{
+  "result": 1,
+  "msg": null,
+  "data": [
+    {
+      "cycleTime": "2",
+      "name": "板件",
+      "code": "00000001",
+      "id":"idididiidid"
+    },
+    {
+      "cycleTime": "3",
+      "name": "套件",
+      "code": "00000002",
+      "id":"idididiidid"
+    },
+    {
+      "cycleTime": "6",
+      "name": "五金件",
+      "code": "00000003",
+      "id":"idididiidid"
+    },
+    {
+      "cycleTime": "4",
+      "name": "其它件",
+      "code": "00000004",
+      "id":"idididiidid"
+    },
+    {
+      "cycleTime": "1",
+      "name": "双面板",
+      "code": "00000005",
+      "id":"idididiidid"
+    },
+    {
+      "cycleTime": "8",
+      "name": "双面板1",
+      "code": "00000006",
+      "id":"idididiidid"
+    }
+  ],
+  "total": 25,
+  "pageIndex": 2,
+  "pageSize": 5
+}

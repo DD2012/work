@@ -1,0 +1,53 @@
+{
+  "result": 1,
+  "msg": null,
+  "data": [
+    {
+      "plateCode": "010014001",
+      "plateParentCode": "010014000",
+      "plateAlias": "K-2",
+      "plateName": "下装饰",
+      "strType": "1",
+      "strNum": 4,
+      "unit": "1",
+      "patchType": "1",
+      "isPatch": "1",
+      "isSelf": "1",
+      "productionMode": "1",
+      "plantName": "1",
+      "id": "idiidiidiiidididiid"
+    },
+    {
+      "plateCode": "010014002",
+      "plateParentCode": "010014000",
+      "plateAlias": "K-2",
+      "plateName": "下装饰",
+      "strType": "1",
+      "strNum": 4,
+      "unit": "1",
+      "patchType": "1",
+      "isPatch": "1",
+      "isSelf": "1",
+      "productionMode": "1",
+      "plantName": "1",
+      "id": "idiidiidiiidididiid"
+    },
+    {
+      "plateCode": "010014003",
+      "plateParentCode": "010014000",
+      "plateAlias": "K-2",
+      "plateName": "下装饰",
+      "strType": "1",
+      "strNum": 4,
+      "unit": "1",
+      "patchType": "1",
+      "isPatch": "1",
+      "isSelf": "1",
+      "productionMode": "1",
+      "plantName": "1",
+      "id": "idiidiidiiidididiid"
+    }
+  ],
+  "total": 3,
+  "pageIndex": 2
+}

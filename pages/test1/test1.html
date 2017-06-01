@@ -1,0 +1,35 @@
+<div id="div">
+	<button class="u-button u-button-primary" data-bind="click:event.func">测试click</button>
+	<div data-bind="text:text"></div>
+
+
+	<div u-meta='{"id":"c1","type":"u-checkbox","data":"dt1","field":"f1","datasource":"checkboxData"}'>
+		<label class="u-checkbox">
+			<input type="checkbox" class="u-checkbox-input">
+			<span class="u-checkbox-label" data-role="name"></span>
+		</label>
+	</div>
+
+	<hr>
+	<hr>
+	<hr>
+
+	<div u-meta='{"id":"c1","type":"u-checkbox","data":"dt1","field":"f2","datasource":"checkboxData1"}'>
+		<label class="u-checkbox">
+			<input type="checkbox" class="u-checkbox-input">
+			<span class="u-checkbox-label" data-role="name"></span>
+		</label>
+	</div>
+	<div>f1</div>
+	<div data-bind="text: dt1.ref('f1')"></div>
+	<hr>
+	<div>f2</div>
+	<div data-bind="text: dt1.ref('f2')"></div>
+	<hr>
+	<div>computed</div>
+	<div data-bind="text: comp()"></div>
+	<div data-bind="style:{color:dt1.ref('f1')}">1111</div>
+	<div data-bind="style:{color:dt1.ref('f2')}">2222</div>
+
+
+</div>

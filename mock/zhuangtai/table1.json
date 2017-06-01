@@ -1,0 +1,32 @@
+[
+  {
+    "mingcheng":"板式",
+    "zhouqi":"2",
+    "canEdit":false
+  },
+  {
+    "mingcheng":"五金",
+    "zhouqi":"3",
+    "canEdit":false
+  },
+  {
+    "mingcheng":"双面板",
+    "zhouqi":"4",
+    "canEdit":false
+  },
+  {
+    "mingcheng":"低易品",
+    "zhouqi":"5",
+    "canEdit":false
+  },
+  {
+    "mingcheng":"复杂件",
+    "zhouqi":"5",
+    "canEdit":false
+  },
+  {
+    "mingcheng":"中纤板",
+    "zhouqi":"5",
+    "canEdit":false
+  }
+]

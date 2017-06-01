@@ -1,0 +1,27 @@
+[
+  {
+    "mingcheng":"初审",
+    "zhouqi":"1",
+    "canEdit":false
+  },
+  {
+    "mingcheng":"复审",
+    "zhouqi":"3",
+    "canEdit":false
+  },
+  {
+    "mingcheng":"计划下单",
+    "zhouqi":"2",
+    "canEdit":false
+  },
+  {
+    "mingcheng":"补件入库",
+    "zhouqi":"5",
+    "canEdit":false
+  },
+  {
+    "mingcheng":"物流配送",
+    "zhouqi":"1",
+    "canEdit":false
+  }
+]

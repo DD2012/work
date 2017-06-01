@@ -1,0 +1,299 @@
+<div class="pbillOrderFollow">
+	<div class="">补件订单跟进</div>
+	<button data-bind="click:event.func" class="u-button u-button-primary">测试</button>
+	<div class="search">
+		<div class="u-row margin-top-15">
+			<div class="u-col-4">
+				<div class="u-col-5"><span class="pull-right margin-top-5">补件申请单号：</span></div>
+				<div class="u-col-7">
+					<input type="text" u-meta='{"data":"searchCondition","field":"pbillCode"}' class="u-form-control">
+				</div>
+			</div>
+			<div class="u-col-4">
+				<div class="u-col-5"><span class="pull-right margin-top-5">销售订单号：</span></div>
+				<div class="u-col-7">
+					<input type="text" u-meta='{"data":"searchCondition","field":"orderNum"}' class="u-form-control">
+				</div>
+			</div>
+			<div class="u-col-4">
+				<div class="u-col-5"><span class="pull-right margin-top-5">消费者姓名：</span></div>
+				<div class="u-col-7">
+					<input type="text" u-meta='{"data":"searchCondition","field":"name"}' class="u-form-control">
+				</div>
+			</div>
+		</div>
+		<div class="u-row margin-top-15">
+			<div class="u-col-4">
+				<div class="u-col-5"><span class="pull-right margin-top-5">补件申请人：</span></div>
+				<div class="u-col-7">
+					<input type="text" u-meta='{"data":"searchCondition","field":"pbillPame"}' class="u-form-control">
+				</div>
+			</div>
+			<div class="u-col-4">
+				<div class="u-col-5"><span class="pull-right margin-top-5">销售产品名称：</span></div>
+				<div class="u-col-7">
+					<input type="text" u-meta='{"data":"searchCondition","field":"productName"}' class="u-form-control">
+				</div>
+			</div>
+			<div class="u-col-4">
+				<div class="u-col-5"><span class="pull-right margin-top-5">系列名称：</span></div>
+				<div class="u-col-7">
+					<input type="text" u-meta='{"data":"searchCondition","field":"seriesName"}' class="u-form-control">
+				</div>
+			</div>
+		</div>
+		<div class="u-row margin-top-15">
+			<div class="u-col-4">
+				<div class="u-col-5"><span class="pull-right margin-top-5">补件名称：</span></div>
+				<div class="u-col-7">
+					<input type="text" u-meta='{"data":"searchCondition","field":"pbillName"}' class="u-form-control">
+				</div>
+			</div>
+			<div class="u-col-4">
+				<div class="u-col-5"><span class="pull-right margin-top-5">车牌号：</span></div>
+				<div class="u-col-7">
+					<input type="text" u-meta='{"data":"searchCondition","field":"carNum"}' class="u-form-control">
+				</div>
+			</div>
+			<div class="u-col-4">
+				<div class="u-col-5"><span class="pull-right margin-top-5">快递单号：</span></div>
+				<div class="u-col-7">
+					<input type="text" u-meta='{"data":"searchCondition","field":"expressNumber"}' class="u-form-control">
+				</div>
+			</div>
+		</div>
+		<div class="u-row margin-top-15">
+			<div class="u-col-4">
+				<div class="u-col-5"><span class="pull-right margin-top-5">补件订单类型：</span></div>
+				<div class="u-col-7">
+					<div class="u-combo" u-meta='{"type":"u-combobox","data":"searchCondition","field":"pbillOrderType","datasource":"pbillOrderType"}'>
+						<div class="u-input-group u-has-feedback">
+							<input class="u-form-control"/>
+							<span class="u-form-control-feedback uf uf-arrow-down" data-role="combo-button"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="u-col-4">
+				<div class="u-col-5"><span class="pull-right margin-top-5">报单时间：</span></div>
+				<div class="u-col-7">
+					<div class='u-datepicker'
+						 u-meta='{"type":"u-date","data":"searchCondition","field":"startTime","format":"YYYY-MM-DD"}'>
+						<div class="u-input-group u-has-feedback">
+							<input class="u-form-control"/>
+							<span class="u-form-control-feedback uf uf-calendar" data-role="combo-button"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="u-col-4">
+				<div class="u-col-1"><span class="pull-right margin-top-5">至</span></div>
+				<div class="u-col-7">
+					<div class='u-datepicker'
+						 u-meta='{"type":"u-date","data":"searchCondition","field":"endTime","format":"YYYY-MM-DD"}'>
+						<div class="u-input-group u-has-feedback">
+							<input class="u-form-control"/>
+							<span class="u-form-control-feedback uf uf-calendar" data-role="combo-button"></span>
+						</div>
+					</div>
+				</div>
+				<div class="u-col-4">
+					<span class="u-link u-right u-input-label sm pull-left" id="condition-toggle">
+						<span>展开</span>
+						<i class="uf uf-arrow-down"></i>
+					</span>
+
+				</div>
+			</div>
+		</div>
+
+
+		<div class="drop u-not-visible">
+			<div class="u-row margin-top-15">
+				<div class="u-col-4">
+					<div class="u-col-5"><span class="pull-right margin-top-5">补件订单类型：</span></div>
+					<div class="u-col-7">
+						<div class="u-combo"
+							 u-meta='{"type":"u-combobox","data":"searchCondition","field":"pbillType","datasource":"pbillType"}'>
+							<div class="u-input-group u-has-feedback">
+								<input class="u-form-control"/>
+								<span class="u-form-control-feedback uf uf-arrow-down" data-role="combo-button"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="u-col-4">
+					<div class="u-col-5"><span class="pull-right margin-top-5">补件订单类型：</span></div>
+					<div class="u-col-7">
+						<div class="u-combo"
+							 u-meta='{"type":"u-combobox","data":"searchCondition","field":"pbillReason","datasource":"pbillReason"}'>
+							<div class="u-input-group u-has-feedback">
+								<input class="u-form-control"/>
+								<span class="u-form-control-feedback uf uf-arrow-down" data-role="combo-button"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="u-col-4">
+					<div class="u-col-5"><span class="pull-right margin-top-5">补件订单类型：</span></div>
+					<div class="u-col-7">
+						<div class="u-combo"
+							 u-meta='{"type":"u-combobox","data":"searchCondition","field":"handleState","datasource":"handleState"}'>
+							<div class="u-input-group u-has-feedback">
+								<input class="u-form-control"/>
+								<span class="u-form-control-feedback uf uf-arrow-down" data-role="combo-button"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="u-row margin-top-15">
+				<div class="u-col-4">
+					<div class="u-col-5"><span class="pull-right margin-top-5">补件订单类型：</span></div>
+					<div class="u-col-7">
+						<div class="u-combo"
+							 u-meta='{"type":"u-combobox","data":"searchCondition","field":"reportModel","datasource":"reportModel"}'>
+							<div class="u-input-group u-has-feedback">
+								<input class="u-form-control"/>
+								<span class="u-form-control-feedback uf uf-arrow-down" data-role="combo-button"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="u-col-4">
+					<div class="u-col-5"><span class="pull-right margin-top-5">补件订单类型：</span></div>
+					<div class="u-col-7">
+						<div class="u-combo"
+							 u-meta='{"type":"u-combobox","data":"searchCondition","field":"productionMethod","datasource":"productionMethod"}'>
+							<div class="u-input-group u-has-feedback">
+								<input class="u-form-control"/>
+								<span class="u-form-control-feedback uf uf-arrow-down" data-role="combo-button"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="u-col-4">
+					<div class="u-col-5"><span class="pull-right margin-top-5">补件订单类型：</span></div>
+					<div class="u-col-7">
+						<div class="u-combo"
+							 u-meta='{"type":"u-combobox","data":"searchCondition","field":"productionFactory","datasource":"productionFactory"}'>
+							<div class="u-input-group u-has-feedback">
+								<input class="u-form-control"/>
+								<span class="u-form-control-feedback uf uf-arrow-down" data-role="combo-button"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="u-row margin-top-15">
+				<div class="u-col-4">
+					<div class="u-col-5"><span class="pull-right margin-top-5">补件订单类型：</span></div>
+					<div class="u-col-7">
+						<div class="u-combo"
+							 u-meta='{"type":"u-combobox","data":"searchCondition","field":"logisticsMode","datasource":"logisticsMode"}'>
+							<div class="u-input-group u-has-feedback">
+								<input class="u-form-control"/>
+								<span class="u-form-control-feedback uf uf-arrow-down" data-role="combo-button"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div class="clearfix">
+		<span class="pull-right">
+			<button data-bind="click:event.reset" class="u-button u-button-primary">重置</button>
+			<button data-bind="click:event.search" class="u-button u-button-primary">搜索</button>
+		</span>
+	</div>
+
+
+
+
+
+
+	<div class="grid">
+		<div u-meta='{
+						"showNumCol":true,
+						"contentSelect":"false",
+						"editable":"true",
+						"columnMenu":"false",
+						"canSwap":"false",
+						"sortable":"false",
+						"multiSelect":true,
+						"id":"pbillOrderFollow",
+						"type":"grid",
+						"data":"pbillOrderFollow"
+					}'>
+			<div options='{"field":"sellOrderNum","dataType":"String","title":"销售订单号"}'></div>
+			<div options='{"field":"sellArriving","dataType":"String","title":"售达方"}'></div>
+			<div options='{"field":"name","dataType":"String","title":"姓名"}'></div>
+			<div options='{"field":"pbillCode","dataType":"String","title":"补件申请单号"}'></div>
+			<div options='{"field":"pbillPame","dataType":"String","title":"补件申请人"}'></div>
+			<div options='{"field":"pbillTime","dataType":"String","title":"报单时间"}'></div>
+			<div options='{"field":"productName","dataType":"String","title":"商品名称"}'></div>
+			<div options='{"field":"seriesName","dataType":"String","title":"系列名称"}'></div>
+			<div options='{"field":"partsCode","dataType":"String","title":"零部件编码"}'></div>
+			<div options='{"field":"partsMark","dataType":"String","title":"零部件代号"}'></div>
+			<div options='{"field":"pbillName","dataType":"String","title":"补件名称"}'></div>
+			<div options='{"field":"pbillType","dataType":"String","title":"补件类型"}'></div>
+			<div options='{"field":"num","dataType":"String","title":"数量"}'></div>
+			<div options='{"field":"unit","dataType":"String","title":"单位"}'></div>
+			<div options='{"field":"quAppraisal","dataType":"String","title":"原因鉴定"}'></div>
+			<div options='{"field":"productionMethod","dataType":"String","title":"生产方式"}'></div>
+			<div options='{"field":"productionFactory","dataType":"String","title":"生产工厂"}'></div>
+			<div options='{"field":"logisticsMode","dataType":"String","title":"物流方式"}'></div>
+			<div options='{"field":"address","dataType":"String","title":"收货地址"}'></div>
+			<div options='{"field":"carNum","dataType":"String","title":"车牌号"}'></div>
+			<div options='{"field":"expressNumber","dataType":"String","title":"快递单号"}'></div>
+			<div options='{"field":"handleState","dataType":"String","title":"处理状态"}'></div>
+			<div options='{"field":"reportModel","dataType":"String","title":"填报方式"}'></div>
+		</div>
+		<!--分页-->
+		<div class="pagination">
+			<div id='pagination' class='u-pagination margin-left-0'></div>
+		</div>
+	</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

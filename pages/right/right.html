@@ -1,0 +1,84 @@
+<!-- HTML -->
+<div id="demo2">
+
+	<div data-bind="click:event.func">click</div>
+
+<div style="padding:20px;border:1px solid red;" >
+
+	<div draggable="true" id="div1" u-meta='{"multiSelect":"true","id":"grid1","type":"grid","data":"dt1","sortable":"true","canSwap":"false","editable":true}'>
+		<div options='{"dataType":"string","editType":"editFun","renderType":"render","field":"name","dataType":"String","title":"名字"}'></div>
+		<div options='{"editOptions":{"validType":"float","precision":"2","max":10000},"field":"age","dataType":"String","title":"年龄"}'></div>
+		<div options='{"renderType":"timeRender","field":"school","dataType":"String","title":"学校"}'></div>
+		<div options='{"field":"checkbox","dataType":"checkbox","title":"复选","renderType":"booleanRender","required":true}'></div>
+		<div options='{"field":"date","dataType":"date","title":"年月日","editType":"date"}'></div>
+	</div>
+</div>
+
+
+	<input  u-meta='{"data":"dt2","field":"f1"}' />
+	<div  id="test">click</div>
+
+
+	<div  id="combo1" class="u-combo u-text u-label-floating" u-meta='{"id":"abc","type":"u-combobox","data":"dt3","field":"f1","datasource":"comboData1"}'>
+		<input id="inp1"  class="u-input"/>
+		<span class="u-combo-icon"></span>
+	</div>
+
+	<div  id="combo2" class="u-combo u-text u-label-floating" u-meta='{"id":"abc","type":"u-combobox","data":"dt4","field":"f1","datasource":"comboData2"}'>
+		<input id="inp2"  class="u-input"/>
+		<span class="u-combo-icon"></span>
+	</div>
+
+	<div  id="combo3" class="u-combo u-text u-label-floating" u-meta='{"id":"abc","type":"u-combobox","data":"dt5","field":"f1","datasource":"comboData2"}'>
+		<input id="inp3"  class="u-input"/>
+		<span class="u-combo-icon"></span>
+	</div>
+
+
+	<div id="checkbox1" u-meta='{"id":"c1","type":"u-checkbox","data":"dt5","field":"f1","datasource":"checkboxData"}'>
+		<label class="u-checkbox">
+			<input type="checkbox" class="u-checkbox-input">
+			<span class="u-checkbox-label" data-role="name"></span>
+		</label>
+	</div>
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

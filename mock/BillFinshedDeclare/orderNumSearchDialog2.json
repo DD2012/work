@@ -1,0 +1,60 @@
+{
+  "result": 1,
+  "msg": null,
+  "data": [
+    {
+      "suiteCode": "1000000000001",
+      "suiteName": "沙发套件",
+      "productStatus": "在产",
+      "seriesName": "软床系列",
+      "standard": "规格",
+      "standardPartsInfo": "有",
+      "isPatch": false,
+      "id": "idiidididi"
+    },
+    {
+      "suiteCode": "1000000000002",
+      "suiteName": "沙发套件",
+      "productStatus": "在产",
+      "seriesName": "软床系列",
+      "standard": "规格",
+      "standardPartsInfo": "有",
+      "isPatch": false,
+      "id": "idiidididi"
+    },
+    {
+      "suiteCode": "1000000000003",
+      "suiteName": "沙发套件",
+      "productStatus": "在产",
+      "seriesName": "软床系列",
+      "standard": "规格",
+      "standardPartsInfo": "有",
+      "isPatch": true,
+      "id": "idiidididi"
+    },
+    {
+      "suiteCode": "1000000000004",
+      "suiteName": "沙发套件",
+      "productStatus": "在产",
+      "seriesName": "软床系列",
+      "standard": "规格",
+      "standardPartsInfo": "有",
+      "isPatch": true,
+      "id": "idiidididi"
+    },
+    {
+      "suiteCode": "1000000000005",
+      "suiteName": "沙发套件",
+      "productStatus": "在产",
+      "seriesName": "软床系列",
+      "standard": "规格",
+      "standardPartsInfo": "有",
+      "isPatch": true,
+      "id": "idiidididi"
+    }
+  ],
+  "total": 3,
+  "pageIndex": 5
+}
+
+

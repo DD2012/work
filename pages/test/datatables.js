@@ -1,0 +1,86 @@
+var searchMeta = {
+    meta:{
+        f1:{},
+        f2:{},
+        f3:{}
+    }
+};
+var tableMeta = {
+    meta:{
+        songdafang:{},
+        mudidi:{},
+        songhuodiz:{},
+        shuliang:{},
+        baozhuangshuliang:{},
+        shengyujine:{},
+        comb1:{
+            default:{
+                value:'1'
+            }
+        }
+    }
+};
+var table1Meta = {
+    meta:{
+        songdafang:{},
+        mudidi:{},
+        songhuodiz:{},
+        shuliang:{},
+        baozhuangshuliang:{},
+        shengyujine:{}
+    }
+};
+var tableSimpleData = [
+    {
+        songdafang:'全有',
+        mudidi:'成都',
+        songhuodiz:'成都市青羊区xxxxxx',
+        shuliang:'100',
+        baozhuangshuliang:'60',
+        shengyujine:'100',
+        isSelect:false
+    },{
+        songdafang:'全有',
+        mudidi:'成都',
+        songhuodiz:'成都市青羊区xxxxxx',
+        shuliang:'100',
+        baozhuangshuliang:'60',
+        shengyujine:'100',
+        isSelect:false
+    },{
+        songdafang:'全有',
+        mudidi:'成都',
+        songhuodiz:'成都市青羊区xxxxxx',
+        shuliang:'100',
+        baozhuangshuliang:'60',
+        shengyujine:'100'
+    },{
+        songdafang:'全有',
+        mudidi:'成都',
+        songhuodiz:'成都市青羊区xxxxxx',
+        shuliang:'100',
+        baozhuangshuliang:'60',
+        shengyujine:'100'
+    },{
+        songdafang:'全有',
+        mudidi:'成都',
+        songhuodiz:'成都市青羊区xxxxxx',
+        shuliang:'100',
+        baozhuangshuliang:'60',
+        shengyujine:'100'
+    },{
+        songdafang:'全有',
+        mudidi:'成都',
+        songhuodiz:'成都市青羊区xxxxxx',
+        shuliang:'100',
+        baozhuangshuliang:'60',
+        shengyujine:'100'
+    },{
+        songdafang:'全有',
+        mudidi:'成都',
+        songhuodiz:'成都市青羊区xxxxxx',
+        shuliang:'100',
+        baozhuangshuliang:'60',
+        shengyujine:'100'
+    }
+]

@@ -1,0 +1,62 @@
+<div class="patchClasses">
+	<div class="u-row">补件类别管理</div>
+	<hr class="u-row" />
+
+	<div class="u-row">
+		<div data-bind="click:event.add" class="u-button u-button-primary add"><span class="uf uf-add-c-o margin-right-10"></span>新增</div>
+		<div id="save" data-bind="click:event.save" class="u-button u-button-primary"><span class="uf uf-baoxue margin-right-10"></span>保存</div>
+		<div id="delete" data-bind="click:event.mutipleDel" class="u-button u-button-primary"><span class="uf uf-del margin-right-10"></span>批量删除</div>
+		<div data-bind="click:event.func" class="u-button u-button-primary"><span class="uf uf-baoxue margin-right-10"></span>审核</div>
+		<div data-bind="click:event.func" class="u-button u-button-primary"><span class="uf uf-baoxue margin-right-10"></span>弃审</div>
+		<div data-bind="click:event.func" class="u-button u-button-primary"><span class="uf uf-baoxue margin-right-10"></span>测试</div>
+	</div>
+	<!--页面主框-->
+	<div class="u-row">
+		<div id="patch1"  u-meta='{
+					"showNumCol":true,
+					"contentSelect":"false",
+					"columnMenu":"false",
+					"canSwap":"false",
+					"sortable":"false",
+					"multiSelect":true,
+					"id":"patchType",
+					"type":"grid",
+					"data":"patchClasses",
+					"editable":true,
+					"onBeforeEditFun":"onBeforeEditFun"
+				}'>
+			<div options='{"field":"code","dataType":"String","title":"补件类别编码"}'></div>
+			<div options='{"field":"name","dataType":"String","title":"补件类别名字"}'></div>
+			<div options='{"renderType":"handleHookRender","field":"handleHook","dataType":"String","title":"操作"}'></div>
+		</div>
+		<!--分页-->
+		<div class="paginationHook">
+			<div id='pagination' class='u-pagination margin-left-0'></div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

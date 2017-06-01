@@ -1,0 +1,95 @@
+<div id="test">
+	<div class="container">
+		<div class="title" data-bind="click:event.func">打包管理</div>
+		<div class="search u-row">
+			<div class="u-col-3">
+				<div class="label">业务类型</div>
+
+				<div id="combo1" class="u-combo u-text u-label-floating" u-meta='{"id":"c1","type":"u-combobox","data":"search","field":"f1","datasource":"comboData1"}'>
+					<input class="u-input u-form-control"/>
+					<span class="uf uf-arrow-down"></span>
+
+
+
+
+					<!--<div class="u-form-group">-->
+						<!--<label for="exampleInput3">必输:</label>-->
+						<!--<div class="u-input-group u-has-feedback must-in">-->
+							<!--<div class="u-input-group-before " style="color: red;">*</div>-->
+							<!--<input id="exampleInput3" class="u-input u-form-control"/>-->
+							<!--<span class="u-form-control-feedback uf uf-arrow-down"></span>-->
+						<!--</div>-->
+					<!--</div>-->
+
+
+
+
+
+
+				</div>
+			</div>
+			<div class="u-col-3">
+				<div class="label">配送中心</div>
+				<div id="combo2" class="u-combo u-text u-label-floating" u-meta='{"id":"c1","type":"u-combobox","data":"search","field":"f1","datasource":"comboData1"}'>
+					<input class="u-input u-form-control"/>
+					<span class="uf uf-arrow-down"></span>
+				</div>
+			</div>
+			<div class="u-col-3">
+				<div class="label">办事处</div>
+				<div id="combo3" class="u-combo u-text u-label-floating" u-meta='{"id":"c1","type":"u-combobox","data":"search","field":"f1","datasource":"comboData1"}'>
+					<input class="u-input u-form-control"/>
+					<span class="uf uf-arrow-down"></span>
+				</div>
+			</div>
+			<div class="u-col-3">
+				<button data-bind="click:event.func" class="u-button u-button-primary">
+					查询
+					<span class="uf uf-search"></span>
+				</button>
+			</div>
+		</div>
+		<div class="grid">
+		<div id="gridTest" u-meta='{"onBeforeRowSelected":"onBeforeRowSelected","onBeforeRowUnSelected":"onBeforeRowUnSelected","onBeforeEditFun":"onBeforeEditFun","editable":true,"id":"grid1","afterCreate":"event.afterCreate","columnMenu":"false","canSwap":"false","sortable":"false","multiSelect":true,"id":"grid","type":"grid","data":"table","afterCreate":"event.afterCreate"}'>
+			<div options='{"field":"index","dataType":"String","title":"序号","renderType":"render1","width":"50"}'></div>
+			<div options='{"field":"songdafang","dataType":"String","title":"售达方","width":"100"}'></div>
+			<div options='{"field":"mudidi","dataType":"String","title":"目的地","width":"100"}'></div>
+			<div options='{"field":"songhuodiz","dataType":"String","title":"送货地址","width":"250"}'></div>
+			<div options='{"field":"shuliang","dataType":"String","title":"数量","width":"auto"}'></div>
+			<div options='{"field":"baozhuangshuliang","dataType":"String","title":"包装数量","width":"auto"}'></div>
+			<div options='{"field":"shengyujine","dataType":"String","title":"剩余金额","width":"auto"}'></div>
+			<div options='{"editable":true,"field":"shengyujine","dataType":"String","title":"操作","width":"auto","renderType":"caozuo"}'></div>
+
+			<div options='{"editable":"true","field":"comb1","dataType":"String","title":"combo","width":"auto","editOptions":{"id":"comb4","type":"combo","datasource":"comb1"},"editType":"combo","renderType":"comboRender"}'></div>
+
+		</div>
+
+
+
+
+
+
+
+		<div id="dialog1" style="display: none;">
+			<div class="head">
+				<span data-bind="click:click1" data-bind="style:{background:isClick() ? 'white' : 'rgba(255,0,0,0.3)'}">销售订单</span>
+				<span data-bind="click:click2" data-bind="style:{background:isClick() ? 'rgba(255,0,0,0.3)' : 'white'}">补件需求单</span>
+			</div>
+			<div class="body">
+				<div id="gridTest1" u-meta='{"columnMenu":"false","canSwap":"false","sortable":"false","multiSelect":true,"id":"grid1","type":"grid","data":"table1"}'>
+					<div options='{"field":"index","dataType":"String","title":"序号","renderType":"render1","width":"50"}'></div>
+					<div options='{"field":"songdafang","dataType":"String","title":"售达方","width":"auto"}'></div>
+					<div options='{"field":"mudidi","dataType":"String","title":"目的地","width":"auto"}'></div>
+					<div options='{"field":"songhuodiz","dataType":"String","title":"送货地址","width":"200"}'></div>
+					<div options='{"field":"shuliang","dataType":"String","title":"数量","width":"auto"}'></div>
+					<div options='{"field":"baozhuangshuliang","dataType":"String","title":"包装数量","width":"auto"}'></div>
+					<div options='{"field":"shengyujine","dataType":"String","title":"剩余金额","width":"auto"}'></div>
+				</div>
+			</div>
+			<div class="foot u-row">
+				<button data-bind="click:save" class="u-button u-button-primary pull-right margin-top-20 margin-right-50">保存</button>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>
