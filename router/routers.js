@@ -66,6 +66,14 @@ define(function () {
             name: "/pbillOrderFollow/pbillOrderFollow"
         },{
             name: "/unusualWaring/unusualWaring"
+        },{
+            name: "/purchaseOrder/purchaseOrder"
+        },{
+            name: "/purchaseOrderDetail/purchaseOrderDetail"
+        },{
+            name: "/purchaseOrderSearch/purchaseOrderSearch"
+        },{
+            name: "/purchaseOrderList/purchaseOrderList"
         }
     ]
 });

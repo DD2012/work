@@ -12,14 +12,14 @@ define(['text!pages/unusualWaring/unusualWaring.html', 'css!pages/unusualWaring/
             event: {
                 func: function () {
                     debugger;
-                    $.ajax({
-                        type: 'get',
-                        url: url,
-                        dataType: 'json',
-                        contentType: 'application/json;charset=utf-8'
-                    }).done(function (res) {
-                        console.log(res);
-                    })
+                    // $.ajax({
+                    //     type: 'get',
+                    //     url: url,
+                    //     dataType: 'json',
+                    //     contentType: 'application/json;charset=utf-8'
+                    // }).done(function (res) {
+                    //     console.log(res);
+                    // })
                 },
                 pageInit: function () {
                     viewModel.app = u.createApp({
@@ -32,6 +32,7 @@ define(['text!pages/unusualWaring/unusualWaring.html', 'css!pages/unusualWaring/
             },
             unusualWaringGrid: new u.DataTable({
                 meta: {
+                    combo:{},
                     pbillCode: {},
                     pbillTime: {},
                     productName: {},

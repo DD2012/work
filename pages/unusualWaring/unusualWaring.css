@@ -2,3 +2,7 @@
   margin: 0;
   padding: 0;
 }
+
+tbody > tr:last-child .u-grid-content-td-div {
+  text-align: left !important;
+}

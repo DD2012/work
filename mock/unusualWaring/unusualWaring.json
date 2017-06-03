@@ -4,8 +4,8 @@
   "data": [
     {
       "pbillCode": "00000000001",
-      "pbillTime": "a",
-      "productName": "a",
+      "pbillTime": 1,
+      "productName": "2",
       "seriesName": "a",
       "partsCode": "a",
       "pbillName": "a",
@@ -19,8 +19,8 @@
       "reportModel": "a"
     },{
       "pbillCode": "00000000002",
-      "pbillTime": "a",
-      "productName": "a",
+      "pbillTime": 1,
+      "productName": 2,
       "seriesName": "a",
       "partsCode": "a",
       "pbillName": "a",
@@ -34,8 +34,8 @@
       "reportModel": "a"
     },{
       "pbillCode": "00000000003",
-      "pbillTime": "a",
-      "productName": "a",
+      "pbillTime": 1,
+      "productName": 2,
       "seriesName": "a",
       "partsCode": "a",
       "pbillName": "a",

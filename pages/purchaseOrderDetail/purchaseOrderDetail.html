@@ -1,0 +1,295 @@
+<div class="purchaseOrderDetail u-container-fluid">
+	<div class="u-row">
+		采购订单明细
+	</div>
+	<div class="u-row">
+		<button class="u-button u-button-primary">保存</button>
+		<button class="u-button u-button-primary">查询</button>
+		<button class="u-button u-button-primary">提交</button>
+		<button class="u-button u-button-primary">审核</button>
+		<button class="u-button u-button-primary">列表</button>
+		<button class="u-button u-button-primary">联查</button>
+		<button class="u-button u-button-primary">打印</button>
+		<button class="u-button u-button-primary">导出</button>
+	</div>
+	<div class="u-row margin-top-15">
+		<div class="u-col-4">
+			<label class="u-col-4 margin-top-5 text-right" style="white-space: nowrap;">订单号</label>
+			<div class="u-col-8">
+				<input u-meta='{"data":"searchCondition","field":"xxx"}' type="text" class="u-form-control">
+			</div>
+		</div>
+		<div class="u-col-4">
+			<label class="u-col-4 margin-top-5 text-right" style="white-space: nowrap;">物流方式</label>
+			<div class="u-combo u-col-8" u-meta='{"type":"u-combobox","data":"searchCondition","field":"xxx","datasource":"xxx"}'>
+				<div class="u-input-group u-has-feedback">
+					<input class="u-form-control"/>
+					<span class="u-form-control-feedback uf uf-arrow-down" data-role="combo-button"></span>
+				</div>
+			</div>
+		</div>
+		<div class="u-col-4">
+			<label class="u-col-4 margin-top-5 text-right" style="white-space: nowrap;">申请日期</label>
+			<div class='u-datepicker u-col-8' u-meta='{"type":"u-date","data":"searchCondition","field":"xxx","format":"YYYY-MM-DD"}'>
+				<div class="u-input-group u-has-feedback">
+					<input class="u-form-control"/>
+					<span class="u-form-control-feedback uf uf-calendar" data-role="combo-button"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="u-row">
+		<div class="u-col-4">
+			<label class="u-col-4 margin-top-5 text-right" style="white-space: nowrap;">订单类型</label>
+			<div class="u-combo u-col-8" u-meta='{"type":"u-combobox","data":"searchCondition","field":"xxx","datasource":"xxx"}'>
+				<div class="u-input-group u-has-feedback">
+					<input class="u-form-control"/>
+					<span class="u-form-control-feedback uf uf-arrow-down" data-role="combo-button"></span>
+				</div>
+			</div>
+		</div>
+		<div class="u-col-4">
+			<label class="u-col-4 margin-top-5 text-right" style="white-space: nowrap;">经销商</label>
+			<div class="u-col-8">
+				<input u-meta='{"data":"searchCondition","field":"xxx"}' type="text" class="u-form-control">
+			</div>
+		</div>
+		<div class="u-col-4">
+			<label class="u-col-4 margin-top-5 text-right" style="white-space: nowrap;">要求交货期</label>
+			<div class='u-datepicker u-col-8' u-meta='{"type":"u-date","data":"searchCondition","field":"xxx","format":"YYYY-MM-DD"}'>
+				<div class="u-input-group u-has-feedback">
+					<input class="u-form-control"/>
+					<span class="u-form-control-feedback uf uf-calendar" data-role="combo-button"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="u-row">
+		<div class="u-col-4">
+			<label class="u-col-4 margin-top-5 text-right" style="white-space: nowrap;">要货方式</label>
+			<div class="u-combo u-col-8" u-meta='{"type":"u-combobox","data":"searchCondition","field":"xxx","datasource":"xxx"}'>
+				<div class="u-input-group u-has-feedback">
+					<input class="u-form-control"/>
+					<span class="u-form-control-feedback uf uf-arrow-down" data-role="combo-button"></span>
+				</div>
+			</div>
+		</div>
+		<div class="u-col-4">
+			<label class="u-col-4 margin-top-5 text-right" style="white-space: nowrap;">单据状态</label>
+			<div class="u-combo u-col-8" u-meta='{"type":"u-combobox","data":"searchCondition","field":"xxx","datasource":"xxx"}'>
+				<div class="u-input-group u-has-feedback">
+					<input class="u-form-control"/>
+					<span class="u-form-control-feedback uf uf-arrow-down" data-role="combo-button"></span>
+				</div>
+			</div>
+		</div>
+		<div class="u-col-4">
+			<label class="u-col-4 margin-top-5 text-right" style="white-space: nowrap;">默认交货期</label>
+			<div class='u-datepicker u-col-8' u-meta='{"type":"u-date","data":"searchCondition","field":"xxx","format":"YYYY-MM-DD"}'>
+				<div class="u-input-group u-has-feedback">
+					<input class="u-form-control"/>
+					<span class="u-form-control-feedback uf uf-calendar" data-role="combo-button"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="u-row">
+		<div class="u-col-4">
+			<label class="u-col-4 margin-top-5 text-right" style="white-space: nowrap;">业务账户类型</label>
+			<div class="u-combo u-col-8" u-meta='{"type":"u-combobox","data":"searchCondition","field":"xxx","datasource":"xxx"}'>
+				<div class="u-input-group u-has-feedback">
+					<input class="u-form-control"/>
+					<span class="u-form-control-feedback uf uf-arrow-down" data-role="combo-button"></span>
+				</div>
+			</div>
+		</div>
+		<div class="u-col-8">
+			<label class="u-col-2 margin-top-5 text-right" style="white-space: nowrap;">收货地址</label>
+			<div class="u-col-10">
+				<input u-meta='{"data":"searchCondition","field":"xxx"}' type="text" class="u-form-control u-input-group">
+			</div>
+		</div>
+	</div>
+	<div class="u-row">
+		<div class="u-col-4">
+			<label class="u-col-4 margin-top-5 text-right" style="white-space: nowrap;">订单备注</label>
+
+		</div>
+		<div class="u-col-11 u-col-pull-2" style="    margin-top: -20px;margin-left: 357px;padding-right: 70px;">
+			<input u-meta='{"data":"searchCondition","field":"xxx"}' type="text" class="u-form-control u-input-group">
+		</div>
+	</div>
+
+
+
+
+
+	<div class="u-row">
+			<button class="u-button u-button-primary">新增</button>
+			<button class="u-button u-button-primary">批量删除</button>
+		<div class="pull-right">
+			<div class="u-col-8">
+				<input u-meta='{"data":"searchCondition","field":"xxx"}' type="text" class="u-form-control">
+			</div>
+			<div class="u-col-4">
+				<button class="u-button u-button-primary">搜索</button>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="u-row">
+		<div u-meta='{
+						"showNumCol":true,
+						"contentSelect":"false",
+						"editable":"true",
+						"columnMenu":"false",
+						"canSwap":"false",
+						"sortable":"false",
+						"multiSelect":true,
+						"id":"purchaseOrderDetailGrid",
+						"type":"grid",
+						"data":"purchaseOrderDetailGrid"
+					}'>
+			<div options='{"field":"xxx","dataType":"String","title":"产品编码"}'></div>
+			<div options='{"field":"xxx","dataType":"String","title":"产品描述"}'></div>
+			<div options='{"field":"xxx","dataType":"String","title":"产品型号"}'></div>
+			<div options='{"field":"xxx","dataType":"String","title":"品类"}'></div>
+			<div options='{"field":"xxx","dataType":"String","title":"单价"}'></div>
+			<div options='{"field":"xxx","dataType":"String","title":"数量"}'></div>
+			<div options='{"field":"xxx","dataType":"String","title":"羊马可配量"}'></div>
+			<div options='{"field":"xxx","dataType":"String","title":"金额"}'></div>
+			<div options='{"field":"xxx","dataType":"String","title":"方量"}'></div>
+			<div options='{"field":"xxx","dataType":"String","title":"重量"}'></div>
+			<div options='{"field":"xxx","dataType":"String","title":"免费"}'></div>
+			<div options='{"field":"xxx","dataType":"String","title":"直发"}'></div>
+			<div options='{"renderType":"handelHookRender","field":"handelHook","dataType":"String","title":"操作"}'></div>
+		</div>
+		<!--分页-->
+		<div class="paginationHook">
+			<div id='pagination1' class='u-pagination margin-left-0'></div>
+		</div>
+	</div>
+	<div class="u-row">
+		<span class="pull-right">
+			<button data-bind="click:event.policyProductClick" class="u-button u-button-primary">政策产品</button>
+			<button class="u-button u-button-primary">整车检查</button>
+		</span>
+	</div>
+
+	<!--政策产品弹出框-->
+	<div id="policyProductDialog" class="u-not-visible padding-15">
+		<div>政策产品</div>
+		<hr />
+		<div class="clearfix search">
+			<div class="u-col-3">
+				<label class="u-col-4 text-right margin-top-5 padding-left-0 padding-right-0" style="white-space: nowrap;">产品编码</label>
+				<div class="u-col-8">
+					<input u-meta='{"data":"policyProductSearchCondition","field":"xxx"}' type="text" class="u-form-control">
+				</div>
+			</div>
+			<div class="u-col-3">
+				<label class="u-col-4 text-right margin-top-5 padding-left-0 padding-right-0" style="white-space: nowrap;">产品名称</label>
+				<div class="u-col-8">
+					<input u-meta='{"data":"policyProductSearchCondition","field":"xxx"}' type="text" class="u-form-control">
+				</div>
+			</div>
+			<div class="u-col-3">
+				<label class="u-col-4 text-right margin-top-5 padding-left-0 padding-right-0" style="white-space: nowrap;">产品型号</label>
+				<div class="u-col-8">
+					<input u-meta='{"data":"policyProductSearchCondition","field":"xxx"}' type="text" class="u-form-control">
+				</div>
+			</div>
+			<div class="u-col-3">
+				<button data-bind="click:event.func" class="u-button u-button-primary">搜索</button>
+			</div>
+		</div>
+		<div class="clearfix margin-top-15">
+			<div style="border: 1px solid #cecece;" class="dialogLeft u-col-2 padding-left-0 padding-right-0">
+				<div class="text-center" style="border: 1px solid #cecece;">活动营销列表</div>
+				<div  id="treeTest2" class="ztree" u-meta='{
+							"id":"tree2",
+							"data":"tree",
+							"type":"tree",
+							"idField":"id",
+							"pidField":"pid",
+							"nameField":"title",
+							"setting":"treeSetting"
+						}'>
+				</div>
+			</div>
+			<div class="dialogRight u-col-10 padding-left-0 padding-right-0">
+				<div class="text-center" style="border: 1px solid #cecece;">政策产品列表</div>
+				<div  u-meta='{
+						"showNumCol":true,
+						"contentSelect":"false",
+						"editable":"true",
+						"columnMenu":"false",
+						"canSwap":"false",
+						"sortable":"false",
+						"multiSelect":true,
+						"id":"policyProductGrid",
+						"type":"grid",
+						"data":"policyProductGrid"
+					}'>
+					<div options='{"field":"xxx","dataType":"String","title":"产品编码"}'></div>
+					<div options='{"field":"xxx","dataType":"String","title":"产品名称"}'></div>
+					<div options='{"field":"xxx","dataType":"String","title":"产品型号"}'></div>
+					<div options='{"field":"xxx","dataType":"String","title":"单价"}'></div>
+					<div options='{"field":"xxx","dataType":"String","title":"任务量"}'></div>
+					<div options='{"field":"xxx","dataType":"String","title":"已提货量"}'></div>
+				</div>
+				<!--分页-->
+				<div class="policyProductPageination">
+					<div id='policyProductPageination' class='u-pagination margin-left-0'></div>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix">
+			<span class="pull-right">
+				<button class="u-button u-button-primary">确定</button>
+				<button class="u-button u-button-primary">取消</button>
+			</span>
+		</div>
+
+
+
+
+
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

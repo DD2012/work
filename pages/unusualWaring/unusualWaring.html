@@ -12,11 +12,13 @@
 						"multiSelect":true,
 						"id":"unusualWaringGrid",
 						"type":"grid",
-						"data":"unusualWaringGrid"
+						"data":"unusualWaringGrid",
+						"showSumRow":true
 					}'>
+			<div options='{"renderType":"booleanRender","required":true,"field":"combo","dataType":"String","title":"复选框"}'></div>
 			<div options='{"field":"pbillCode","dataType":"String","title":"补件申请单号"}'></div>
-			<div options='{"field":"pbillTime","dataType":"String","title":"报单时间"}'></div>
-			<div options='{"field":"productName","dataType":"String","title":"商品名称"}'></div>
+			<div options='{"field":"pbillTime","dataType":"String","title":"报单时间","sumCol":true}'></div>
+			<div options='{"field":"productName","dataType":"String","title":"商品名称","sumCol":true}'></div>
 			<div options='{"field":"seriesName","dataType":"String","title":"系列名称"}'></div>
 			<div options='{"field":"partsCode","dataType":"String","title":"零部件编码"}'></div>
 			<div options='{"field":"pbillName","dataType":"String","title":"补件名称"}'></div>
