@@ -4,15 +4,9 @@
     <list default="true" id="51c9d5d3-523b-424c-b2ec-3d661d4be232" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mock/unusualWaring/unusualWaring.json" afterPath="$PROJECT_DIR$/mock/unusualWaring/unusualWaring.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/unusualWaring/unusualWaring.css" afterPath="$PROJECT_DIR$/pages/unusualWaring/unusualWaring.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/unusualWaring/unusualWaring.html" afterPath="$PROJECT_DIR$/pages/unusualWaring/unusualWaring.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/unusualWaring/unusualWaring.js" afterPath="$PROJECT_DIR$/pages/unusualWaring/unusualWaring.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/unusualWaring/unusualWaring.scss" afterPath="$PROJECT_DIR$/pages/unusualWaring/unusualWaring.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/router/routers.js" afterPath="$PROJECT_DIR$/router/routers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/uui/css/grid.css" afterPath="$PROJECT_DIR$/vendor/uui/css/grid.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/uui/js/u-grid.js" afterPath="$PROJECT_DIR$/vendor/uui/js/u-grid.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/uui/js/u-tree.js" afterPath="$PROJECT_DIR$/vendor/uui/js/u-tree.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/purchaseOrderDetail/purchaseOrderDetail.html" afterPath="$PROJECT_DIR$/pages/purchaseOrderDetail/purchaseOrderDetail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/purchaseOrderDetail/purchaseOrderDetail.js" afterPath="$PROJECT_DIR$/pages/purchaseOrderDetail/purchaseOrderDetail.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/purchaseOrderDetail/purchaseOrderDetail.scss" afterPath="$PROJECT_DIR$/pages/purchaseOrderDetail/purchaseOrderDetail.scss" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -33,8 +27,8 @@
       <file leaf-file-name="purchaseOrderDetail.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/purchaseOrderDetail/purchaseOrderDetail.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="512">
-              <caret line="214" column="45" lean-forward="true" selection-start-line="214" selection-start-column="45" selection-end-line="214" selection-end-column="45" />
+            <state relative-caret-position="178">
+              <caret line="262" column="0" lean-forward="false" selection-start-line="262" selection-start-column="0" selection-end-line="262" selection-end-column="0" />
               <folding>
                 <element signature="n#div#2;n#div#0;n#!!top" expanded="false" />
                 <element signature="n#div#0;n#div#2;n#div#0;n#!!top" expanded="false" />
@@ -50,11 +44,11 @@
       <file leaf-file-name="purchaseOrderDetail.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pages/purchaseOrderDetail/purchaseOrderDetail.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="97" column="36" lean-forward="true" selection-start-line="97" selection-start-column="36" selection-end-line="97" selection-end-column="36" />
+            <state relative-caret-position="255">
+              <caret line="145" column="27" lean-forward="true" selection-start-line="145" selection-start-column="27" selection-end-line="145" selection-end-column="27" />
               <folding>
-                <marker date="1496456899000" expanded="true" signature="3905:3921" ph="..." />
-                <marker date="1496456899000" expanded="true" signature="4005:4021" ph="..." />
+                <marker date="1496486368000" expanded="true" signature="4858:4874" ph="..." />
+                <marker date="1496486368000" expanded="true" signature="4958:4974" ph="..." />
               </folding>
             </state>
           </provider>
@@ -66,14 +60,13 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="JavaScript File" />
         <option value="scss" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>mainHandleRender</find>
       <find>searchDialog</find>
       <find>pagination1</find>
       <find>initPagination1</find>
@@ -101,8 +94,9 @@
       <find>white-space: normal</find>
       <find>Object</find>
       <find>tree</find>
-      <find>dialog</find>
       <find>selectNode</find>
+      <find>purchaseOrderDetailGrid</find>
+      <find>dialog</find>
     </findStrings>
     <replaceStrings>
       <replace>setRenderTypeEditStyle</replace>
@@ -125,8 +119,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/pages/BillAuditFirst/BillAuditFirst.html" />
-        <option value="$PROJECT_DIR$/mock/pbillOrderFollow/pbillOrderFollowDropDown.json" />
         <option value="$PROJECT_DIR$/mock/pbillOrderFollow/pbillOrderFollowDropdowns.json" />
         <option value="$PROJECT_DIR$/pages/pbillOrderFollow/pbillOrderFollow.html" />
         <option value="$PROJECT_DIR$/mock/pbillOrderFollow/pbillOrderFollow.json" />
@@ -172,9 +164,11 @@
         <option value="$PROJECT_DIR$/pages/purchaseOrderDetail1/purchaseOrderDetail.html" />
         <option value="$PROJECT_DIR$/pages/purchaseOrderDetail1/purchaseOrderDetail.js" />
         <option value="$PROJECT_DIR$/vendor/uui/js/u-grid.js" />
-        <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/pages/purchaseOrderDetail/purchaseOrderDetail.html" />
         <option value="$PROJECT_DIR$/vendor/uui/js/u-tree.js" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/pages/purchaseOrderDetail/wuliu.js" />
+        <option value="$PROJECT_DIR$/pages/purchaseOrderDetail/purchaseOrderDetail.html" />
+        <option value="$PROJECT_DIR$/pages/purchaseOrderDetail/purchaseOrderDetail.scss" />
         <option value="$PROJECT_DIR$/pages/purchaseOrderDetail/purchaseOrderDetail.js" />
       </list>
     </option>
@@ -218,7 +212,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -228,74 +222,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="patch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="patch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="patch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vendor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="patch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="patch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vendor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="patch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="patch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vendor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="patch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="patch" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="router" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -331,9 +257,41 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="patch" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="patch" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="partBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="patch" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="patch" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -437,12 +395,13 @@
       <workItem from="1496367367467" duration="3598000" />
       <workItem from="1496385188091" duration="7173000" />
       <workItem from="1496402986963" duration="9495000" />
-      <workItem from="1496454359498" duration="1760000" />
+      <workItem from="1496454359498" duration="15203000" />
+      <workItem from="1496483621070" duration="1913000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="195206000" />
+    <option name="totallyTimeSpent" value="210562000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="50" y="0" width="1390" height="900" extended-state="6" />
@@ -503,27 +462,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/mock/wuliuquanxian/xiangqing.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-77">
-          <caret line="5" column="28" lean-forward="false" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pages/patchType/patchType.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-425">
-          <caret line="91" column="43" lean-forward="false" selection-start-line="91" selection-start-column="43" selection-end-line="91" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pages/patchClasses/patchClasses.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1802">
-          <caret line="106" column="54" lean-forward="false" selection-start-line="106" selection-start-column="54" selection-end-line="106" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pages/BillAuditFirst/BillAuditFirst.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="326">
@@ -748,13 +686,6 @@
     <entry file="file://$PROJECT_DIR$/pages/purchaseOrderDetail/purchaseOrder.html" />
     <entry file="file://$PROJECT_DIR$/pages/purchaseOrderDetail/purchaseOrder.scss" />
     <entry file="file://$PROJECT_DIR$/pages/purchaseOrderDetail/purchaseOrder.js" />
-    <entry file="file://$PROJECT_DIR$/pages/purchaseOrderDetail/purchaseOrderDetail.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/uui/css/grid.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -780,13 +711,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/demo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="3" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pages/purchaseOrder/purchaseOrder.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -809,17 +733,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1292">
           <caret line="76" column="0" lean-forward="true" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
-          <folding>
-            <marker date="1496407674000" expanded="true" signature="1707:1723" ph="..." />
-            <marker date="1496407674000" expanded="true" signature="1807:1823" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/router/routers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="73" column="39" lean-forward="false" selection-start-line="73" selection-start-column="20" selection-end-line="73" selection-end-column="39" />
         </state>
       </provider>
     </entry>
@@ -902,28 +815,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="82" column="68" lean-forward="false" selection-start-line="82" selection-start-column="68" selection-end-line="82" selection-end-column="68" />
-          <folding>
-            <element signature="n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#ul#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#span#0;n#a#0;n#li#21;n#ul#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/uui/js/u-tree.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="377">
           <caret line="3631" column="23" lean-forward="true" selection-start-line="3631" selection-start-column="23" selection-end-line="3631" selection-end-column="23" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <marker date="1496456499000" expanded="true" signature="166778:166886" ph="..." />
-            <marker date="1496456499000" expanded="true" signature="167883:167896" ph="..." />
-            <marker date="1496456499000" expanded="true" signature="169121:169134" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -931,53 +826,53 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="398">
           <caret line="60" column="52" lean-forward="false" selection-start-line="60" selection-start-column="52" selection-end-line="60" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/require.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="38" lean-forward="true" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/partBase/partBase.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="281" column="41" lean-forward="true" selection-start-line="281" selection-start-column="41" selection-end-line="281" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/router/routers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="75" column="55" lean-forward="false" selection-start-line="75" selection-start-column="55" selection-end-line="75" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="248" column="24" lean-forward="true" selection-start-line="248" selection-start-column="24" selection-end-line="248" selection-end-column="24" />
           <folding>
-            <marker date="1496393094000" expanded="true" signature="42862:42926" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="46664:46703" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="46843:46893" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="47075:47087" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="48849:48876" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="49274:49312" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="49911:49949" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="50244:50274" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="51538:51577" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="51707:51757" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="54313:54331" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="54992:55002" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="58536:58574" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="59273:59323" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="61176:61214" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="61509:61547" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="61881:61919" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="63024:63054" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="63204:63234" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="65506:65568" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="65834:65846" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="199422:199428" ph=" " />
-            <marker date="1496393094000" expanded="true" signature="218127:218161" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="218542:218594" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="219152:219268" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="219622:219712" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="221019:221053" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="225479:225531" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="226498:226614" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="226968:227058" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="230994:231024" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="231175:231238" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="231350:231380" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="232231:232258" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="242691:242697" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="242741:242782" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="260814:260830" ph="..." />
-            <marker date="1496393094000" expanded="true" signature="266564:266628" ph="..." />
+            <element signature="n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#span#0;n#a#0;n#li#22;n#ul#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/demo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="25" lean-forward="true" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pages/purchaseOrderDetail/purchaseOrderDetail.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="214" column="45" lean-forward="true" selection-start-line="214" selection-start-column="45" selection-end-line="214" selection-end-column="45" />
+        <state relative-caret-position="178">
+          <caret line="262" column="0" lean-forward="false" selection-start-line="262" selection-start-column="0" selection-end-line="262" selection-end-column="0" />
           <folding>
             <element signature="n#div#2;n#div#0;n#!!top" expanded="false" />
             <element signature="n#div#0;n#div#2;n#div#0;n#!!top" expanded="false" />
@@ -989,13 +884,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/pages/purchaseOrderDetail/purchaseOrderDetail.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/purchaseOrderDetail/wuliu.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="97" column="5" lean-forward="true" selection-start-line="97" selection-start-column="5" selection-end-line="97" selection-end-column="5" />
+          <folding>
+            <element signature="e#1335#2647#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pages/purchaseOrderDetail/purchaseOrderDetail.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="97" column="36" lean-forward="true" selection-start-line="97" selection-start-column="36" selection-end-line="97" selection-end-column="36" />
+        <state relative-caret-position="255">
+          <caret line="145" column="27" lean-forward="true" selection-start-line="145" selection-start-column="27" selection-end-line="145" selection-end-column="27" />
           <folding>
-            <marker date="1496456899000" expanded="true" signature="3905:3921" ph="..." />
-            <marker date="1496456899000" expanded="true" signature="4005:4021" ph="..." />
+            <marker date="1496486368000" expanded="true" signature="4858:4874" ph="..." />
+            <marker date="1496486368000" expanded="true" signature="4958:4974" ph="..." />
           </folding>
         </state>
       </provider>

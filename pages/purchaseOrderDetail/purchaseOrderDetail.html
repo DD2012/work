@@ -3,7 +3,7 @@
 		采购订单明细
 	</div>
 	<div class="u-row">
-		<button class="u-button u-button-primary">保存</button>
+		<button data-bind="click:event.func" class="u-button u-button-primary">保存</button>
 		<button class="u-button u-button-primary">查询</button>
 		<button class="u-button u-button-primary">提交</button>
 		<button class="u-button u-button-primary">审核</button>
@@ -173,7 +173,7 @@
 	<div class="u-row">
 		<span class="pull-right">
 			<button data-bind="click:event.policyProductClick" class="u-button u-button-primary">政策产品</button>
-			<button class="u-button u-button-primary">整车检查</button>
+			<button data-bind="click:event.carCheckClick" class="u-button u-button-primary">整车检查</button>
 		</span>
 	</div>
 
@@ -254,10 +254,15 @@
 
 
 
+	</div>
 
 
+
+<!--物流方量弹出框-->
+	<div class="wuliuDialog clearfix" id="wuliuDialog">
 
 	</div>
+
 
 
 
