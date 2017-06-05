@@ -54,7 +54,17 @@ define(['text!pages/purchaseOrderDetail/purchaseOrderDetail.html', 'css!pages/pu
                                 // $('#tree2 li a').eq(0)[0].click();
                             }, 1000)
                         },
-                        carCheckClick:function () {
+                        carCheckClick: function () {
+                            viewModel.willMatchingDialog = u.dialog({
+                                id: 'willMatchingDialog',
+                                content: '#willMatchingDialog',
+                                hasCloseMenu: true,
+                                width: '90%',
+                                closeFun: function () {
+
+
+                                }
+                            });
 
                         }
                     },
@@ -110,6 +120,26 @@ define(['text!pages/purchaseOrderDetail/purchaseOrderDetail.html', 'css!pages/pu
                             }
                         }
                     },
+                    qingfengRecord: new u.DataTable({
+                        meta: {
+                            xxx: {
+                                default: {
+                                    value: 'default'
+                                }
+                            }
+
+                        }
+                    }),
+                    qingfengProgress: new u.DataTable({
+                        meta: {
+                            xxx: {
+                                default: {
+                                    value: 'default'
+                                }
+                            }
+
+                        }
+                    }),
                     handelHookRender: function (obj) {
                         var rowId = obj.row.value['$_#_@_id'];
                         var delfun = "data-bind=click:event.del.bind($data," + rowId + ")";
@@ -157,6 +187,24 @@ define(['text!pages/purchaseOrderDetail/purchaseOrderDetail.html', 'css!pages/pu
 
         viewModel.purchaseOrderDetailGrid.setSimpleData([{}]);
         viewModel.policyProductGrid.setSimpleData([{}, {}, {}, {}, {}]);
+
+
+        document.querySelector('#p21')['u.Progress'].setProgress(20);
+        document.querySelector('#p21')['u.Progress'].setProgressHTML('101米');
+
+        document.querySelector('#p22')['u.Progress'].setProgress(30);
+        document.querySelector('#p22')['u.Progress'].setProgressHTML('102米');
+
+        document.querySelector('#p23')['u.Progress'].setProgress(40);
+        document.querySelector('#p23')['u.Progress'].setProgressHTML('103米');
+
+        document.querySelector('#p24')['u.Progress'].setProgress(50);
+        document.querySelector('#p24')['u.Progress'].setProgressHTML('104米');
+
+
+
+        viewModel.qingfengRecord.setSimpleData([{}, {}, {}]);
+        viewModel.qingfengProgress.setSimpleData([{}, {}, {}]);
         var treeData = [
             {id: 'a', pid: 'root', title: 'aaaaa'},
             {id: 'b', pid: 'root', title: 'bbbbb'},

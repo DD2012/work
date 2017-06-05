@@ -259,9 +259,255 @@
 
 
 <!--物流方量弹出框-->
-	<div class="wuliuDialog clearfix" id="wuliuDialog">
+	<div class="wuliuDialog clearfix u-not-visible padding-left-15 padding-top-15 padding-bottom-15" id="willMatchingDialog">
+
+		<div class="item">
+			<div class="text-center margin-top-15">羊马1</div>
+			<table>
+				<tr>
+					<td>待配车记录</td>
+					<td>
+						<div  u-meta='{
+							"showNumCol":true,
+							"contentSelect":"false",
+							"editable":"true",
+							"columnMenu":"false",
+							"canSwap":"false",
+							"sortable":"false",
+							"multiSelect":true,
+							"id":"qingfengRecord",
+							"type":"grid",
+							"data":"qingfengRecord",
+							"showSumRow":true
+						}'>
+							<div options='{"field":"xxx","dataType":"String","title":"类型"}'></div>
+							<div options='{"sumCol":true,"field":"xxx","dataType":"String","title":"方量"}'></div>
+							<div options='{"sumCol":true,"field":"xxx","dataType":"String","title":"重量"}'></div>
+							<div options='{"sumCol":true,"field":"xxx","dataType":"String","title":"金额"}'></div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td width="20">待配车进度</td>
+					<td>
+						<div style="width:100%;" id="p21" class="u-progress u-progress-lg  u-progress-symbol"></div>
+						<div  u-meta='{
+							"showNumCol":true,
+							"contentSelect":"false",
+							"editable":"true",
+							"columnMenu":"false",
+							"canSwap":"false",
+							"sortable":"false",
+							"multiSelect":true,
+							"id":"qingfengProgress",
+							"type":"grid",
+							"data":"qingfengProgress",
+							"showSumRow":true
+						}'>
+							<div options='{"width":"auto","field":"xxx","dataType":"String","title":"类型"}'></div>
+							<div options='{"width":"auto","sumCol":true,"field":"xxx","dataType":"String","title":"方量"}'></div>
+							<div options='{"width":"auto","sumCol":true,"field":"xxx","dataType":"String","title":"重量"}'></div>
+							<div options='{"width":"auto","sumCol":true,"field":"xxx","dataType":"String","title":"金额"}'></div>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<div class="clearfix margin-top-15">
+				<span class="margin-left-20">配车结果：xxxxx</span>
+				<button class="pull-right margin-right-20 u-button u-button-primary">加货</button>
+			</div>
+		</div>
+		<div class="item">
+			<div class="text-center margin-top-15">羊马1</div>
+			<table>
+				<tr>
+					<td>待配车记录</td>
+					<td>
+						<div  u-meta='{
+							"showNumCol":true,
+							"contentSelect":"false",
+							"editable":"true",
+							"columnMenu":"false",
+							"canSwap":"false",
+							"sortable":"false",
+							"multiSelect":true,
+							"id":"qingfengRecord2",
+							"type":"grid",
+							"data":"qingfengRecord",
+							"showSumRow":true
+						}'>
+							<div options='{"field":"xxx","dataType":"String","title":"类型"}'></div>
+							<div options='{"sumCol":true,"field":"xxx","dataType":"String","title":"方量"}'></div>
+							<div options='{"sumCol":true,"field":"xxx","dataType":"String","title":"重量"}'></div>
+							<div options='{"sumCol":true,"field":"xxx","dataType":"String","title":"金额"}'></div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td width="20">待配车进度</td>
+					<td>
+						<div style="width:100%;" id="p22" class="u-progress u-progress-lg  u-progress-symbol"></div>
+						<div  u-meta='{
+							"showNumCol":true,
+							"contentSelect":"false",
+							"editable":"true",
+							"columnMenu":"false",
+							"canSwap":"false",
+							"sortable":"false",
+							"multiSelect":true,
+							"id":"qingfengProgress3",
+							"type":"grid",
+							"data":"qingfengProgress",
+							"showSumRow":true
+						}'>
+							<div options='{"width":"auto","field":"xxx","dataType":"String","title":"类型"}'></div>
+							<div options='{"width":"auto","sumCol":true,"field":"xxx","dataType":"String","title":"方量"}'></div>
+							<div options='{"width":"auto","sumCol":true,"field":"xxx","dataType":"String","title":"重量"}'></div>
+							<div options='{"width":"auto","sumCol":true,"field":"xxx","dataType":"String","title":"金额"}'></div>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<div class="clearfix margin-top-15">
+				<span class="margin-left-20">配车结果：xxxxx</span>
+				<button class="pull-right margin-right-20 u-button u-button-primary">加货</button>
+			</div>
+		</div>
+		<div class="item">
+			<div class="text-center margin-top-15">羊马1</div>
+			<table>
+				<tr>
+					<td>待配车记录</td>
+					<td>
+						<div  u-meta='{
+							"showNumCol":true,
+							"contentSelect":"false",
+							"editable":"true",
+							"columnMenu":"false",
+							"canSwap":"false",
+							"sortable":"false",
+							"multiSelect":true,
+							"id":"qingfengRecord4",
+							"type":"grid",
+							"data":"qingfengRecord",
+							"showSumRow":true
+						}'>
+							<div options='{"field":"xxx","dataType":"String","title":"类型"}'></div>
+							<div options='{"sumCol":true,"field":"xxx","dataType":"String","title":"方量"}'></div>
+							<div options='{"sumCol":true,"field":"xxx","dataType":"String","title":"重量"}'></div>
+							<div options='{"sumCol":true,"field":"xxx","dataType":"String","title":"金额"}'></div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td width="20">待配车进度</td>
+					<td>
+						<div style="width:100%;" id="p23" class="u-progress u-progress-lg  u-progress-symbol"></div>
+						<div  u-meta='{
+							"showNumCol":true,
+							"contentSelect":"false",
+							"editable":"true",
+							"columnMenu":"false",
+							"canSwap":"false",
+							"sortable":"false",
+							"multiSelect":true,
+							"id":"qingfengProgress5",
+							"type":"grid",
+							"data":"qingfengProgress",
+							"showSumRow":true
+						}'>
+							<div options='{"width":"auto","field":"xxx","dataType":"String","title":"类型"}'></div>
+							<div options='{"width":"auto","sumCol":true,"field":"xxx","dataType":"String","title":"方量"}'></div>
+							<div options='{"width":"auto","sumCol":true,"field":"xxx","dataType":"String","title":"重量"}'></div>
+							<div options='{"width":"auto","sumCol":true,"field":"xxx","dataType":"String","title":"金额"}'></div>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<div class="clearfix margin-top-15">
+				<span class="margin-left-20">配车结果：xxxxx</span>
+				<button class="pull-right margin-right-20 u-button u-button-primary">加货</button>
+			</div>
+		</div>
+		<div class="item">
+			<div class="text-center margin-top-15">羊马1</div>
+			<table>
+				<tr>
+					<td>待配车记录</td>
+					<td>
+						<div  u-meta='{
+							"showNumCol":true,
+							"contentSelect":"false",
+							"editable":"true",
+							"columnMenu":"false",
+							"canSwap":"false",
+							"sortable":"false",
+							"multiSelect":true,
+							"id":"qingfengRecord6",
+							"type":"grid",
+							"data":"qingfengRecord",
+							"showSumRow":true
+						}'>
+							<div options='{"field":"xxx","dataType":"String","title":"类型"}'></div>
+							<div options='{"sumCol":true,"field":"xxx","dataType":"String","title":"方量"}'></div>
+							<div options='{"sumCol":true,"field":"xxx","dataType":"String","title":"重量"}'></div>
+							<div options='{"sumCol":true,"field":"xxx","dataType":"String","title":"金额"}'></div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td width="20">待配车进度</td>
+					<td>
+						<div style="width:100%;" id="p24" class="u-progress u-progress-lg  u-progress-symbol"></div>
+						<div  u-meta='{
+							"showNumCol":true,
+							"contentSelect":"false",
+							"editable":"true",
+							"columnMenu":"false",
+							"canSwap":"false",
+							"sortable":"false",
+							"multiSelect":true,
+							"id":"qingfengProgress7",
+							"type":"grid",
+							"data":"qingfengProgress",
+							"showSumRow":true
+						}'>
+							<div options='{"width":"auto","field":"xxx","dataType":"String","title":"类型"}'></div>
+							<div options='{"width":"auto","sumCol":true,"field":"xxx","dataType":"String","title":"方量"}'></div>
+							<div options='{"width":"auto","sumCol":true,"field":"xxx","dataType":"String","title":"重量"}'></div>
+							<div options='{"width":"auto","sumCol":true,"field":"xxx","dataType":"String","title":"金额"}'></div>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<div class="clearfix margin-top-15">
+				<span class="margin-left-20">配车结果：xxxxx</span>
+				<button class="pull-right margin-right-20 u-button u-button-primary">加货</button>
+			</div>
+		</div>
 
 	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
