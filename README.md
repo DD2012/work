@@ -1,6 +1,6 @@
-## IUAP
-npm install gulp -g
-npm install
-gulp
+## IUAP \n
+npm install gulp -g \n
+npm install \n
+gulp \n
 
 
