@@ -5,6 +5,16 @@ define(['text!pages/BillAuitRecheck/BillAuitRecheck.html', 'css!pages/BillAuitRe
         var url2 = ctx + '/BillAuditFirst/customizationGrid';
 
 
+
+        // 复审成品件分页 http://192.168.79.88:8080/pbill/billAudit/list/reviewAudit?auditType='STANDARD'
+        //
+        //         复审成品件保存： http://192.168.79.88:8080/pbill/billAudit/save/reviewAudit?auditType='STANDARD'
+        //
+        //         复审定制件分页 http://192.168.79.88:8080/pbill/billAudit/list/reviewAudit?auditType='CUSTOMIZED'
+        //
+        //         复审定制件保存： http://192.168.79.88:8080/pbill/billAudit/save/reviewAudit?auditType='CUSTOMIZED'
+
+
         var viewModel = {
             app:{},
             standardPage:{

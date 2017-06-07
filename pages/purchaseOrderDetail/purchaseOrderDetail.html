@@ -204,46 +204,73 @@
 				<button data-bind="click:event.func" class="u-button u-button-primary">搜索</button>
 			</div>
 		</div>
+
+
+
 		<div class="clearfix margin-top-15">
-			<div style="border: 1px solid #cecece;" class="dialogLeft u-col-2 padding-left-0 padding-right-0">
-				<div class="text-center" style="border: 1px solid #cecece;">活动营销列表</div>
-				<div  id="treeTest2" class="ztree" u-meta='{
-							"id":"tree2",
-							"data":"tree",
-							"type":"tree",
-							"idField":"id",
-							"pidField":"pid",
-							"nameField":"title",
-							"setting":"treeSetting"
-						}'>
-				</div>
-			</div>
-			<div class="dialogRight u-col-10 padding-left-0 padding-right-0">
-				<div class="text-center" style="border: 1px solid #cecece;">政策产品列表</div>
-				<div  u-meta='{
-						"showNumCol":true,
-						"contentSelect":"false",
-						"editable":"true",
-						"columnMenu":"false",
-						"canSwap":"false",
-						"sortable":"false",
-						"multiSelect":true,
-						"id":"policyProductGrid",
-						"type":"grid",
-						"data":"policyProductGrid"
-					}'>
-					<div options='{"field":"xxx","dataType":"String","title":"产品编码"}'></div>
-					<div options='{"field":"xxx","dataType":"String","title":"产品名称"}'></div>
-					<div options='{"field":"xxx","dataType":"String","title":"产品型号"}'></div>
-					<div options='{"field":"xxx","dataType":"String","title":"单价"}'></div>
-					<div options='{"field":"xxx","dataType":"String","title":"任务量"}'></div>
-					<div options='{"field":"xxx","dataType":"String","title":"已提货量"}'></div>
-				</div>
-				<!--分页-->
-				<div class="policyProductPageination">
-					<div id='policyProductPageination' class='u-pagination margin-left-0'></div>
-				</div>
-			</div>
+
+			<table>
+				<tr>
+					<td style="width:200px;border:1px solid #cecece;vertical-align: top;">
+						<div class="dialogLeft  padding-left-0 padding-right-0">
+							<div class="text-center">活动营销列表</div>
+							<div  id="treeTest2" class="ztree" u-meta='{
+									"id":"tree2",
+									"data":"tree",
+									"type":"tree",
+									"idField":"id",
+									"pidField":"pid",
+									"nameField":"title",
+									"setting":"treeSetting"
+								}'>
+							</div>
+						</div>
+
+
+
+
+					</td>
+					<td>
+						<div class="dialogRight padding-left-0 padding-right-0" style="overflow: scroll;width: 70vw;">
+							<div class="text-center" style="border: 1px solid #cecece;">政策产品列表</div>
+							<div  u-meta='{
+									"showNumCol":true,
+									"contentSelect":"false",
+									"editable":"true",
+									"columnMenu":"false",
+									"canSwap":"false",
+									"sortable":"false",
+									"multiSelect":true,
+									"id":"policyProductGrid",
+									"type":"grid",
+									"data":"policyProductGrid"
+								}'>
+								<div options='{"field":"xxx","dataType":"String","title":"产品编码"}'></div>
+								<div options='{"field":"xxx","dataType":"String","title":"产品名称"}'></div>
+								<div options='{"field":"xxx","dataType":"String","title":"产品型号"}'></div>
+								<div options='{"field":"xxx","dataType":"String","title":"单价"}'></div>
+								<div options='{"field":"xxx","dataType":"String","title":"任务量"}'></div>
+								<div options='{"field":"xxx","dataType":"String","title":"已提货量"}'></div>
+							</div>
+							<!--分页-->
+							<div class="policyProductPageination">
+								<div id='policyProductPageination' class='u-pagination margin-left-0'></div>
+							</div>
+						</div>
+
+
+
+
+
+					</td>
+				</tr>
+			</table>
+
+
+
+
+
+
 		</div>
 		<div class="clearfix">
 			<span class="pull-right">

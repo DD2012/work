@@ -5,6 +5,15 @@ define(['text!pages/BillAuditFirst/BillAuditFirst.html', 'css!pages/BillAuditFir
         var url2 = ctx + '/BillAuditFirst/customizationGrid';
 
 
+        // 初审成品件分页 http://192.168.79.88:8080/pbill/billAudit/list/baseAudit?auditType='STANDARD'
+        //
+        //         初审成品件保存： http://192.168.79.88:8080/pbill/billAudit/save/baseAudit?auditType='STANDARD'
+        //
+        //         初审定制件分页 http://192.168.79.88:8080/pbill/billAudit/list/baseAudit?auditType='CUSTOMIZED'
+        //
+        //         初审定制件保存： http://192.168.79.88:8080/pbill/billAudit/save/baseAudit?auditType='CUSTOMIZED'
+
+
         var viewModel = {
             app:{},
             standardPage:{

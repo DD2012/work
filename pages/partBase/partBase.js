@@ -5,6 +5,10 @@ define(['text!pages/partBase/partBase.html', 'css!pages/partBase/partBase', 'uui
         var url2 = ctx + '/partBase/partBaseDropDown';
         var url3 = ctx + '/partBase/partType';
 
+        var list = 'http://192.168.79.88:8080/pbill/parts/lists';
+        var save = 'http://192.168.79.88:8080/pbill/parts/save';
+        var del = 'http://192.168.79.88:8080/pbill/parts/del';
+
 
         var viewModel = {
             app: {},
@@ -41,88 +45,42 @@ define(['text!pages/partBase/partBase.html', 'css!pages/partBase/partBase', 'uui
                         viewModel.isPatch = res1.data.isPatch;
                         viewModel.isSelf = res1.data.isSelf;
                         viewModel.productionMode = res1.data.productionMode;
-                        viewModel.plantName = res1.data.plantName;
-                        viewModel.searchData = res1.data.patchType;
+                        viewModel.proFactoryName = res1.data.proFactoryName;
+                        viewModel.patchType = res1.data.patchType;
                         viewModel.app = u.createApp({
                             el: element,
                             model: viewModel
                         });
                         viewModel.search.setSimpleData([{}]);
+                        $('.search')[0].click();
                     });
                 },
                 search: function () {
                     viewModel.hasNotFetchYet = false;
+                    viewModel.willFetchBeforeAdd = true;
                     viewModel.currentPage = 1;
                     viewModel.event.paginationInit();
                     viewModel.event.fetchData();
                 },
                 add: function () {
                     //获取最后一行数据
-                    var allRows = viewModel.partBase.getAllRows();
-                    if (viewModel.hasNotFetchYet) {//还没有获取数据
-                        if(allRows.length == 0){
-                            var row = new Row({parent: viewModel.partBase});
-                            row.myStatus = 'canEdit';
-                            viewModel.partBase.addRow(row);
-                            viewModel.setCanEditRenderType();
-                        }else {
-                            var lastRowSimpleData = allRows.filter(function (row) {
-                                return row.status != 'fdel';
-                            }).map(function (row) {
-                                return row.getSimpleData();
-                            }).slice(-1)[0];
-                            var shouldAdd = Object.keys(lastRowSimpleData).every(function (key) {
-                                return lastRowSimpleData[key];
-                            });
-                            if (shouldAdd) {
-                                var row = new Row({parent: viewModel.partBase});
-                                row.myStatus = 'canEdit';
-                                viewModel.partBase.addRow(row);
-                                viewModel.setCanEditRenderType();
-                            }
-                        }
-                    } else {//已经获取了数据
-                        if (viewModel.willFetchBeforeAdd) {//重新获取数据，跳转到最后一页
-                            viewModel.currentPage = viewModel.totalPages;
-                            viewModel.event.fetchData()
-                                    .done(function () {
-                                        if(allRows.length > 0){
-                                            var lastRowSimpleData = allRows.filter(function (row) {
-                                                return row.status != 'fdel';
-                                            }).map(function (row) {
-                                                return row.getSimpleData();
-                                            }).slice(-1)[0];
-                                            var shouldAdd = Object.keys(lastRowSimpleData).every(function (key) {
-                                                return lastRowSimpleData[key];
-                                            });
-                                            if (shouldAdd) {
-                                                var row = new Row({parent: viewModel.partBase});
-                                                viewModel.partBase.addRow(row);
-                                                row.myStatus = 'canEdit';
-                                                viewModel.willFetchBeforeAdd = false;
-                                                viewModel.setCanEditRenderType();
-                                            }
-                                        }
-                                    });
-                        } else {//已经在最后一页，不需要再重新获取数据
-                            if(allRows.length > 0){
-                                var lastRowSimpleData = allRows.filter(function (row) {
-                                    return row.status != 'fdel';
-                                }).map(function (row) {
-                                    return row.getSimpleData();
-                                }).slice(-1)[0];
-                                var shouldAdd = Object.keys(lastRowSimpleData).every(function (key) {
-                                    return lastRowSimpleData[key];
-                                });
-                                if (shouldAdd) {
+                    if (viewModel.willFetchBeforeAdd) {//重新获取数据，跳转到最后一页
+                        viewModel.currentPage = viewModel.totalPages;
+                        viewModel.event.fetchData()
+                                .done(function () {
                                     var row = new Row({parent: viewModel.partBase});
                                     viewModel.partBase.addRow(row);
                                     row.myStatus = 'canEdit';
+                                    viewModel.willFetchBeforeAdd = false;
                                     viewModel.setCanEditRenderType();
-                                }
-                            }
+                                });
+                    } else {//已经在最后一页，不需要再重新获取数据
+                        var row = new Row({parent: viewModel.partBase});
+                        viewModel.partBase.addRow(row);
+                        row.myStatus = 'canEdit';
+                        viewModel.willFetchBeforeAdd = false;
+                        viewModel.setCanEditRenderType();
 
-                        }
                     }
                 },
                 del: function (rowId) {
@@ -131,15 +89,16 @@ define(['text!pages/partBase/partBase.html', 'css!pages/partBase/partBase', 'uui
                     var index = viewModel.partBase.getIndexByRowId(rowId);
                     if (params[0].id) {
                         $.ajax({
-                            data: params,
-                            type: 'get',
-                            url: url1,
+                            data: JSON.stringify(params),
+                            type: 'post',
+                            // url: url1,
+                            url: del,
                             dataType: 'json',
                             contentType: 'application/json;charset=utf-8'
                         }).done(function (res) {
                             if (res.result == 1) {
                                 viewModel.partBase.removeRow(index);
-                                console.log(params);
+                                viewModel.event.fetchData();
                             }
                         });
                     } else {
@@ -159,17 +118,16 @@ define(['text!pages/partBase/partBase.html', 'css!pages/partBase/partBase', 'uui
                                 return row.status != 'fdel';
                             }).map(function (row) {
                                 return row.getSimpleData();
-                            }).filter(function (v) {
-                                var keys = Object.keys(viewModel.partBase.getMeta());
-                                return keys.every(function (key) {
-                                    return v[key];
-                                });
                             });
+                    params.forEach(function (v) {
+                        delete v.handleHook;
+                    });
                     if (params.length > 0) {
                         $.ajax({
-                            data: params,
-                            type: 'get',
-                            url: url1,
+                            data: JSON.stringify(params),
+                            type: 'post',
+                            // url: url1,
+                            url: save,
                             dataType: 'json',
                             contentType: 'application/json;charset=utf-8'
                         }).done(function (res) {
@@ -191,14 +149,17 @@ define(['text!pages/partBase/partBase.html', 'css!pages/partBase/partBase', 'uui
                             });
                     if (params.length > 0) {
                         $.ajax({
-                            data: params,
-                            type: 'get',
-                            url: url,
+                            data: JSON.stringify(params),
+                            type: 'post',
+                            // url: url,
+                            url: del,
                             dataType: 'json',
                             contentType: 'application/json;charset=utf-8'
                         }).done(function (res) {
-                            console.log(params);
-                            viewModel.partBase.removeRows(selectedIndexs);
+                            if(res.result == 1){
+                                viewModel.partBase.removeRows(selectedIndexs);
+                                viewModel.event.fetchData();
+                            }
                         })
                     } else {
                         viewModel.partBase.removeRows(selectedIndexs);
@@ -230,35 +191,42 @@ define(['text!pages/partBase/partBase.html', 'css!pages/partBase/partBase', 'uui
                     var search = viewModel.search.getSimpleData()[0];
 
                     var params = {
-                        plateCode:search.plateCode,
-                        plateType:search.plateType,
-                        currentPage: viewModel.currentPage,
+                        plateCode: search.plateCode,
+                        plateType: search.plateType,
+                        pageIndex: viewModel.currentPage,
                         pageSize: viewModel.pageSize
                     };
                     var deffered = $.ajax({
                         data: params,
                         type: 'get',
-                        url: url1,
+                        // url: url1,
+                        url: list,
                         dataType: 'json',
                         contentType: 'application/json;charset=utf-8'
                     }).done(function (res) {
 
-                        viewModel.currentPage = res.pageIndex;
-                        viewModel.totalPages = Math.ceil(res.total / res.pageSize);
-                        viewModel.pageSize = res.pageSize;
-                        viewModel.totalCount = res.total;
+                        if (res.result == 1) {
+                            viewModel.currentPage = res.pageIndex;
+                            viewModel.totalPages = Math.ceil(res.total / res.pageSize);
+                            viewModel.pageSize = res.pageSize;
+                            viewModel.totalCount = res.total;
 
-                        var simpleData = res.data;
-                        viewModel.partBase.setSimpleData(simpleData, {unSelect: true});
+                            var simpleData = res.data;
+                            viewModel.partBase.setSimpleData(simpleData, {unSelect: true});
 
 
-                        viewModel.pagination1Comp.update({
-                            totalPages: viewModel.totalPages || 5,
-                            totalCount: viewModel.totalCount,
-                            pageSize: viewModel.pageSize,
-                            currentPage: viewModel.currentPage
+                            viewModel.pagination1Comp.update({
+                                totalPages: viewModel.totalPages,
+                                totalCount: viewModel.totalCount,
+                                pageSize: viewModel.pageSize,
+                                currentPage: viewModel.currentPage
 
-                        });
+                            });
+                        } else {
+
+                        }
+
+
                     });
                     return deffered;
                 }
@@ -276,7 +244,6 @@ define(['text!pages/partBase/partBase.html', 'css!pages/partBase/partBase', 'uui
                     "isPatch": {},
                     "isSelf": {},
                     "productionMode": {},
-                    "plantName": {},
                     "handleHook": {
                         default: {
                             value: 'haha'
@@ -284,13 +251,13 @@ define(['text!pages/partBase/partBase.html', 'css!pages/partBase/partBase', 'uui
                     }
                 }
             }),
-            strType: [],
-            unit: [],
-            patchType: [],
-            isPatch: [],
-            isSelf: [],
-            productionMode: [],
-            plantName: [],
+            strType: [{name: '板件', value: 1}, {name: '五金', value: 2}],//部件类别
+            unit: [],//单位
+            patchType: [],//补件类型
+            isPatch: [],//是否可补件
+            isSelf: [],//是否委外自制
+            productionMode: [],//生产方式名称
+            proFactoryName: [],//生产工厂名称
             search: new u.DataTable({//搜索条件数据
                 meta: {
                     plateCode: {},
@@ -346,12 +313,13 @@ define(['text!pages/partBase/partBase.html', 'css!pages/partBase/partBase', 'uui
                         }
                     });
                 }
-                var arrDropDown = ['strType', 'unit', 'patchType', 'isPatch','isSelf','productionMode', 'plantName'];
+
+                var arrDropDown = ['strType', 'unit', 'patchType', 'isPatch', 'isSelf', 'productionMode', 'proFactoryName'];
                 arrDropDown.forEach(function (field) {
                     dropDown(field)
                 });
             },
-            onBeforeEditFun:function (obj) {
+            onBeforeEditFun: function (obj) {
                 var rowId = obj.rowObj.value['$_#_@_id'];
                 var row = viewModel.partBase.getRowByRowId(rowId);
                 return row.myStatus == 'canEdit' && obj.colIndex != 12;

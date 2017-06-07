@@ -50,7 +50,7 @@ define(['text!pages/purchaseOrderDetail/purchaseOrderDetail.html', 'css!pages/pu
                             });
                             setTimeout(function () {
                                 var rightHeight = $('.dialogRight').height();
-                                $('.dialogLeft').height(rightHeight);
+                                // $('.dialogLeft').height(rightHeight);
                                 // $('#tree2 li a').eq(0)[0].click();
                             }, 1000)
                         },

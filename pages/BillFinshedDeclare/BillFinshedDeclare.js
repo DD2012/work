@@ -7,6 +7,28 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
         var url5 = ctx + '/BillFinshedDeclare/orderNumSearchDialog1';
         var url6 = ctx + '/BillFinshedDeclare/orderNumSearchDialog2';
 
+        // 成品补件申报分页 http://192.168.79.88:8080/pbill/billFinishedDeclare/list
+        //
+        //         成品补件申报保存： http://192.168.79.88:8080/pbill/billFinishedDeclare/save
+        //
+        //         销售订单：    http://192.168.79.88:8080/pbill/billMain/orders
+        //
+        //         补件类别：http://192.168.79.88:8080/pbill/billCategory/list
+        //
+        //         补件类型：http://192.168.79.88:8080/pbill/billType/list
+        //
+        //         补件原因: http://192.168.79.88:8080/pbill/billQu/list
+        //
+        //                 物流方式: http://192.168.79.88:8080/pbill/logistics/ways/list
+        //
+        //                         上传图片：http://192.168.79.88:8080/pbill/picUpload/save
+        //
+        //         补件型号: http://192.168.79.88:8080/pbill/parts/list/plate 板件 [{plateCode:"xxxx"}]
+        //
+        //                 补件型号: http://192.168.79.88:8080/pbill/parts/list/hardWord 五金 [{plateCode:"xxxx"}]
+        //
+        //                         补件单位：http://192.168.79.88:8080/pbill/billUnit/lis
+
 
         var viewModel = {
             willUploadImgArr: [],//存储需要上传图片对象信息，删除当信息也在里面，保存时需要按照rowId筛选

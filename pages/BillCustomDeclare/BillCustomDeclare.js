@@ -1,6 +1,29 @@
 define(['text!pages/BillCustomDeclare/BillCustomDeclare.html', 'css!pages/BillCustomDeclare/BillCustomDeclare', 'uui', 'uuigrid', 'bootstrap', 'uuitree'], function (html) {
     var init = function (element) {
         var url = ctx + '/BillCustomDeclare/BillCustomDeclareDropDown';
+
+
+        // 定制补件申报分页 http://192.168.79.88:8080/pbill/billCustomDeclare/list
+        //
+        //         定制补件申报保存： http://192.168.79.88:8080/pbill/billCustomDeclare/save
+        //
+        //         补件类别：http://192.168.79.88:8080/pbill/billCategory/list
+        //
+        //         补件类型：http://192.168.79.88:8080/pbill/billType/list
+        //
+        //         补件原因: http://192.168.79.88:8080/pbill/billQu/list
+        //
+        //                 物流方式: http://192.168.79.88:8080/pbill/logistics/ways/list
+        //
+        //                         上传图片：http://192.168.79.88:8080/pbill/picUpload/save
+        //
+        //         补件型号: http://192.168.79.88:8080/pbill/parts/list/plate 板件 [{plateCode:"xxxx"}]
+        //
+        //                 补件型号: http://192.168.79.88:8080/pbill/parts/list/hardWord 五金 [{plateCode:"xxxx"}]
+        //
+
+
+
         var viewModel = {
             app: {},
             event: {

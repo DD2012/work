@@ -5,6 +5,11 @@ define(['text!pages/productionConfirm/productionConfirm.html', 'css!pages/produc
         var url2 = ctx + '/BillAuditFirst/customizationGrid';
 
 
+        // 生产确认分页 http://192.168.79.88:8080/pbill/billAudit/list/productAudit?auditType='STANDARD'
+        //
+        //         生产确认保存： http://192.168.79.88:8080/pbill/billAudit/save/productAudit?auditType='STANDARD'
+
+
         var viewModel = {
             app:{},
             standardPage:{

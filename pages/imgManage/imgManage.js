@@ -2,6 +2,10 @@ define(['text!pages/imgManage/imgManage.html', 'css!pages/imgManage/imgManage', 
     var init = function (element) {
         var url = ctx + '/imgManage/imgManage';
 
+        var list = 'http://192.168.79.88:8080/pbill/billPic/list';
+        var save = 'http://192.168.79.88:8080/pbill/billPic/save';
+        var del = 'http://192.168.79.88:8080/pbill/billPic/del';
+
 
         var viewModel = {
             app: {},
@@ -21,6 +25,7 @@ define(['text!pages/imgManage/imgManage.html', 'css!pages/imgManage/imgManage', 
                         el: element,
                         model: viewModel
                     });
+                    $('.search')[0].click();
                 },
                 search: function () {
                     viewModel.hasNotFetchYet = false;
@@ -30,7 +35,30 @@ define(['text!pages/imgManage/imgManage.html', 'css!pages/imgManage/imgManage', 
                     viewModel.event.fetchData();
                 },
                 add: function () {
-                    if (viewModel.hasNotFetchYet) {//还没有获取数据
+                    if (viewModel.willFetchBeforeAdd) {//重新获取数据，跳转到最后一页
+                        viewModel.currentPage = viewModel.totalPages;
+                        viewModel.event.fetchData()
+                                .done(function () {
+                                    var allRows = viewModel.imgManage.getAllRows();
+                                    if (allRows.length > 0) {
+                                        var lastRowSimpleData = allRows.filter(function (row) {
+                                            return row.status != 'fdel';
+                                        }).map(function (row) {
+                                            return row.getSimpleData();
+                                        }).slice(-1)[0];
+                                        var shouldAdd = Object.keys(lastRowSimpleData).every(function (key) {
+                                            return lastRowSimpleData[key];
+                                        });
+                                        if (shouldAdd || true) {
+                                            var row = new Row({parent: viewModel.imgManage});
+                                            row.myStatus = 'canEdit';
+                                            viewModel.imgManage.addRow(row);
+                                            viewModel.willFetchBeforeAdd = false;
+                                            viewModel.setCanEditRenderType();
+                                        }
+                                    }
+                                });
+                    } else {//已经在最后一页，不需要再重新获取数据
                         var allRows = viewModel.imgManage.getAllRows();
                         if (allRows.length > 0) {
                             var lastRowSimpleData = allRows.filter(function (row) {
@@ -41,63 +69,13 @@ define(['text!pages/imgManage/imgManage.html', 'css!pages/imgManage/imgManage', 
                             var shouldAdd = Object.keys(lastRowSimpleData).every(function (key) {
                                 return lastRowSimpleData[key];
                             });
-                            if (shouldAdd || true) {
+                            if (shouldAdd || true) {//暂时不对数据做空校验
                                 var row = new Row({parent: viewModel.imgManage});
                                 row.myStatus = 'canEdit';
                                 viewModel.imgManage.addRow(row);
                                 viewModel.willFetchBeforeAdd = false;
                                 viewModel.setCanEditRenderType();
-                            }
-                        } else {
-                            var row = new Row({parent: viewModel.imgManage});
-                            row.myStatus = 'canEdit';
-                            viewModel.imgManage.addRow(row);
-                            viewModel.willFetchBeforeAdd = false;
-                            viewModel.setCanEditRenderType();
-                        }
-                    } else {//已经获取了数据
-                        if (viewModel.willFetchBeforeAdd) {//重新获取数据，跳转到最后一页
-                            viewModel.currentPage = viewModel.totalPages;
-                            viewModel.event.fetchData()
-                                    .done(function () {
-                                        var allRows = viewModel.imgManage.getAllRows();
-                                        if (allRows.length > 0) {
-                                            var lastRowSimpleData = allRows.filter(function (row) {
-                                                return row.status != 'fdel';
-                                            }).map(function (row) {
-                                                return row.getSimpleData();
-                                            }).slice(-1)[0];
-                                            var shouldAdd = Object.keys(lastRowSimpleData).every(function (key) {
-                                                return lastRowSimpleData[key];
-                                            });
-                                            if (shouldAdd || true) {
-                                                var row = new Row({parent: viewModel.imgManage});
-                                                row.myStatus = 'canEdit';
-                                                viewModel.imgManage.addRow(row);
-                                                viewModel.willFetchBeforeAdd = false;
-                                                viewModel.setCanEditRenderType();
-                                            }
-                                        }
-                                    });
-                        } else {//已经在最后一页，不需要再重新获取数据
-                            var allRows = viewModel.imgManage.getAllRows();
-                            if (allRows.length > 0) {
-                                var lastRowSimpleData = allRows.filter(function (row) {
-                                    return row.status != 'fdel';
-                                }).map(function (row) {
-                                    return row.getSimpleData();
-                                }).slice(-1)[0];
-                                var shouldAdd = Object.keys(lastRowSimpleData).every(function (key) {
-                                    return lastRowSimpleData[key];
-                                });
-                                if (shouldAdd || true) {//暂时不对数据做空校验
-                                    var row = new Row({parent: viewModel.imgManage});
-                                    row.myStatus = 'canEdit';
-                                    viewModel.imgManage.addRow(row);
-                                    viewModel.willFetchBeforeAdd = false;
-                                    viewModel.setCanEditRenderType();
 
-                                }
                             }
                         }
                     }
@@ -109,22 +87,23 @@ define(['text!pages/imgManage/imgManage.html', 'css!pages/imgManage/imgManage', 
                     var index = viewModel.imgManage.getIndexByRowId(rowId);
                     if (params[0].id) {
                         $.ajax({
-                            data: params,
-                            type: 'get',
-                            url: url,
+                            data: JSON.stringify(params),
+                            type: 'post',
+                            // url: url,
+                            url: del,
                             dataType: 'json',
                             contentType: 'application/json;charset=utf-8'
                         }).done(function (res) {
                             if (res.result == 1) {
                                 viewModel.imgManage.removeRow(index);
-                                console.log(params);
+                                viewModel.event.fetchData();
                             }
                         });
                     } else {
                         viewModel.imgManage.removeRow(index);
                     }
                 },
-                edit:function (rowId) {
+                edit: function (rowId) {
                     var row = viewModel.imgManage.getRowByRowId(rowId);
                     row.myStatus = 'canEdit';
                     viewModel.setCanEditRenderType();
@@ -139,14 +118,14 @@ define(['text!pages/imgManage/imgManage.html', 'css!pages/imgManage/imgManage', 
                             });
                     if (params.length > 0) {
                         $.ajax({
-                            data: params,
-                            type: 'get',
-                            url: url,
+                            data: JSON.stringify(params),
+                            type: 'post',
+                            url: del,
                             dataType: 'json',
                             contentType: 'application/json;charset=utf-8'
                         }).done(function (res) {
-                            console.log(params);
                             viewModel.imgManage.removeRows(selectedIndexs);
+                            viewModel.event.fetchData();
                         })
                     } else {
                         viewModel.imgManage.removeRows(selectedIndexs);
@@ -159,27 +138,25 @@ define(['text!pages/imgManage/imgManage.html', 'css!pages/imgManage/imgManage', 
                                 return row.status != 'fdel';
                             }).map(function (row) {
                                 return row.getSimpleData();
-                            }).filter(function (v) {
-                                var keys = Object.keys(viewModel.imgManage.getMeta());
-                                return keys.every(function (key) {
-                                    return v[key] || true;//暂时对数据不做空校验
-                                });
                             });
+                    params.forEach(function (v) {
+                       delete v.fileName;
+                       delete v.handleHook;
+                    });
                     if (params.length > 0) {
                         $.ajax({
-                            data: params,
-                            type: 'get',
-                            url: url,
+                            data: JSON.stringify(params),
+                            type: 'post',
+                            // url: url,
+                            url: save,
                             dataType: 'json',
                             contentType: 'application/json;charset=utf-8'
                         }).done(function (res) {
                             if (res.result == 1) {
-                                viewModel.imgManage.setSimpleData(res.data, {unSelect: true});
-                                console.log(params);
+                                viewModel.event.fetchData();
                             }
                         });
                     }
-
                 },
                 paginationInit: function () {
                     $('.pagination1Hook').show();
@@ -206,13 +183,14 @@ define(['text!pages/imgManage/imgManage.html', 'css!pages/imgManage/imgManage', 
                 fetchData: function () {
                     var params = {
                         suiteCode: viewModel.suiteNameSearch(),
-                        currentPage: viewModel.currentPage,
+                        pageIndex: viewModel.currentPage,
                         pageSize: viewModel.pageSize
                     };
                     var deffered = $.ajax({
                         data: params,
                         type: 'get',
-                        url: url,
+                        // url: url,
+                        url: list,
                         dataType: 'json',
                         contentType: 'application/json;charset=utf-8'
                     }).done(function (res) {
@@ -309,11 +287,37 @@ define(['text!pages/imgManage/imgManage.html', 'css!pages/imgManage/imgManage', 
                 ko.applyBindings(viewModel, obj.element);
             },
             uploadImgRender: function (obj) {
+                // var rowId = obj.row.value['$_#_@_id'];
+                // var suiteCode = obj.row.value.suiteCode;
+                // var uploadFun = "data-bind=click:event.uploadImgDialog.bind($data,'" + suiteCode + "')";
+                // obj.element.innerHTML = '<div> <i style="cursor: pointer;" class="font-size-24 uf uf-upload title="上传图片" ' + uploadFun + '></i></div>';
+                // ko.applyBindings(viewModel, obj.element);
+
+                var $element = $(obj.element);
+                var grid = obj.gridObj;
+                var datatable = grid.dataTable;
                 var rowId = obj.row.value['$_#_@_id'];
-                var suiteCode = obj.row.value.suiteCode;
-                var uploadFun = "data-bind=click:event.uploadImgDialog.bind($data,'" + suiteCode + "')";
-                obj.element.innerHTML = '<div> <i style="cursor: pointer;" class="font-size-24 uf uf-upload title="上传图片" ' + uploadFun + '></i></div>';
-                ko.applyBindings(viewModel, obj.element);
+                var row = datatable.getRowByRowId(rowId);
+                var column = obj.gridCompColumn;
+                var field = column.options.field;
+
+
+                obj.element.innerHTML = '<input class="u-not-visible" type="file" id="img_' + rowId + '" /><i class="uf uf-upload font-size-24" style="cursor: pointer;"></i><span></span>'
+                $element.find('i').on('click', function () {
+                    $element.find('input')[0].click();
+                });
+                $element.find('input').on('change', function () {
+                    $element.find('span').html($element.find('input').val());
+                    // row.setValue(field, ('#img_' + rowId));//span中的文件路径回消失
+                });
+
+
+
+
+
+
+
+
             },
             picPathRender: function (obj) {
                 var rowId = obj.row.value['$_#_@_id'];
@@ -330,6 +334,7 @@ define(['text!pages/imgManage/imgManage.html', 'css!pages/imgManage/imgManage', 
             },
             setCanEditRenderType: function () {
                 var grid = viewModel.app.getComp('imgManage').grid;
+
                 function func(field) {
                     grid.setRenderType(field, function (obj) {
                         var rowId = obj.row.value['$_#_@_id'];
@@ -343,6 +348,7 @@ define(['text!pages/imgManage/imgManage.html', 'css!pages/imgManage/imgManage', 
                         }
                     });
                 }
+
                 var arr = ['suiteCode', 'suiteName', 'productType', 'seriesName'];
                 arr.forEach(function (field) {
                     func(field)

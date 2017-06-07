@@ -15,7 +15,7 @@
 	</div>
 	<div class="u-row margin-top-15">
 		<input type="text" class="u-form-control u-col-3" placeholder="请输入套件名称" data-bind="value:suiteNameSearch">
-		<div data-bind="click:event.search" class="u-button u-button-primary u-col-1"><span class="uf uf-search"></span>查询</div>
+		<div data-bind="click:event.search" class="search u-button u-button-primary u-col-1"><span class="uf uf-search"></span>查询</div>
 	</div>
 	<!--页面主框-->
 	<div class="u-row">
@@ -37,7 +37,7 @@
 			<div options='{"field":"productType","dataType":"String","title":"产品型号"}'></div>
 			<div options='{"field":"seriesName","dataType":"String","title":"系列名称"}'></div>
 			<div options='{"renderType":"picPathRender","field":"picPath","dataType":"String","title":"URL地址"}'></div>
-			<div options='{"renderType":"uploadImgRender","field":"fileName","dataType":"String","title":"上传图片"}'></div>
+			<div options='{"width":"300","renderType":"uploadImgRender","field":"fileName","dataType":"String","title":"上传图片"}'></div>
 			<div options='{"renderType":"handleHookRender","field":"handleHook","dataType":"String","title":"操作"}'></div>
 		</div>
 		<!--分页-->

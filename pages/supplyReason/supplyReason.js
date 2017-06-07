@@ -2,6 +2,10 @@ define(['text!pages/supplyReason/supplyReason.html', 'css!pages/supplyReason/sup
     var init = function (element) {
         var url = ctx + '/supplyReason/supplyReason';
 
+        var list = 'http://192.168.79.88:8080/pbill/billQu/list';
+        var save = 'http://192.168.79.88:8080/pbill/billQu/save';
+
+
 
         var viewModel = {
             app: {},
