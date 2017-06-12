@@ -107,7 +107,6 @@ define(['text!pages/BillCustomDeclare/BillCustomDeclare.html', 'css!pages/BillCu
                     logisticsMode: {},
                     address: {},
                     remark: {},
-                    reportModel: {},
                     handleHook:{
                         default:{
                             value:'跳过空值判断'
@@ -127,7 +126,6 @@ define(['text!pages/BillCustomDeclare/BillCustomDeclare.html', 'css!pages/BillCu
                     logisticsMode: {},
                     address: {},
                     remark: {},
-                    reportModel: {},
                     handleHook:{
                         default:{
                             value:'跳过空值判断'
@@ -153,6 +151,45 @@ define(['text!pages/BillCustomDeclare/BillCustomDeclare.html', 'css!pages/BillCu
                 obj.element.innerHTML = '<div><i style="cursor: pointer;" class="op uf uf-pencil font-size-18" title="修改"' + editfun + '></i>' + '<i style="cursor: pointer;" class="font-size-18 op icon uf uf-del title="删除" ' + delfun + '></i></div>';
                 ko.applyBindings(viewModel, obj.element);
                 
+            },
+            plankImgRender:function () {
+                var $element = $(obj.element);
+                var grid = obj.gridObj;
+                var datatable = grid.dataTable;
+                var rowId = obj.row.value['$_#_@_id'];
+                var row = datatable.getRowByRowId(rowId);
+                var column = obj.gridCompColumn;
+                var field = column.options.field;
+
+
+                obj.element.innerHTML = '<input class="u-not-visible" type="file" id="img_' + rowId + '" /><i class="uf uf-upload font-size-24" style="cursor: pointer;"></i><span></span>'
+                $element.find('i').on('click', function () {
+                    $element.find('input')[0].click();
+                });
+                $element.find('input').on('change', function () {
+                    $element.find('span').html($element.find('input').val());
+                    // row.setValue(field, ('#img_' + rowId));//span中的文件路径回消失
+                });
+            },
+            fiveGoldImgRender:function () {
+                var $element = $(obj.element);
+                var grid = obj.gridObj;
+                var datatable = grid.dataTable;
+                var rowId = obj.row.value['$_#_@_id'];
+                var row = datatable.getRowByRowId(rowId);
+                var column = obj.gridCompColumn;
+                var field = column.options.field;
+
+
+                obj.element.innerHTML = '<input class="u-not-visible" type="file" id="img_' + rowId + '" /><i class="uf uf-upload font-size-24" style="cursor: pointer;"></i><span></span>'
+                $element.find('i').on('click', function () {
+                    $element.find('input')[0].click();
+                });
+                $element.find('input').on('change', function () {
+                    $element.find('span').html($element.find('input').val());
+                    // row.setValue(field, ('#img_' + rowId));//span中的文件路径回消失
+                });
+
             }
         };
         $(element).html(html);

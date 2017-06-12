@@ -30,5 +30,6 @@ module.exports = {
     'GET /BillAuitRecheck/BillAuitRecheck': './mock/BillAuitRecheck/BillAuitRecheck.json',
     'GET /pbillOrderFollow/pbillOrderFollow': './mock/pbillOrderFollow/pbillOrderFollow.json',
     'GET /pbillOrderFollow/pbillOrderFollowDropdowns': './mock/pbillOrderFollow/pbillOrderFollowDropdowns.json',
-    'GET /unusualWaring/unusualWaring': './mock/unusualWaring/unusualWaring.json'
+    'GET /unusualWaring/unusualWaring': './mock/unusualWaring/unusualWaring.json',
+    'GET /initMainPage/initMainPage': './mock/initMainPage/initMainPage.json'
 };

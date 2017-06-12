@@ -35,31 +35,38 @@
 						"id":"BillFinshedDeclare",
 						"type":"grid",
 						"data":"BillFinshedDeclare",
-						"onBeforeEditFun":"mainOnBeforeEditFun"
+						"onBeforeEditFun":"mainOnBeforeEditFun",
+						"fixedFloat":"right"
 					}'>
-			<div options='{"field":"supplementOrderNum","dataType":"String","title":"补件订单号"}'></div>
+			<div options='{"field":"id","dataType":"String","title":"补件订单号"}'></div>
 			<div options='{"field":"consumer","dataType":"String","title":"消费者姓名"}'></div>
 			<div options='{"field":"telphone","dataType":"String","title":"联系电话"}'></div>
+			<div options='{"field":"phoneHook","dataType":"String","title":"","width":"80"}'></div>
 			<div options='{"field":"orderNum","dataType":"String","title":"销售订单编号"}'></div>
-			<div options='{"renderType":"orderNumSearchRender","field":"orderNumHook","dataType":"String","title":"","width":"80"}'></div>
+			<div options='{"field":"orderNumHook","dataType":"String","title":"","width":"80"}'></div>
 			<div options='{"field":"patchModel","dataType":"String","title":"补件型号"}'></div>
-			<div options='{"renderType":"patchModelSearchRender","field":"patchModelHook","dataType":"String","title":"","width":"80"}'></div>
-			<div options='{"field":"patchCategory","dataType":"String","title":"补件类别","editOptions":{"id":"patchCategory","type":"combo","datasource":"patchCategory"},"editType":"combo","renderType":"comboRender"}'></div>
-			<div options='{"field":"productionCode","dataType":"String","title":"销售产品编码"}'></div>
-			<div options='{"field":"productionName","dataType":"String","title":"销售产品名称"}'></div>
+			<div options='{"field":"patchModelHook","dataType":"String","title":"","width":"80"}'></div>
+			<div options='{"field":"patchCategory","dataType":"String","title":"补件类别","editOptions":{"onlySelect":true,"id":"patchCategory","type":"combo","datasource":"patchCategory"},"editType":"combo","renderType":"comboRender"}'></div>
+			<div options='{"field":"productCode","dataType":"String","title":"销售产品编码"}'></div>
+			<div options='{"field":"productName","dataType":"String","title":"销售产品名称"}'></div>
 			<div options='{"field":"seriesName","dataType":"String","title":"系列名称"}'></div>
 			<div options='{"field":"productStatus","dataType":"String","title":"商品生产状态"}'></div>
 			<div options='{"field":"pbillCode","dataType":"String","title":"补件编码"}'></div>
 			<div options='{"field":"pbillName","dataType":"String","title":"补件名称"}'></div>
-			<div options='{"field":"pbillType","dataType":"String","title":"补件类型","editOptions":{"id":"pbillType","type":"combo","datasource":"pbillType"},"editType":"combo","renderType":"comboRender"}'></div>
+			<div options='{"field":"pbillType","dataType":"String","title":"补件类型","editOptions":{"onlySelect":true,"id":"pbillType","type":"combo","datasource":"pbillType"},"editType":"combo","renderType":"comboRender"}'></div>
 			<div options='{"field":"num","dataType":"String","title":"需求数量"}'></div>
-			<div options='{"field":"unit","dataType":"String","title":"单位","editOptions":{"id":"unit","type":"combo","datasource":"unit"},"editType":"combo","renderType":"comboRender"}'></div>
-			<div options='{"field":"patchReason","dataType":"String","title":"补件原因","editOptions":{"id":"patchReason","type":"combo","datasource":"patchReason"},"editType":"combo","renderType":"comboRender"}'></div>
-			<div options='{"field":"logisticsMode","dataType":"String","title":"物流方式","editOptions":{"id":"logisticsMode","type":"combo","datasource":"logisticsMode"},"editType":"combo","renderType":"comboRender"}'></div>
+			<div options='{"field":"unit","dataType":"String","title":"单位","editOptions":{"onlySelect":true,"id":"unit","type":"combo","datasource":"unit"},"editType":"combo","renderType":"comboRender"}'></div>
+			<div options='{"field":"patchReason","dataType":"String","title":"补件原因","editOptions":{"onlySelect":true,"id":"patchReason","type":"combo","datasource":"patchReason"},"editType":"combo","renderType":"comboRender"}'></div>
+			<div options='{"field":"logisticsMode","dataType":"String","title":"物流方式","editOptions":{"onlySelect":true,"id":"logisticsMode","type":"combo","datasource":"logisticsMode"},"editType":"combo","renderType":"comboRender"}'></div>
 			<div options='{"field":"address","dataType":"String","title":"收获地址"}'></div>
 			<div options='{"field":"remarks","dataType":"String","title":"备注"}'></div>
-			<div options='{"renderType":"imgRender","field":"picAddress","dataType":"String","title":"上传图片"}'></div>
-			<div options='{"renderType":"handleHookRender","field":"handleHook","dataType":"String","title":"操作"}'></div>
+			<div options='{"renderType":"imgRender","field":"picAddressId","dataType":"String","title":"上传图片"}'></div>
+			<div options='{"field":"reportModel","dataType":"String","title":"填报方式"}'></div>
+			<div options='{"fixed":true,"width":"80","renderType":"handleHookRender","field":"reportModel","dataType":"String","title":"操作"}'></div>
+		</div>
+		<!--分页-->
+		<div class="mainPagination">
+			<div id='mainPagination' class='u-pagination margin-left-0'></div>
 		</div>
 
 
@@ -138,37 +145,76 @@
 
 	<!--按订单编号搜索 orderNumSearchDialog1-->
 	<div id="orderNumSearchDialog1" class="padding-15 u-not-visible">
-		<div class="u-row"><div class="width-200 center-block font-size-24 font-weight-bold">订单信息</div></div>
-		<div class="searchHeader margin-top-20 u-row">
-			<div class="u-col-3 padding-left-0 padding-right-0 margin-left-15">
-				<div class="u-col-4 padding-left-0 padding-right-0 margin-top-5"><label for="inp1">订单编号：</label></div>
-				<div class="u-col-6 padding-left-0 padding-right-0">
-					<input data-bind="value:orderNumSearch" id="inp1" type="text" class="u-form-control width-full">
-				</div>
-			</div>
-			<div class="u-col-3 padding-left-0 padding-right-0">
-				<div class="u-col-4 padding-left-0 padding-right-0 margin-top-5"><label for="inp2">产品名称：</label></div>
-				<div class="u-col-6 padding-left-0 padding-right-0">
-					<input data-bind="value:productionNameSearch" id="inp2" type="text"
-						   class="u-form-control width-full">
-				</div>
-			</div>
-			<div class="u-col-3 padding-left-0 padding-right-0">
-				<div class="u-col-4 padding-left-0 padding-right-0 margin-top-5"><label for="inp3">产品系列：</label></div>
-				<div class="u-col-6 padding-left-0 padding-right-0">
-					<input data-bind="value:seriesNameSearch" id="inp3" type="text" class="u-form-control width-full">
-				</div>
-			</div>
-			<div class="u-col-1 padding-left-0 padding-right-0">
-				<button data-bind="click:event.orderNumSearchDialog1Search" class="u-button u-button-primary"><i class="uf uf-search"></i>搜索</button>
-			</div>
+		<div class="u-row"><div class="orderNumSearchTitle width-200 center-block font-size-24 font-weight-bold">订单信息</div></div>
+		<div>
+
 		</div>
-		<div class="searchBody margin-left-0 margin-right-0 margin-top-15 u-row">
+		<div class="searchHeader margin-top-20 u-row">
+
+			<div class="u-col-2">
+				<div u-meta='{"type":"u-radio","data":"dialog1SearchCondition","field":"dropdown","datasource":"dialog1SearchConditionCombo"}'>
+					<label  class="u-radio" >
+						<input type="radio" class="u-radio-button" name="options">
+						<span class="u-radio-label"></span>
+					</label>
+				</div>
+
+			</div>
+
+
+			<div class="orderNumSearchProduct">
+				<div class="u-col-3">
+					<div class="u-col-4 padding-left-0 padding-right-0 margin-top-5"><label for="inp1">订单编号：</label></div>
+					<div class="u-col-6 padding-left-0 padding-right-0">
+						<input u-meta='{"data":"dialog1SearchCondition","field":"orderNum"}' id="inp1" type="text" class="u-form-control width-full">
+					</div>
+				</div>
+				<div class="u-col-3 ">
+					<div class="u-col-4 padding-left-0 padding-right-0 margin-top-5"><label for="inp2">产品名称：</label></div>
+					<div class="u-col-6 padding-left-0 padding-right-0">
+						<input u-meta='{"data":"dialog1SearchCondition","field":"productionName"}' id="inp2" type="text"
+							   class="u-form-control width-full">
+					</div>
+				</div>
+				<div class="u-col-3 ">
+					<div class="u-col-4 padding-left-0 padding-right-0 margin-top-5"><label for="inp3">产品系列：</label></div>
+					<div class="u-col-6 padding-left-0 padding-right-0">
+						<input u-meta='{"data":"dialog1SearchCondition","field":"seriesName"}' id="inp3" type="text" class="u-form-control width-full">
+					</div>
+				</div>
+				<div class="u-col-1 padding-left-0 padding-right-0">
+					<button data-bind="click:event.orderNumSearchDialog1Search" class="u-button u-button-primary"><i class="uf uf-search"></i>搜索产品</button>
+				</div>
+			</div>
+			<div class="orderNumSearchMaterial u-not-visible">
+				<div class="u-col-3">
+					<div class="u-col-4 padding-left-0 padding-right-0 margin-top-5"><label for="inp5">材料编码：</label></div>
+					<div class="u-col-6 padding-left-0 padding-right-0">
+						<input u-meta='{"data":"orderNumSearchMaterial","field":"mCode"}' id="inp5" type="text" class="u-form-control width-full">
+					</div>
+				</div>
+				<div class="u-col-3">
+					<div class="u-col-4 padding-left-0 padding-right-0 margin-top-5"><label for="inp6">材料名称：</label></div>
+					<div class="u-col-6 padding-left-0 padding-right-0">
+						<input u-meta='{"data":"orderNumSearchMaterial","field":"mName"}' id="inp6" type="text"
+							   class="u-form-control width-full">
+					</div>
+				</div>
+				<div class="u-col-1 padding-left-0 padding-right-0">
+					<button data-bind="click:event.dialog1MaterialSearch" class="u-button u-button-primary"><i class="uf uf-search"></i>搜索材料</button>
+				</div>
+			</div>
+
+
+
+		</div>
+		<div class="searchBody productGrid margin-left-0 margin-right-0 margin-top-15 u-row">
 			<div>查询结果</div>
-			<div u-meta='{
+			<div class="product">
+				<div u-meta='{
 							"showNumCol":true,
 							"contentSelect":"false",
-							"editable":"false",
+							"editable":false,
 							"columnMenu":"false",
 							"canSwap":"false",
 							"sortable":"false",
@@ -177,17 +223,58 @@
 							"type":"grid",
 							"data":"orderNumSearchDialog1DataTable"
 						}'>
-				<div options='{"field":"orderNum","dataType":"String","title":"订单编号"}'></div>
-				<div options='{"field":"orderName","dataType":"String","title":"订单名称"}'></div>
-				<div options='{"field":"productStatus","dataType":"String","title":"生产状态"}'></div>
-				<div options='{"field":"seriesName","dataType":"String","title":"系列"}'></div>
-				<div options='{"renderType":"orderNumSearchDialog1HandleRender","field":"seriesName","dataType":"String","title":"操作"}'></div>
-			</div>
-			<!--分页-->
-			<div class="orderNumSearchDialog1Pagination u-not-visible">
-				<div id='orderNumSearchDialog1Pagination' class='u-pagination margin-left-0'></div>
+					<div options='{"field":"orderNum","dataType":"String","title":"订单编号"}'></div>
+					<div options='{"field":"productModel","dataType":"String","title":"产品型号"}'></div>
+					<div options='{"field":"productCode","dataType":"String","title":"产品编码"}'></div>
+					<div options='{"field":"productName","dataType":"String","title":"产品名称"}'></div>
+					<div options='{"field":"productStatus","dataType":"String","title":"生产状态"}'></div>
+					<div options='{"field":"seriesName","dataType":"String","title":"系列"}'></div>
+					<div options='{"renderType":"orderNumSearchDialog1HandleRender","field":"handleHook","dataType":"String","title":"操作"}'></div>
+				</div>
+				<!--分页-->
+				<div class="orderNumSearchDialog1Pagination u-not-visible">
+					<div id='orderNumSearchDialog1Pagination' class='u-pagination margin-left-0'></div>
+				</div>
 			</div>
 		</div>
+
+
+		<!--材料搜索页面-->
+		<div class="materialGrid u-not-visible">
+
+			<div class="u-row">
+				<div id="method"  u-meta='{
+						"showNumCol":true,
+						"contentSelect":"false",
+						"editable":false,
+						"columnMenu":"false",
+						"canSwap":"false",
+						"sortable":"false",
+						"multiSelect":true,
+						"id":"dialog1Material",
+						"type":"grid",
+						"data":"dialog1Material",
+						"onRowSelected":"dialog1MaterialOnRowSelected",
+						"onRowUnSelected":"dialog1MaterialOnRowUnSelected"
+					}'>
+					<div options='{"field":"mCode","dataType":"String","title":"材料编码"}'></div>
+					<div options='{"field":"mName","dataType":"String","title":"材料名字"}'></div>
+					<div options='{"field":"mSpec","dataType":"String","title":"材料规格"}'></div>
+					<div options='{"field":"mCategory","dataType":"String","title":"材料类别"}'></div>
+					<div options='{"field":"mUnit","dataType":"String","title":"计量单位"}'></div>
+				</div>
+				<div class="clearfix">
+					<button data-bind="click:event.dialog1MaterialSearchConfirm" class="u-button u-button-primary pull-right margin-top-15 margin-right-15">确定</button>
+				</div>
+				<!--分页-->
+				<div class="materialPagination">
+					<div id='materialPagination' class='u-pagination'></div>
+				</div>
+			</div>
+
+		</div>
+
+
 
 	</div>
 	<!--套件信息 orderNumSearchDialog2-->

@@ -1,11 +1,12 @@
 <div class="imgManage">
 	<div class="u-row">图片管理</div>
-	<hr class="u-row" />
+	<hr class="u-row"/>
 	<!--页面功能按钮行-->
 	<div class="u-row u-button-group-lg">
 		<div data-bind="click:event.add" class="u-button u-button-primary"><span class="uf uf-add-c-o"></span>新增</div>
 		<div data-bind="click:event.save" class="u-button u-button-primary"><span class="uf uf-baoxue"></span>保存</div>
-		<div data-bind="click:event.mutipleDel" class="u-button u-button-primary"><span class="uf uf-del"></span>批量删除</div>
+		<div data-bind="click:event.mutipleDel" class="u-button u-button-primary"><span class="uf uf-del"></span>批量删除
+		</div>
 		<div class="u-button u-button-primary"><span class="uf uf-baoxue"></span>审核</div>
 		<div class="u-button u-button-primary"><span class="uf uf-baoxue"></span>弃审</div>
 		<div class="u-button u-button-primary"><span class="uf uf-baoxue"></span>导入</div>
@@ -15,7 +16,9 @@
 	</div>
 	<div class="u-row margin-top-15">
 		<input type="text" class="u-form-control u-col-3" placeholder="请输入套件名称" data-bind="value:suiteNameSearch">
-		<div data-bind="click:event.search" class="search u-button u-button-primary u-col-1"><span class="uf uf-search"></span>查询</div>
+		<div data-bind="click:event.search" class="search u-button u-button-primary u-col-1"><span
+				class="uf uf-search"></span>查询
+		</div>
 	</div>
 	<!--页面主框-->
 	<div class="u-row">
@@ -30,7 +33,8 @@
 					"id":"imgManage",
 					"type":"grid",
 					"data":"imgManage",
-					"onBeforeEditFun":"onBeforeEditFun"
+					"onBeforeEditFun":"onBeforeEditFun",
+					"fixedFloat":"right"
 				}'>
 			<div options='{"field":"suiteCode","dataType":"String","title":"套件编码"}'></div>
 			<div options='{"field":"suiteName","dataType":"String","title":"套件名称"}'></div>
@@ -38,7 +42,7 @@
 			<div options='{"field":"seriesName","dataType":"String","title":"系列名称"}'></div>
 			<div options='{"renderType":"picPathRender","field":"picPath","dataType":"String","title":"URL地址"}'></div>
 			<div options='{"width":"300","renderType":"uploadImgRender","field":"fileName","dataType":"String","title":"上传图片"}'></div>
-			<div options='{"renderType":"handleHookRender","field":"handleHook","dataType":"String","title":"操作"}'></div>
+			<div options='{"fixed":true,"width":"100","renderType":"handleHookRender","field":"handleHook","dataType":"String","title":"操作"}'></div>
 		</div>
 		<!--分页-->
 		<div class="pagination1Hook u-not-visible">
@@ -59,22 +63,6 @@
 			<button data-bind="click:event.cancelUpLoadImg" class="u-button u-button-primary">取消</button>
 		</div>
 	</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 </div>

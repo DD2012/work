@@ -1,0 +1,53 @@
+{
+  "result": 1,
+  "msg": null,
+  "data": [
+    {
+      "id": "xxx1",
+      "consumer": "xxx",
+      "telphone": "xxx",
+      "orderNum": "xxx",
+      "patchModel": "xxx",
+      "patchCategory": "xxx",
+      "productCode": "xxx",
+      "productName": "xxx",
+      "seriesName": "xxx",
+      "productStatus": "xxx",
+      "pbillCode": "xxx",
+      "pbillName": "xxx",
+      "pbillType": "xxx",
+      "num": "xxx",
+      "unit": "xxx",
+      "patchReason": "xxx",
+      "logisticsMode": "xxx",
+      "address": "xxx",
+      "remarks": "xxx",
+      "picAddressId": "xxx",
+      "reportModel": "xxx"
+    },{
+      "id": "xxx2",
+      "consumer": "xxx",
+      "telphone": "xxx",
+      "orderNum": "xxx",
+      "patchModel": "xxx",
+      "patchCategory": "xxx",
+      "productCode": "xxx",
+      "productName": "xxx",
+      "seriesName": "xxx",
+      "productStatus": "xxx",
+      "pbillCode": "xxx",
+      "pbillName": "xxx",
+      "pbillType": "xxx",
+      "num": "xxx",
+      "unit": "xxx",
+      "patchReason": "xxx",
+      "logisticsMode": "xxx",
+      "address": "xxx",
+      "remarks": "xxx",
+      "picAddressId": "xxx",
+      "reportModel": "xxx"
+    }
+  ],
+  "total": 3,
+  "pageIndex": 2
+}

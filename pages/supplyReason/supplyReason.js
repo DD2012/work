@@ -4,6 +4,7 @@ define(['text!pages/supplyReason/supplyReason.html', 'css!pages/supplyReason/sup
 
         var list = 'http://192.168.79.88:8080/pbill/billQu/list';
         var save = 'http://192.168.79.88:8080/pbill/billQu/save';
+        var del = 'http://192.168.79.88:8080/pbill/billQu/del';
 
 
 
@@ -55,32 +56,32 @@ define(['text!pages/supplyReason/supplyReason.html', 'css!pages/supplyReason/sup
                     }
                 },
                 save: function () {
+                    viewModel.willFetchBeforeAdd = true;
+                    viewModel.currentPage = 1;
                     var params = viewModel.supplyReason.getAllRows()
                             .filter(function (row) {
                                 return row.status != 'fdel';
                             }).map(function (row) {
                                 return row.getSimpleData();
-                            }).filter(function (v) {
-                                var keys = Object.keys(viewModel.supplyReason.getMeta());
-                                return keys.every(function (key) {
-                                    return v[key] || true;//暂时对数据不做空校验
-                                });
                             });
+                    params.forEach(function (v) {
+                        delete v.handleHook;
+                        delete v.remark;
+                    });
                     if (params.length > 0) {
                         $.ajax({
-                            data: params,
-                            type: 'get',
-                            url: url,
+                            data: JSON.stringify(params),
+                            type: 'post',
+                            // url: url,
+                            url: save,
                             dataType: 'json',
                             contentType: 'application/json;charset=utf-8'
                         }).done(function (res) {
                             if (res.result == 1) {
-                                viewModel.supplyReason.setSimpleData(res.data, {unSelect: true});
-                                console.log(params);
+                                viewModel.fetchData();
                             }
                         });
                     }
-
                 },
                 del: function (rowId) {
                     var id = viewModel.supplyReason.getRowByRowId(rowId).getSimpleData().id;
@@ -88,15 +89,15 @@ define(['text!pages/supplyReason/supplyReason.html', 'css!pages/supplyReason/sup
                     var index = viewModel.supplyReason.getIndexByRowId(rowId);
                     if (params[0].id) {
                         $.ajax({
-                            data: params,
-                            type: 'get',
-                            url: url,
+                            data: JSON.stringify(params),
+                            type: 'post',
+                            // url: url,
+                            url: del,
                             dataType: 'json',
                             contentType: 'application/json;charset=utf-8'
                         }).done(function (res) {
                             if (res.result == 1) {
-                                viewModel.supplyReason.removeRow(index);
-                                console.log(params);
+                                viewModel.fetchData();
                             }
                         });
                     } else {
@@ -113,14 +114,14 @@ define(['text!pages/supplyReason/supplyReason.html', 'css!pages/supplyReason/sup
                             });
                     if (params.length > 0) {
                         $.ajax({
-                            data: params,
-                            type: 'get',
-                            url: url,
+                            data: JSON.stringify(params),
+                            type: 'post',
+                            // url: url,
+                            url: del,
                             dataType: 'json',
                             contentType: 'application/json;charset=utf-8'
                         }).done(function (res) {
-                            console.log(params);
-                            viewModel.supplyReason.removeRows(selectedIndexs);
+                            viewModel.fetchData();
                         })
                     } else {
                         viewModel.supplyReason.removeRows(selectedIndexs);
@@ -181,12 +182,17 @@ define(['text!pages/supplyReason/supplyReason.html', 'css!pages/supplyReason/sup
             fetchData: function () {
                 viewModel.hasNotFetchYet = false;
                 viewModel.paginationInit();
+                var params = {
+                    pageIndex:viewModel.currentPage,
+                    pageSize:viewModel.pageSize
+                };
                 var deffered = $.ajax({
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json;charset=utf-8',
-                    url: url,
-                    data: 'jsonData'
+                    // url: url,
+                    url: list,
+                    data: params
                 }).done(function (res) {
                     var simpleData = res.data;
                     viewModel.currentPage = res.pageIndex;
@@ -202,7 +208,7 @@ define(['text!pages/supplyReason/supplyReason.html', 'css!pages/supplyReason/sup
 
 
                     viewModel.pagination1Comp.update({
-                        totalPages: viewModel.totalPages||5,
+                        totalPages: viewModel.totalPages,
                         totalCount: viewModel.totalCount,
                         pageSize: viewModel.pageSize,
                         currentPage: viewModel.currentPage

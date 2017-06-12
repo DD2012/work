@@ -4,36 +4,43 @@
   "data": [
     {
       "orderNum": "1000000000001",
-      "orderName": "沙发",
-      "productStatus": "在产",
+      "productModel": "沙发",
+      "productName": "在产",
+      "productStatus": "软床",
       "seriesName": "软床",
       "id": "idiidididi"
-    },
-    {
-      "orderNum": "1000000000002",
-      "orderName": "沙发",
-      "productStatus": "在产",
-      "seriesName": "软床",
-      "id": "idiidididi"
-    },
-    {
-      "orderNum": "1000000000003",
-      "orderName": "沙发",
-      "productStatus": "在产",
-      "seriesName": "软床",
-      "id": "idiidididi"
-    },
-    {
+    },{
+      "consumer": "王五0",
+      "telphone": "15992332323230",
+      "orderNum": "xs0000122120",
+      "seriesName": "826白银时代系列0",
+      "productType": "在产",
+      "productStatus": null,
+      "productName": "101031皮加布正向沙发1+2+转 3件0",
+      "productCode": "61013010901",
+      "productModel": "1"
+    },{
+      "consumer": "王五1",
+      "telphone": "15992332323231",
+      "orderNum": "xs0000122121",
+      "seriesName": "826白银时代系列1",
+      "productType": "在产",
+      "productStatus": null,
+      "productName": "101031皮加布正向沙发1+2+转 3件1",
+      "productCode": "61013010901",
+      "productModel": "1"
+    },{
       "orderNum": "1000000000004",
-      "orderName": "沙发",
-      "productStatus": "在产",
+      "productModel": "沙发",
+      "productName": "在产",
+      "productStatus": "软床",
       "seriesName": "软床",
       "id": "idiidididi"
-    },
-    {
+    },{
       "orderNum": "1000000000005",
-      "orderName": "沙发",
-      "productStatus": "在产",
+      "productModel": "沙发",
+      "productName": "在产",
+      "productStatus": "软床",
       "seriesName": "软床",
       "id": "idiidididi"
     }

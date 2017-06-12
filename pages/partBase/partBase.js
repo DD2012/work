@@ -8,6 +8,7 @@ define(['text!pages/partBase/partBase.html', 'css!pages/partBase/partBase', 'uui
         var list = 'http://192.168.79.88:8080/pbill/parts/lists';
         var save = 'http://192.168.79.88:8080/pbill/parts/save';
         var del = 'http://192.168.79.88:8080/pbill/parts/del';
+        var dropdowns = 'http://192.168.79.88:8080/pbill/parts/select';
 
 
         var viewModel = {
@@ -33,20 +34,21 @@ define(['text!pages/partBase/partBase.html', 'css!pages/partBase/partBase', 'uui
                 },
                 pageInit: function () {
                     $.ajax({//初始化grid中到下拉框
-                        data: 'params',
                         type: 'get',
-                        url: url2,
+                        // url: url2,
+                        url: dropdowns,
                         dataType: 'json',
                         contentType: 'application/json;charset=utf-8'
                     }).done(function (res1) {
                         viewModel.strType = res1.data.strType;
-                        viewModel.unit = res1.data.unit;
+                        // viewModel.unit = res1.data.unit;
                         viewModel.patchType = res1.data.patchType;
                         viewModel.isPatch = res1.data.isPatch;
                         viewModel.isSelf = res1.data.isSelf;
                         viewModel.productionMode = res1.data.productionMode;
                         viewModel.proFactoryName = res1.data.proFactoryName;
-                        viewModel.patchType = res1.data.patchType;
+
+
                         viewModel.app = u.createApp({
                             el: element,
                             model: viewModel
