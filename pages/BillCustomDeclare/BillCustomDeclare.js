@@ -2,33 +2,36 @@ define(['text!pages/BillCustomDeclare/BillCustomDeclare.html', 'css!pages/BillCu
     var init = function (element) {
         var url = ctx + '/BillCustomDeclare/BillCustomDeclareDropDown';
 
+        var plateList = 'http://192.168.79.88:8080/pbill/billCustomDeclare/listPlate';
+        var plateSave = 'http://192.168.79.88:8080/pbill/billCustomDeclare/savePlate';
 
-        // 定制补件申报分页 http://192.168.79.88:8080/pbill/billCustomDeclare/list
-        //
-        //         定制补件申报保存： http://192.168.79.88:8080/pbill/billCustomDeclare/save
-        //
-        //         补件类别：http://192.168.79.88:8080/pbill/billCategory/list
-        //
-        //         补件类型：http://192.168.79.88:8080/pbill/billType/list
-        //
-        //         补件原因: http://192.168.79.88:8080/pbill/billQu/list
-        //
-        //                 物流方式: http://192.168.79.88:8080/pbill/logistics/ways/list
-        //
-        //                         上传图片：http://192.168.79.88:8080/pbill/picUpload/save
-        //
-        //         补件型号: http://192.168.79.88:8080/pbill/parts/list/plate 板件 [{plateCode:"xxxx"}]
-        //
-        //                 补件型号: http://192.168.79.88:8080/pbill/parts/list/hardWord 五金 [{plateCode:"xxxx"}]
-        //
+        var fiveGoldList = 'http://192.168.79.88:8080/pbill/billCustomDeclare/listHardWord';
+        var fiveGoldSave = 'http://192.168.79.88:8080/pbill/billCustomDeclare/saveHardWord';
 
+        var dropDowns = 'http://192.168.79.88:8080/pbill/billCustomDeclare/select';
+        var saveImg = 'http://192.168.79.88:8080/pbill/picUpload/save';
 
 
         var viewModel = {
             app: {},
+            plateWillTurnToLastPage: true,
+            fiveGoldWillTurnToLastPage: true,
+            platePage: {
+                "totalPages": '',
+                "pageSize": 5,
+                "currentPage": 1,
+                "totalCount": ''
+            },
+            fiveGoldPage: {
+                "totalPages": '',
+                "pageSize": 5,
+                "currentPage": 1,
+                "totalCount": ''
+            },
             event: {
                 func: function () {
                     debugger;
+                    viewModel.setColsRenderType();
 
                 },
                 pageInit: function () {
@@ -36,55 +39,155 @@ define(['text!pages/BillCustomDeclare/BillCustomDeclare.html', 'css!pages/BillCu
                         type: 'get',
                         dataType: 'json',
                         contentType: 'application/json;charset=utf-8',
-                        url: url,
+                        // url: url,
+                        url: dropDowns,
                         data: 'jsonData'
-                    }).done(function (res) {
-                        if(res.result == 1){
+                    }).done(function (res) {//下拉框初始化
+                        if (res.result == 1) {
+                            viewModel.unit = res.data.unit;
                             viewModel.pbillType = res.data.pbillType;
                             viewModel.pbillReason = res.data.pbillReason;
                             viewModel.logisticsMode = res.data.logisticsMode;
+                        }
+                    }).done(function (res) {//创建app
+                        if (res.result == 1) {
                             viewModel.app = u.createApp({
                                 el: element,
                                 model: viewModel
                             });
+                            viewModel.setColsRenderType();//设置render
                         }
+                    }).done(function (res) {//分页初始化
+                        if (res.result == 1) {
+                            viewModel.initPlatePagination();
+                            viewModel.fetchPlateData();
+
+                            viewModel.initFiveGoldPagination();
+                            viewModel.fetchFiveGoldData();
+                        }
+                    }).fail(function (res) {
+                        console.warn(res);
                     });
 
                 },//板件表事件
-                plankDel:function (rowId) {
+                plankDel: function (rowId) {
                     console.log(rowId);
+                    var rowIndex = viewModel.plank.getIndexByRowId(rowId);
+                    var id = viewModel.plank.getRowByRowId(rowId).getSimpleData().id;
+                    if(id){
+                        var params = [{id:id}];
+                        $.ajax({
+                            type: 'post',
+                            dataType: 'json',
+                            contentType: 'application/json;charset=utf-8',
+                            url: plateDel,
+                            data: JSON.stringify(params)
+                        }).done(function (res) {
+                            if(res.result == 1){
+                                viewModel.plank.removeRows([rowIndex]);
+                            }
+                        });
+                    }else {
+                        viewModel.plank.removeRows([rowIndex]);
+                    }
                 },
-                plankEdit:function (rowId) {
+                plankEdit: function (rowId) {
                     console.log(rowId);
+                    var row = viewModel.plank.getRowByRowId(rowId);
+                    row.canEdit = true;
+                    viewModel.setColsRenderType();
                 },
-                plankAdd:function () {
+                plankAdd: function () {
+
+                    var row = new Row({parent: viewModel.plank});
+                    row.canEdit = true;
+                    viewModel.platePage.currentPage = viewModel.platePage.totalPages;
+                    if (viewModel.plateWillTurnToLastPage == true){
+                        viewModel.fetchPlateData().then(function (res) {
+                            if (res.result == 1) {
+                                viewModel.plank.addRow(row);
+                                viewModel.plateWillTurnToLastPage = false;
+                            }
+                        });
+                    }else {
+                        viewModel.plank.addRow(row);
+                    }
+
 
                 },
-                plankMutipleDel:function () {
+                plankMutipleDel: function () {
+                    var params = viewModel.plank.getAllRows()
+                            .filter(function (row) {
+                                return row.status != 'fdel';
+                            }).map(function (row) {
+                                return row.getSimpleData().id;
+                            }).filter(function (v) {
+                                return v;
+                            });
+                    var selectedRowIndexs = viewModel.plank.getSelectedIndexs();
+                    if(params.length > 0){
+                        $.ajax({
+                            type: 'post',
+                            dataType: 'json',
+                            contentType: 'application/json;charset=utf-8',
+                            url: plateDel,
+                            data: JSON.stringify(params)
+                        }).done(function (res) {
+                            if(res.result == 1){
+                                viewModel.plank.removeRows(selectedRowIndexs);
+                            }else {
+
+                            }
+                        });
+                    }
+
 
                 },
-                plankSave:function () {
+                plankSave: function () {
+                    viewModel.plateWillTurnToLastPage = true;
+                    var params = viewModel.plank.getAllRows()
+                            .filter(function (row) {
+                                return row.status != 'fdel';
+                            }).map(function (row) {
+                                return row.getSimpleData();
+                            });
+                    params.forEach(function (v) {
+                        delete v.handleHook
+                    });
+                    $.ajax({
+                        type: 'post',
+                        dataType: 'json',
+                        contentType: 'application/json;charset=utf-8',
+                        url: plateSave,
+                        data: JSON.stringify(params)
+                    }).done(function (res) {
+                        if(res.result == 1){
+                            viewModel.platePage.currentPage = 1;
+                            viewModel.fetchPlateData();
+                        }
+                    });
 
                 },
-                plankCommit:function () {
+                plankCommit: function () {
 
                 },//五金事件
-                fiveGoldDel:function (rowId) {
+                fiveGoldDel: function (rowId) {
                     console.log(rowId);
                 },
-                fiveGoldEdit:function (rowId) {
+                fiveGoldEdit: function (rowId) {
                     console.log(rowId);
                 },
-                fiveGoldAdd:function () {
+                fiveGoldAdd: function () {
 
                 },
-                fiveGoldMutipleDel:function () {
+                fiveGoldMutipleDel: function () {
 
                 },
-                fiveGoldSave:function () {
+                fiveGoldSave: function () {
+                    viewModel.fiveGoldWillTurnToLastPage = true;
 
                 },
-                fiveGoldCommit:function () {
+                fiveGoldCommit: function () {
 
                 }
             },
@@ -97,19 +200,19 @@ define(['text!pages/BillCustomDeclare/BillCustomDeclare.html', 'css!pages/BillCu
                     length: {},
                     wide: {},
                     thick: {},
-                    count: {},
+                    num: {},
                     unit: {},
                     area: {},
                     thinEdge: {},
                     thickBand: {},
                     pbillReason: {},
-                    picAddress: {},
+                    picAddressId: {},
                     logisticsMode: {},
-                    address: {},
+                    deliveryAddress: {},
                     remark: {},
-                    handleHook:{
-                        default:{
-                            value:'跳过空值判断'
+                    handleHook: {
+                        default: {
+                            value: '跳过空值判断'
                         }
                     }
                 }
@@ -119,40 +222,41 @@ define(['text!pages/BillCustomDeclare/BillCustomDeclare.html', 'css!pages/BillCu
                     pbillCode: {},
                     pbillType: {},
                     pbillName: {},
-                    count: {},
+                    num: {},
                     unit: {},
                     pbillReason: {},
-                    picAddress: {},
+                    picAddressId: {},
                     logisticsMode: {},
-                    address: {},
+                    deliveryAddress: {},
                     remark: {},
-                    handleHook:{
-                        default:{
-                            value:'跳过空值判断'
+                    handleHook: {
+                        default: {
+                            value: '跳过空值判断'
                         }
                     }
                 }
             }),
-            pbillType:[],//补件类型下拉框
-            pbillReason:[],//补件原因
-            logisticsMode:[],//物流方式
-            plankHandleHookRender:function (obj) {
+            pbillType: [],//补件类型下拉框
+            pbillReason: [],//补件原因
+            logisticsMode: [],//物流方式
+            unit:[],
+            plankHandleHookRender: function (obj) {
                 var rowId = obj.row.value['$_#_@_id'];
                 var delfun = "data-bind=click:event.plankDel.bind($data," + rowId + ")";
                 var editfun = "data-bind=click:event.plankEdit.bind($data," + rowId + ")";
                 obj.element.innerHTML = '<div><i style="cursor: pointer;" class="op uf uf-pencil font-size-18" title="修改"' + editfun + '></i>' + '<i style="cursor: pointer;" class="font-size-18 op icon uf uf-del title="删除" ' + delfun + '></i></div>';
                 ko.applyBindings(viewModel, obj.element);
-                
+
             },
-            fiveGoldHandleHookRender:function (obj) {
+            fiveGoldHandleHookRender: function (obj) {
                 var rowId = obj.row.value['$_#_@_id'];
                 var delfun = "data-bind=click:event.fiveGoldDel.bind($data," + rowId + ")";
                 var editfun = "data-bind=click:event.fiveGoldEdit.bind($data," + rowId + ")";
                 obj.element.innerHTML = '<div><i style="cursor: pointer;" class="op uf uf-pencil font-size-18" title="修改"' + editfun + '></i>' + '<i style="cursor: pointer;" class="font-size-18 op icon uf uf-del title="删除" ' + delfun + '></i></div>';
                 ko.applyBindings(viewModel, obj.element);
-                
+
             },
-            plankImgRender:function () {
+            plankImgRender: function (obj) {
                 var $element = $(obj.element);
                 var grid = obj.gridObj;
                 var datatable = grid.dataTable;
@@ -171,7 +275,7 @@ define(['text!pages/BillCustomDeclare/BillCustomDeclare.html', 'css!pages/BillCu
                     // row.setValue(field, ('#img_' + rowId));//span中的文件路径回消失
                 });
             },
-            fiveGoldImgRender:function () {
+            fiveGoldImgRender: function (obj) {
                 var $element = $(obj.element);
                 var grid = obj.gridObj;
                 var datatable = grid.dataTable;
@@ -188,6 +292,149 @@ define(['text!pages/BillCustomDeclare/BillCustomDeclare.html', 'css!pages/BillCu
                 $element.find('input').on('change', function () {
                     $element.find('span').html($element.find('input').val());
                     // row.setValue(field, ('#img_' + rowId));//span中的文件路径回消失
+                });
+
+            },
+            initPlatePagination: function () {
+                var el = document.querySelector("#plagePagination");
+                viewModel.plagePagination = new u.pagination({
+                    el: el,
+                    showState: true,
+                    jumppage: true
+                });
+                viewModel.plagePagination.on('pageChange', function (currentPage) {
+                    viewModel.platePage.currentPage = currentPage + 1;
+                    viewModel.plateWillTurnToLastPage = true;
+                    viewModel.fetchPlateData();
+
+                });
+                viewModel.plagePagination.on('sizeChange', function (pageSize) {
+                    viewModel.platePage.pageSize = pageSize;
+                    viewModel.plateWillTurnToLastPage = true;
+                    viewModel.platePage.currentPage = 1;
+                    viewModel.fetchPlateData();
+                });
+            },
+            initFiveGoldPagination: function () {
+                var el = document.querySelector("#fiveGoldPagination");
+                viewModel.fiveGoldPagination = new u.pagination({
+                    el: el,
+                    showState: true,
+                    jumppage: true
+                });
+                viewModel.fiveGoldPagination.on('pageChange', function (currentPage) {
+                    viewModel.fiveGoldPage.currentPage = currentPage + 1;
+                    viewModel.fiveGoldWillTurnToLastPage = true;
+                    viewModel.fetchFiveGoldData();
+                });
+                viewModel.fiveGoldPagination.on('sizeChange', function (pageSize) {
+                    viewModel.fiveGoldPage.pageSize = pageSize;
+                    viewModel.fiveGoldPage.currentPage = 1;
+                    viewModel.fiveGoldWillTurnToLastPage = true;
+                    viewModel.fetchFiveGoldData();
+                });
+            },
+            fetchPlateData: function () {
+                var params = {
+                    pageIndex: viewModel.platePage.currentPage,
+                    pageSize: viewModel.platePage.pageSize
+                };
+                return $.ajax({
+                    type: 'get',
+                    dataType: 'json',
+                    contentType: 'application/json;charset=utf-8',
+                    url: plateList,
+                    data: params
+                }).done(function (res) {
+                    if (res.result == 1) {
+                        viewModel.platePage.currentPage = res.pageIndex;
+                        viewModel.platePage.totalPages = Math.ceil(res.total / res.pageSize);
+                        viewModel.platePage.pageSize = res.pageSize;
+                        viewModel.platePage.totalCount = res.total;
+
+                        viewModel.plagePagination.update({
+                            totalPages: viewModel.platePage.totalPages,
+                            totalCount: viewModel.platePage.totalCount,
+                            pageSize: viewModel.platePage.pageSize,
+                            currentPage: viewModel.platePage.currentPage
+                        });
+                        viewModel.plank.setSimpleData(res.data, {unSelect: true});
+                    }
+                });
+            },
+            fetchFiveGoldData: function () {
+                var params = {
+                    pageIndex: viewModel.fiveGoldPage.currentPage,
+                    pageSize: viewModel.fiveGoldPage.pageSize
+                };
+                return $.ajax({
+                    type: 'get',
+                    dataType: 'json',
+                    contentType: 'application/json;charset=utf-8',
+                    url: fiveGoldList,
+                    data: params
+                }).done(function (res) {
+                    if (res.result == 1) {
+                        viewModel.fiveGoldPage.currentPage = res.pageIndex;
+                        viewModel.fiveGoldPage.totalPages = Math.ceil(res.total / res.pageSize);
+                        viewModel.fiveGoldPage.pageSize = res.pageSize;
+                        viewModel.fiveGoldPage.totalCount = res.total;
+
+                        viewModel.fiveGoldPagination.update({
+                            totalPages: viewModel.fiveGoldPage.totalPages,
+                            totalCount: viewModel.fiveGoldPage.totalCount,
+                            pageSize: viewModel.fiveGoldPage.pageSize,
+                            currentPage: viewModel.fiveGoldPage.currentPage
+                        });
+                        viewModel.fiveGold.setSimpleData(res.data, {unSelect: true});
+                    }
+                });
+            },
+            setColsRenderType: function () {
+                var plateGrid = viewModel.app.getComp('plank').grid;//获取补件gridObj
+                var fiveGoldGrid = viewModel.app.getComp('fiveGold').grid;//获取五金gridObj
+                var plateMetas = viewModel.plank.getMeta();
+
+                var fiveGoldMetas = viewModel.fiveGold.getMeta();
+
+                var plateFieldKeys = Object.keys(plateMetas).filter(function (v) {
+                    return v != 'handleHook'
+                });
+                var fiveGoldFieldKeys = Object.keys(fiveGoldMetas).filter(function (v) {
+                    return v != 'handleHook'
+                });
+
+                plateFieldKeys.forEach(function (field) {
+
+
+                    plateGrid.setRenderType(field, function (obj) {
+                        var rowId = obj.row.value['$_#_@_id'];
+                        var row = viewModel.plank.getRowByRowId(rowId);
+
+                        var rowSimpleData = row.getSimpleData();
+
+                        if (row.canEdit == true) {//判断add
+                            obj.element.innerHTML = obj.value;
+                            obj.element.style.boxSizing = 'border-box';
+                            obj.element.style.border = '1px solid';
+                        } else {
+                            obj.element.innerHTML = obj.value;
+                        }
+                        //判断dropdows
+                        var valueArr = obj.value.split(',');
+                        if (viewModel[field]) {//判断下拉框是否存在
+                            var value = viewModel[field].filter(function (item) {
+                                return valueArr.indexOf(item.value.toString()) != -1;
+                            }).map(function (item) {
+                                return item.name;
+                            }).join(',');
+                            obj.element.innerHTML = value;
+                        }
+
+
+                    });
+
+
                 });
 
             }
@@ -195,8 +442,6 @@ define(['text!pages/BillCustomDeclare/BillCustomDeclare.html', 'css!pages/BillCu
         $(element).html(html);
         viewModel.event.pageInit();
 
-        viewModel.plank.createEmptyRow();
-        viewModel.fiveGold.createEmptyRow();
 
     };
     return {

@@ -8,13 +8,13 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
         var url6 = ctx + '/BillFinshedDeclare/orderNumSearchDialog2';
         var url7 = ctx + '/initMainPage/initMainPage';
 
-        var list = 'http://192.168.79.88:8080/pbill/billFinishedDeclare/list';
-        var save = 'http://192.168.79.88:8080/pbill/billFinishedDeclare/save';
-        var del = 'http://192.168.79.88:8080/pbill/billFinishedDeclare/del';
+        var list = 'http://192.168.79.88:8080/pbill/billFinishedDeclare/listSave';//页面加载接口
+        var save = 'http://192.168.79.88:8080/pbill/billFinishedDeclare/save';//保存接口
+        var del = 'http://192.168.79.88:8080/pbill/billFinishedDeclare/del';//单删，多删接口
 
         //dialog1
-        var plate = 'http://192.168.79.88:8080/pbill/parts/list/plate';
-        var fiveGold = 'http://192.168.79.88:8080/pbill/parts/list/hardWord';
+        var plate = 'http://192.168.79.88:8080/pbill/parts/list/plate';//部件接口
+        var fiveGold = 'http://192.168.79.88:8080/pbill/parts/list/hardWord';//五金接口
 
 
         // orderNum search通过不同搜索方式对应的接口
@@ -23,13 +23,22 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
         //材料
         var materialList = 'http://192.168.79.88:8080/pbill/billFinishedDeclare/materialList';
 
-        // var orderNumSearchDialog1 = 'http://192.168.79.88:8080/pbill/billFinishedDeclare/orderList';
-        var orderNumSearchDialog1 = url5;
+        var orderNumSearchDialog1 = 'http://192.168.79.88:8080/pbill/billFinishedDeclare/orderList';
 
-        var patchModelSearchDialog1 = url5;
+
+
+        //按照补件型号搜索
+        var patchModelSearchDialog1 = 'http://192.168.79.88:8080/pbill/billFinishedDeclare/productObj';
 
         //下拉框数据
         var dropdowns = 'http://192.168.79.88:8080/pbill/billFinishedDeclare/select';
+
+        //通过产品编码搜索部件信息 弹框一的确定按钮
+        var productsByCode = 'http://192.168.79.88:8080/pbill/billFinishedDeclare/productsByCode';
+
+
+
+
         //
         // 成品补件申报分页 http://192.168.79.88:8080/pbill/billFinishedDeclare/list
         //
@@ -247,11 +256,11 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
                 orderNumSearch: function (whichSearch, rowId) {//三个搜索全走这个弹框
                     console.log(whichSearch);
                     console.log(rowId);
-                    var row = viewModel.BillFinshedDeclare.getRowByRowId(rowId);
+                    var rowSimpleData = viewModel.BillFinshedDeclare.getRowByRowId(rowId).getSimpleData();
 
                     if(whichSearch == 'orderNumSearch'){
                         viewModel.dialog1SearchCondition.setSimpleData([{
-                            orderNum:row.orderNum
+                            orderNum:rowSimpleData.orderNum
                         }]);
 
                     }
@@ -278,6 +287,9 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
                             viewModel.dialog1MaterialPage.currentPage = 1;
                             viewModel.orderNumSearchDialog1Page.currentPage = 1;
                             viewModel.dialog1SearchCondition.setSimpleData([{dropdown: '1'}]);
+
+                            //缓存表的行对象
+                            viewModel.cacheOrderNumSearchDialog1DataTableRows = viewModel.orderNumSearchDialog1DataTable.getAllRows();
                         }
                     });
 
@@ -347,78 +359,50 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
                 },
 
                 patchModelSearchDialogConfirm: function () {//弹出框，确认按钮
-                    var plateWillAppendToMainData = viewModel.plate.getSimpleData({type: 'select'});
-                    var fiveGoldWillAppendToMainData = viewModel.fiveGold.getSimpleData({type: 'select'});
-                    var mainDataKeys = Object.keys(viewModel.BillFinshedDeclare.getMeta());
-                    mainDataKeys.push('id');
-                    //按照板件组装主表数据
-                    var plateWillAppendToMainRows = plateWillAppendToMainData.map(function (v) {
+                    var plateWillAppendToMainData = viewModel.plate.getSimpleData({type: 'select'});//选中的板件信息
+                    var fiveGoldWillAppendToMainData = viewModel.fiveGold.getSimpleData({type: 'select'});//选中的五金件数据
+
+
+                    var cacheOrderNumSearchDialog1Simple = [viewModel.cacheOrderNumSearchDialog1Simple];//dialog1 产品信息
+                    var willAppendOrderNumSearchData = cacheOrderNumSearchDialog1Simple.map(function (v) {
                         var obj = {};
-                        mainDataKeys.forEach(function (key) {
-                            if (key == 'pbillCode') {
-                                obj[key] = v.plateCode;
-                            } else if (key == 'pbillName') {
-                                obj[key] = v.plateName;
-                            } else if (key == 'unit') {
-                                obj[key] = v.unit;
-                            } else if (key == 'patchModel') {
-                                obj[key] = v.patchModel;
-                            } else if (key == 'productCode') {
-                                obj[key] = v.productCode;
-                            } else if (key == 'productName') {
-                                obj[key] = v.productName;
-                            } else if (key == 'seriesName') {
-                                obj[key] = v.seriesName;
-                            } else if (key == 'productStatus') {
-                                obj[key] = v.productStatus;
-                            } else if (key == 'pbillType') {
-                                obj[key] = v.pbillType;
-                            } else if (key == 'id') {
-                                obj[key] = v.id;
-                            } else {
-                                obj[key] = '';
-                            }
-                        });
+                        obj.orderNum = v.orderNum;
+                        obj.patchModel = v.productModel;
+                        obj.productCode = v.productCode;
+                        obj.productName = v.productName;
+                        obj.productStatus = v.productStatus;
+                        obj.seriesName = v.seriesName;
+                        return obj;
+                    })[0];
+                    var willAppendPlateData = plateWillAppendToMainData.map(function (v) {//板件数据
+                        var obj = {};
+                        obj.pbillCode = v.plateCode;
+                        obj.pbillName = v.plateName;
+                        obj.unit = v.unit;
+                        obj.strType = v.strType
+                        obj = $.extend({},obj,willAppendOrderNumSearchData);
+                        return obj;
+                    });
+
+                    var willAppendFiveGoldData = fiveGoldWillAppendToMainData.map(function (v) {//五金数据
+                        var obj = {};
+                        obj.pbillCode = v.plateCode;
+                        obj.pbillName = v.plateName;
+                        obj.unit = v.unit;
+                        obj.strType = v.strType
+                        obj = $.extend({},obj,willAppendOrderNumSearchData);
+                        return obj;
+                    });
+                    var willAppendAllData = willAppendPlateData.concat(willAppendFiveGoldData);
+                    var willAppendRows = willAppendAllData.map(function (v) {
                         var row = new Row({parent: viewModel.BillFinshedDeclare});
                         row.myStatus = viewModel.rowStatus;
-                        row.setSimpleData(obj);
+                        row.setSimpleData(v);
                         return row;
                     });
-                    //按照五金组装主表数据
-                    var fiveGoldWillAppendToMainRows = fiveGoldWillAppendToMainData.map(function (v) {
-                        var obj = {};
-                        mainDataKeys.forEach(function (key) {
-                            if (key == 'pbillCode') {
-                                obj[key] = v.plateCode;
-                            } else if (key == 'pbillName') {
-                                obj[key] = v.plateName;
-                            } else if (key == 'unit') {
-                                obj[key] = v.unit;
-                            } else if (key == 'patchModel') {
-                                obj[key] = v.patchModel;
-                            } else if (key == 'productCode') {
-                                obj[key] = v.productCode;
-                            } else if (key == 'productName') {
-                                obj[key] = v.productName;
-                            } else if (key == 'seriesName') {
-                                obj[key] = v.seriesName;
-                            } else if (key == 'productStatus') {
-                                obj[key] = v.productStatus;
-                            } else if (key == 'pbillType') {
-                                obj[key] = v.pbillType;
-                            } else if (key == 'id') {
-                                obj[key] = v.id;
-                            } else {
-                                obj[key] = '';
-                            }
-                        });
-                        var row = new Row({parent: viewModel.BillFinshedDeclare});
-                        row.myStatus = viewModel.rowStatus;
-                        row.setSimpleData(obj);
-                        return row;
-                    });
-                    //向页面设置数据
-                    viewModel.BillFinshedDeclare.addRows(plateWillAppendToMainRows.concat(fiveGoldWillAppendToMainRows));
+                    viewModel.BillFinshedDeclare.addRows(willAppendRows);
+
+
                     //删除新增的空行
                     var getRowIndexsHasAdd = viewModel.BillFinshedDeclare.getAllRows()
                             .filter(function (row) {
@@ -434,6 +418,10 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
                 },
                 orderNumSearchDialog1Confirm: function (rowId, orderNum) {//按照订单号搜索，第一个弹出框操作按钮
                     console.log(rowId, orderNum);
+                    var rowSimpleData = viewModel.orderNumSearchDialog1DataTable.getRowByRowId(rowId).getSimpleData();
+
+                    viewModel.cacheOrderNumSearchDialog1Simple = rowSimpleData;//缓存弹框一选中的一行数据
+
                     viewModel.orderNumSearchDialog1.close();
                     viewModel.orderNumSearchDialog2 = u.dialog({
                         id: 'orderNumSearchDialog2',
@@ -444,7 +432,7 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
                     });
                     viewModel.orderNumSearchDialog2DataTable.removeAllRows();
                     viewModel.initOrderNumSearchDialog2Pagination();
-                    viewModel.fetchOrderNumSearchDialog2Data();
+                    viewModel.fetchOrderNumSearchDialog2Data(rowSimpleData.productCode);
 
                 },
                 orderNumSearchDialog1Search: function () {//订单搜索弹出框，搜索按钮
@@ -469,29 +457,27 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
                 },
                 orderNumSearchDialog2Confirm: function (rowId, isPatch) {//第二个弹出框,订单搜索弹出框，确定补件列
                     console.log(rowId, isPatch);
-                    if (isPatch) {
-                        viewModel.orderNumSearchDialog2.close();
-                        viewModel.dialog1 = u.dialog({
-                            id: 'patchModelSearchDialog',
-                            content: "#patchModelSearchDialog",
-                            hasCloseMenu: true,
-                            height: '500px',
-                            width: '90%',
-                            closeFun: function () {
-                                // viewModel.setCanEditRenderType();
-                            }
-                        });
-                        viewModel.plate.removeAllRows();
-                        viewModel.fiveGold.removeAllRows();
+                    var rowSimpleData = viewModel.orderNumSearchDialog2DataTable.getRowByRowId(rowId);
+                    viewModel.suiteCode = rowSimpleData.suiteCode;
+                    viewModel.orderNumSearchDialog2.close();
+                    viewModel.dialog1 = u.dialog({
+                        id: 'patchModelSearchDialog',
+                        content: "#patchModelSearchDialog",
+                        hasCloseMenu: true,
+                        height: '500px',
+                        width: '90%',
+                        closeFun: function () {
+                            // viewModel.setCanEditRenderType();
+                        }
+                    });
+                    viewModel.plate.removeAllRows();
+                    viewModel.fiveGold.removeAllRows();
 
-                        viewModel.initPlatePagination();
-                        viewModel.fetchPlateData();
+                    viewModel.initPlatePagination();
+                    viewModel.fetchPlateData();
 
-                        viewModel.initFiveGoldPagination();
-                        viewModel.fetchFiveGoldData();
-                    }
-
-
+                    viewModel.initFiveGoldPagination();
+                    viewModel.fetchFiveGoldData();
                 },
                 uploadImg: function (supplementOrderNum, rowId) {//上传图片
                     console.log(supplementOrderNum, rowId);
@@ -589,7 +575,12 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
                     plateAlias: {},
                     plateName: {},
                     strNum: {},
-                    unit: {}
+                    unit: {},
+                    strType:{
+                        default:{
+                            value:'PLATE'
+                        }
+                    }
                 }
             }),
             fiveGold: new u.DataTable({//弹出框，五金件信息
@@ -597,7 +588,12 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
                     plateCode: {},
                     plateName: {},
                     strNum: {},
-                    unit: {}
+                    unit: {},
+                    strType:{
+                        default:{
+                            value:'HARD_WORD'
+                        }
+                    }
                 }
             }),
             orderNumSearchDialog1DataTable: new u.DataTable({
@@ -723,6 +719,7 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
             fetchPlateData: function () {
                 //参数:补件型号 和 套件编码
                 var params = {
+                    suiteCode:viewModel.suiteCode,
                     pageIndex: viewModel.platePage.currentPage,
                     pageSize: viewModel.platePage.pageSize
                 };
@@ -730,10 +727,13 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json;charset=utf-8',
-                    url: url4,
-                    // url: plate,
+                    // url: url4,
+                    url: plate,
                     data: params
                 }).then(function (res) {
+                    if(res.result == 1){
+
+                    }
 
                     viewModel.platePage.currentPage = res.pageIndex;
                     viewModel.platePage.totalPages = Math.ceil(res.total / res.pageSize);
@@ -757,6 +757,7 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
 
             fetchFiveGoldData: function () {
                 var params = {
+                    suiteCode:viewModel.suiteCode,
                     pageIndex: viewModel.fiveGoldPage.currentPage,
                     pageSize: viewModel.fiveGoldPage.pageSize
                 };
@@ -764,8 +765,8 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json;charset=utf-8',
-                    // url: fiveGold,
-                    url: url4,
+                    url: fiveGold,
+                    // url: url4,
                     data: params
                 }).then(function (res) {
                     viewModel.fiveGoldPage.currentPage = res.pageIndex;
@@ -862,7 +863,6 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
                             productionName:searchData.productionName,
                             seriesName:searchData.seriesName
                         };
-                        params = $.extend({}, params, searchData);
                     } else if (witchWaySearch == 'orderNumSearch') {
                         url = orderNumSearchDialog1;
                         params = {
@@ -876,14 +876,12 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
                         url = patchModelSearchDialog1;
                         params = {
                             pageIndex: viewModel.orderNumSearchDialog1Page.currentPage,
-                            pageSize: viewModel.orderNumSearchDialog1Page.pageSize,
-                            patchModel: row.getSimpleData().patchModel,
+                            pageSize: viewModel.orderNumSearchDialog1Page.pageSize||5,
+                            productModel: row.getSimpleData().patchModel,
                             productionName:searchData.productionName,
                             seriesName:searchData.seriesName
                         };
                     }
-
-
                 } else {//选择材料
                     url = materialList;
                     params = {
@@ -891,7 +889,6 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
                         pageSize: viewModel.orderNumSearchDialog1Page.pageSize
                     };
                     params = $.extend({}, params, searchData);
-
                 }
 
 
@@ -903,7 +900,7 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
                     data: params
                 }).then(function (res) {
                     if (res.result == 1) {
-                        viewModel.cacheOrderNumSearchDialog1Simple = res.data;//缓存弹框一的数据
+
                         viewModel.initOrderNumSearchDialog1Pagination();
                         $('.orderNumSearchDialog1Pagination').show();
                         viewModel.orderNumSearchDialog1Page.currentPage = res.pageIndex;
@@ -997,24 +994,30 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
                     viewModel.fetchOrderNumSearchDialog2Data();
                 });
             },
-            fetchOrderNumSearchDialog2Data: function () {//弹出框二获取数据
+            fetchOrderNumSearchDialog2Data: function (productCode) {//弹出框二获取数据
+                var params = {
+                    pageIndex:viewModel.orderNumSearchDialog2Page.currentPage,
+                    pageSize:viewModel.orderNumSearchDialog2Page.pageSize,
+                    productCode:productCode
+                };
                 $.ajax({
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json;charset=utf-8',
-                    url: url6,
-                    data: 'jsonData'
+                    // url: url6,
+                    url: productsByCode,
+                    data: params
                 }).then(function (res) {
-                    viewModel.orderNumSearchDialog2Page.currentPage = res.pageIndex;
+                    viewModel.orderNumSearchDialog2Page.currentPage = res.pageIndex ;
                     viewModel.orderNumSearchDialog2Page.totalPages = Math.ceil(res.total / res.pageSize);
-                    viewModel.orderNumSearchDialog2Page.pageSize = res.pageSize;
+                    viewModel.orderNumSearchDialog2Page.pageSize = res.pageSize ;
                     viewModel.orderNumSearchDialog2Page.totalCount = res.total;
 
                     var orderNumSearchDialog2SimpleData = res.data;
                     viewModel.orderNumSearchDialog2DataTable.removeAllRows();
                     viewModel.orderNumSearchDialog2DataTable.setSimpleData(orderNumSearchDialog2SimpleData, {unSelect: true});
                     viewModel.orderNumSearchDialog2Pagination.update({
-                        totalPages: viewModel.orderNumSearchDialog2Page.totalPages || 4,
+                        totalPages: viewModel.orderNumSearchDialog2Page.totalPages ,
                         totalCount: viewModel.orderNumSearchDialog2Page.totalCount,
                         pageSize: viewModel.orderNumSearchDialog2Page.pageSize,
                         currentPage: viewModel.orderNumSearchDialog2Page.currentPage
@@ -1041,7 +1044,7 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
                     viewModel.willTurnToLastPage = true;
                 });
             },
-            fetchInitPageData: function () {
+            fetchInitPageData: function () {//初始化主表
                 var params = {
                     pageIndex: viewModel.mainPagination.currentPage,
                     pageSize: viewModel.mainPagination.pageSize
@@ -1050,8 +1053,8 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json;charset=utf-8',
-                    // url: list,
-                    url: url7,
+                    url: list,
+                    // url: url7,
                     data: params
                 }).done(function (res) {
                     if (res.result == 1) {
@@ -1246,6 +1249,7 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
         viewModel.event.pageInit();
 
 
+
         viewModel.dialog1SearchCondition.on('valueChange', function (obj) {
             if (obj.newValue == '1' && obj.field == 'dropdown') {//如果是产品
                 $('.orderNumSearchProduct').show();
@@ -1273,6 +1277,7 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
             }
 
         });
+
 
 
     };

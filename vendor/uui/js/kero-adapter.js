@@ -44,7 +44,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(76);
+	module.exports = __webpack_require__(75);
 
 
 /***/ },
@@ -940,7 +940,7 @@
 				element["uEvent"][eventName].forEach(function (fn) {
 					try {
 						e.target = e.target || e.srcElement; //兼容IE8
-					} catch (ee) {}
+					} catch (e) {}
 					if (fn) fn.call(element, e);
 				});
 			};
@@ -981,8 +981,7 @@
 			}
 			return;
 		}
-		var eventfn;
-		if (element && element["uEvent"] && element["uEvent"][eventName + 'fn']) eventfn = element["uEvent"][eventName + 'fn'];
+		var eventfn = element["uEvent"][eventName + 'fn'];
 		if (element.removeEventListener) {
 			// 用于支持DOM的浏览器
 			element.removeEventListener(eventName, eventfn);
@@ -996,9 +995,8 @@
 		if (u.event && u.event[eventName] && u.event[eventName].teardown) {
 			u.event[eventName].teardown.call(element);
 		}
-
-		if (element && element["uEvent"] && element["uEvent"][eventName]) element["uEvent"][eventName] = undefined;
-		if (element && element["uEvent"] && element["uEvent"][eventName + 'fn']) element["uEvent"][eventName + 'fn'] = undefined;
+		element["uEvent"][eventName] = undefined;
+		element["uEvent"][eventName + 'fn'] = undefined;
 	};
 	var trigger = function trigger(element, eventName) {
 		if (element["uEvent"] && element["uEvent"][eventName]) {
@@ -1059,7 +1057,6 @@
 		isIE10: false,
 		isIE10_ABOVE: false,
 		isIE11: false,
-		isEdge: false,
 		isIOS: false,
 		isIphone: false,
 		isIPAD: false,
@@ -1127,9 +1124,6 @@
 			};
 		}
 
-		if (userAgent.indexOf("Edge") > -1) {
-			u.isEdge = true;
-		}
 		if (s = ua.match(/opera.([\d.]+)/)) {
 			u.isOpera = true;
 		} else if (browserMatch.browser == "IE" && browserMatch.version == 11) {
@@ -1379,8 +1373,7 @@
 	};
 	var isNumber = function isNumber(obj) {
 		//return obj === +obj
-		//加了个typeof 判断，因为'431027199110.078573'会解析成number
-		return typeof obj === 'number' && obj - parseFloat(obj) + 1 >= 0;
+		return obj - parseFloat(obj) + 1 >= 0;
 	};
 	var isArray = Array.isArray || function (val) {
 		return Object.prototype.toString.call(val) === '[object Array]';
@@ -1792,7 +1785,6 @@
 	    } else {
 	        this.ns = '';
 	    }
-	    this.newCount = 0;
 	};
 
 	DataTable.prototype.on = _events.on;
@@ -2243,7 +2235,7 @@
 	        if (newIndex != this.pageIndex()) {
 	            this.setCurrentPage(newIndex, true);
 	            this.totalPages(newTotalPages);
-	            this.totalRow(newTotalRow + this.newCount);
+	            this.totalRow(newTotalRow);
 	            return;
 	        } else {
 	            // 首先删除数据，然后将当前页数据插入
@@ -2257,8 +2249,8 @@
 	        if (data.totalPages) {
 	            this.totalPages(data.totalPages);
 	        }
-	        if (data.totalRow || data.totalRow === 0) {
-	            this.totalRow(data.totalRow + this.newCount);
+	        if (data.totalRow) {
+	            this.totalRow(data.totalRow);
 	        }
 	    } else {
 	        select = data.select || (!unSelect ? [0] : []);
@@ -3155,33 +3147,21 @@
 	                r = rows[j];
 	                if (!r.id) r.id = Row.getRandomRowId();
 	                if (r.status == Row.STATUS.DELETE) {
-
-	                    var row = page.getRowByRowId(r.id);
-	                    if (row) {
-	                        // 针对后台不传回总行数的情况下更新总行数
-	                        var oldTotalRow = this.totalRow();
-	                        var newTotalRow = oldTotalRow - 1;
-	                        this.totalRow(newTotalRow);
-	                        if (row.status == Row.STATUS.NEW) {
-	                            this.newCount -= 1;
-	                            if (this.newCount < 0) this.newCount = 0;
-	                        }
-	                    }
 	                    this.removeRowByRowId(r.id);
 	                    page.removeRowByRowId(r.id);
+	                    // 针对后台不传回总行数的情况下更新总行数
+	                    var oldTotalRow = this.totalRow();
+	                    var newTotalRow = oldTotalRow - 1;
+	                    this.totalRow(newTotalRow);
 	                } else {
 	                    row = page.getRowByRowId(r.id);
 	                    if (row) {
 	                        page.updateRow(row, r);
-	                        // if(row.status == Row.STATUS.NEW){
-	                        //     // 针对后台不传回总行数的情况下更新总行数
-	                        //     var oldTotalRow = this.totalRow();
-	                        //     var newTotalRow = oldTotalRow + 1;
-	                        //     this.totalRow(newTotalRow);
-	                        // }
-	                        if (row.status == Row.STATUS.NEW && r.status != Row.STATUS.NEW) {
-	                            this.newCount -= 1;
-	                            if (this.newCount < 0) this.newCount = 0;
+	                        if (row.status == Row.STATUS.NEW) {
+	                            // 针对后台不传回总行数的情况下更新总行数
+	                            var oldTotalRow = this.totalRow();
+	                            var newTotalRow = oldTotalRow + 1;
+	                            this.totalRow(newTotalRow);
 	                        }
 	                        row.status = Row.STATUS.NORMAL;
 	                        if (r.status == Row.STATUS.NEW) {
@@ -3193,8 +3173,6 @@
 	                        page.rows.push(r);
 	                        if (r.status != Row.STATUS.NEW) {
 	                            r.status = Row.STATUS.NORMAL;
-	                        } else {
-	                            this.newCount += 1;
 	                        }
 	                        // 针对后台不传回总行数的情况下更新总行数
 	                        var oldTotalRow = this.totalRow();
@@ -4238,14 +4216,13 @@
 
 	var _util = __webpack_require__(10);
 
-	var _i18n = __webpack_require__(73);
+	/**
+	 * Module : Sparrow date util
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-06 13:37:20
+	 */
 
-	var u = {}; /**
-	             * Module : Sparrow date util
-	             * Author : Kvkens(yueming@yonyou.com)
-	             * Date	  : 2016-08-06 13:37:20
-	             */
-
+	var u = {};
 	u.date = {
 
 		/**
@@ -4267,14 +4244,6 @@
 				weekdaysShort: 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
 				weekdaysMin: 'S_M_T_W_T_F_S'.split('_')
 			}
-		},
-		_jsonLocale: {
-			months: (0, _i18n.trans)('date.months', "一月\n二月\n三月\n四月\n五月\n六月\n七月\n八月\n九月\n十月\n十一月\n十二月").split('\n'),
-			monthsShort: (0, _i18n.trans)('date.monthsShort', "1月\n2月\n3月\n4月\n5月\n6月\n7月\n8月\n9月\n10月\n11月\n12月").split('\n'),
-			weekdays: (0, _i18n.trans)('date.weekdays', "星期日\n星期一\n星期二\n星期三\n星期四\n星期五\n星期六").split('\n'),
-			weekdaysShort: (0, _i18n.trans)('date.weekdaysShort', "周日\n周一\n周二\n周三\n周四\n周五\n周六").split('\n'),
-			weekdaysMin: (0, _i18n.trans)('date.weekdaysMin', "日\n一\n二\n三\n四\n五\n六").split('\n'),
-			defaultMonth: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
 		},
 
 		_formattingTokens: /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Q|YYYY|YY|e|E|a|A|hh?|HH?|mm?|ss?|S{1,4}|x|X|zz?|ZZ?|.)/g,
@@ -4306,13 +4275,11 @@
 			},
 			MMM: function MMM(date, language) {
 				var m = date.getMonth();
-				// return u.date._dateLocale[language].monthsShort[m];
-				return u.date._jsonLocale.monthsShort[m];
+				return u.date._dateLocale[language].monthsShort[m];
 			},
 			MMMM: function MMMM(date, language) {
 				var m = date.getMonth();
-				// return u.date._dateLocale[language].months[m];
-				return u.date._jsonLocale.months[m];
+				return u.date._dateLocale[language].months[m];
 			},
 			//date
 			D: function D(date) {
@@ -4328,18 +4295,15 @@
 			},
 			dd: function dd(date, language) {
 				var d = u.date._formats.d(date);
-				// return u.date._dateLocale[language].weekdaysMin[d];
-				return u.date._jsonLocale.weekdaysMin[d];
+				return u.date._dateLocale[language].weekdaysMin[d];
 			},
 			ddd: function ddd(date, language) {
 				var d = u.date._formats.d(date);
-				// return u.date._dateLocale[language].weekdaysShort[d];
-				return u.date._jsonLocale.weekdaysShort[d];
+				return u.date._dateLocale[language].weekdaysShort[d];
 			},
 			dddd: function dddd(date, language) {
 				var d = u.date._formats.d(date);
-				// return u.date._dateLocale[language].weekdays[d];
-				return u.date._jsonLocale.weekdays[d];
+				return u.date._dateLocale[language].weekdays[d];
 			},
 			// am pm
 			a: function a(date) {
@@ -4387,7 +4351,7 @@
 	  * @param formatString
 	  */
 		format: function format(date, formatString, language) {
-			if (!date) return ''; // renturn date 改为 return '',因：setFormat初始会赋值为undefined,造成二次选择报错
+			if (!date) return date;
 			var array = formatString.match(u.date._formattingTokens),
 			    i,
 			    length,
@@ -4450,7 +4414,7 @@
 			var _date = new Date((0, _util.dateFormat)(value));
 			if (isNaN(_date)) {
 				// IE的话对"2016-2-13 12:13:22"进行处理
-				var index1, index2, index3, s1, s2, s3, s4;
+				var index1, index2, index3, s1, s2, s3;
 				if (value.indexOf) {
 					index1 = value.indexOf('-');
 					index2 = value.indexOf(':');
@@ -4461,7 +4425,6 @@
 							s3 = value.split(' ');
 							s1 = s3[0].split('-');
 							s2 = s3[1].split(':');
-							s4 = s3[2];
 						} else if (index1 > 0) {
 							s1 = value.split('-');
 						} else if (index2 > 0) {
@@ -4474,10 +4437,6 @@
 							dateFlag = true;
 						}
 						if (s2 && s2.length > 0) {
-							//解决ie和firefox等时间pm直接变am问题
-							if (s4 == "pm") {
-								s2[0] = s2[0] - -12;
-							}
 							_date.setHours(s2[0] ? s2[0] : 0);
 							_date.setMinutes(s2[1] ? s2[1] : 0);
 							_date.setSeconds(s2[2] ? s2[2] : 0);
@@ -4486,7 +4445,9 @@
 					} else {
 						_date = new Date(parseInt(value));
 						if (isNaN(_date)) {
-							throw new TypeError('invalid Date parameter');
+							// 输入值不正确时，默认为空，如果抛出异常会后面内容的解析
+							// throw new TypeError('invalid Date parameter');
+							_date = "";
 						} else {
 							dateFlag = true;
 						}
@@ -4724,84 +4685,9 @@
 	exports.getCookie = getCookie;
 
 /***/ },
-/* 73 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.trans = undefined;
-
-	var _cookies = __webpack_require__(72);
-
-	var _enumerables = __webpack_require__(9);
-
-	// 从datatable/src/compatiable/u/JsExtension.js抽取
-	/**
-	 * Module : Sparrow i18n
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-07-29 10:16:54
-	 */
-	//import {uuii18n} from '?';//缺失故修改为default值
-	window.getCurrentJsPath = function () {
-		var doc = document,
-		    a = {},
-		    expose = +new Date(),
-		    rExtractUri = /((?:http|https|file):\/\/.*?\/[^:]+)(?::\d+)?:\d+/,
-		    isLtIE8 = ('' + doc.querySelector).indexOf('[native code]') === -1;
-		// FF,Chrome
-		if (doc.currentScript) {
-			return doc.currentScript.src;
-		}
-
-		var stack;
-		try {
-			a.b();
-		} catch (e) {
-			stack = e.fileName || e.sourceURL || e.stack || e.stacktrace;
-		}
-		// IE10
-		if (stack) {
-			var absPath = rExtractUri.exec(stack)[1];
-			if (absPath) {
-				return absPath;
-			}
-		}
-
-		// IE5-9
-		for (var scripts = doc.scripts, i = scripts.length - 1, script; script = scripts[i--];) {
-			if (script.className !== expose && script.readyState === 'interactive') {
-				script.className = expose;
-				// if less than ie 8, must get abs path by getAttribute(src, 4)
-				return isLtIE8 ? script.getAttribute('src', 4) : script.src;
-			}
-		}
-	};
-
-	if (window.i18n) {
-		var scriptPath = getCurrentJsPath(),
-		    _temp = scriptPath.substr(0, scriptPath.lastIndexOf('/')),
-		    __FOLDER__ = _temp.substr(0, _temp.lastIndexOf('/'));
-		i18n.init({
-			postAsync: false,
-			getAsync: false,
-			fallbackLng: false,
-			ns: { namespaces: ['uui-trans'] },
-			lng: (0, _cookies.getCookie)(_enumerables.U_LOCALE) || 'zh',
-			resGetPath: __FOLDER__ + '/locales/__lng__/__ns__.json'
-		});
-	}
-
-	var trans = function trans(key, dftValue) {
-		return window.i18n ? i18n.t('uui-trans:' + key) : dftValue;
-	};
-
-	exports.trans = trans;
-
-/***/ },
+/* 73 */,
 /* 74 */,
-/* 75 */,
-/* 76 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4811,9 +4697,9 @@
 
 	var _extend = __webpack_require__(8);
 
-	var _baseAdapter = __webpack_require__(77);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _keroaCheckbox = __webpack_require__(78);
+	var _keroaCheckbox = __webpack_require__(77);
 
 	var _keroaCkeditor = __webpack_require__(88);
 
@@ -4865,18 +4751,21 @@
 
 	var _keroaTree = __webpack_require__(130);
 
-	var _keroaMultilang = __webpack_require__(131);
+	var _enableMixin = __webpack_require__(79);
 
-	var _enableMixin = __webpack_require__(80);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _requiredMixin = __webpack_require__(81);
+	var _validateMixin = __webpack_require__(81);
 
-	var _validateMixin = __webpack_require__(82);
-
-	var _valueMixin = __webpack_require__(79);
+	var _valueMixin = __webpack_require__(78);
 
 	// console.log(TextAreaAdapter);
 
+	/**
+	 * Module : Kero webpack entry index
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-08-10 14:51:05
+	 */
 	var ex = {
 		BaseAdapter: _baseAdapter.BaseAdapter,
 		CheckboxAdapter: _keroaCheckbox.CheckboxAdapter,
@@ -4906,21 +4795,15 @@
 		EnableMixin: _enableMixin.EnableMixin,
 		RequiredMixin: _requiredMixin.RequiredMixin,
 		ValidateMixin: _validateMixin.ValidateMixin,
-		ValueMixin: _valueMixin.ValueMixin,
-		MultilangAdapter: _keroaMultilang.MultilangAdapter
-	}; /**
-	    * Module : Kero webpack entry index
-	    * Author : Kvkens(yueming@yonyou.com)
-	    * Date	  : 2016-08-10 14:51:05
-	    */
-
+		ValueMixin: _valueMixin.ValueMixin
+	};
 
 	(0, _extend.extend)(ex, window.u || {});
 	window.u = ex;
 	exports.u = ex;
 
 /***/ },
-/* 77 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5002,7 +4885,7 @@
 	exports.BaseAdapter = BaseAdapter;
 
 /***/ },
-/* 78 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5010,15 +4893,15 @@
 	exports.__esModule = true;
 	exports.CheckboxAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(77);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _valueMixin = __webpack_require__(79);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(80);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(81);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(82);
+	var _validateMixin = __webpack_require__(81);
 
 	var _util = __webpack_require__(10);
 
@@ -5039,7 +4922,6 @@
 	        // CheckboxAdapter.superclass.initialize.apply(this, arguments);
 	        this.isGroup = this.options['isGroup'] === true || this.options['isGroup'] === 'true';
 	        this.otherValue = this.options['otherValue'] || '其他';
-	        this.beforeEdit = (0, _util.getFunction)(this.viewModel, this.options['beforeEdit']);
 	        if (this.options['datasource'] || this.options['hasOther']) {
 	            // 存在datasource或者有其他选项，将当前dom元素保存，以后用于复制新的dom元素
 	            if (_env.env.isIE) {
@@ -5060,7 +4942,6 @@
 	                this.comp = this.element['u.Checkbox'];
 	            } else {
 	                this.comp = new _neouiCheckbox.Checkbox(this.element);
-	                this.comp.beforeEdit = this.beforeEdit;
 	                this.element['u.Checkbox'] = this.comp;
 	            }
 
@@ -5214,7 +5095,6 @@
 	                comp = ele['u.Checkbox'];
 	            } else {
 	                comp = new _neouiCheckbox.Checkbox(ele);
-	                comp.beforeEdit = self.beforeEdit;
 	            }
 	            ele['u.Checkbox'] = comp;
 	            comp.on('change', function () {
@@ -5289,9 +5169,6 @@
 	        this.enable = enable === true || enable === 'true';
 	        if (this.isGroup) {
 	            if (this.datasource) {
-	                if (this.otherInput && !this.enable) {
-	                    this.otherInput.setAttribute('disabled', true);
-	                }
 	                this.element.querySelectorAll('.u-checkbox').forEach(function (ele) {
 	                    var comp = ele['u.Checkbox'];
 	                    if (comp) {
@@ -5325,7 +5202,7 @@
 	exports.CheckboxAdapter = CheckboxAdapter;
 
 /***/ },
-/* 79 */
+/* 78 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5522,7 +5399,7 @@
 	exports.ValueMixin = ValueMixin;
 
 /***/ },
-/* 80 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5566,7 +5443,7 @@
 	exports.EnableMixin = EnableMixin;
 
 /***/ },
-/* 81 */
+/* 80 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5601,7 +5478,7 @@
 	exports.RequiredMixin = RequiredMixin;
 
 /***/ },
-/* 82 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5609,7 +5486,7 @@
 	exports.__esModule = true;
 	exports.ValidateMixin = undefined;
 
-	var _neouiValidate = __webpack_require__(83);
+	var _neouiValidate = __webpack_require__(82);
 
 	var ValidateMixin = {
 	    init: function init() {
@@ -5683,7 +5560,7 @@
 	exports.ValidateMixin = ValidateMixin;
 
 /***/ },
-/* 83 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5698,7 +5575,7 @@
 	                                                                                                                                                                                                                                                                               */
 
 
-	var _BaseComponent = __webpack_require__(84);
+	var _BaseComponent = __webpack_require__(83);
 
 	var _extend = __webpack_require__(8);
 
@@ -5708,9 +5585,9 @@
 
 	var _util = __webpack_require__(10);
 
-	var _neouiTooltip = __webpack_require__(85);
+	var _neouiTooltip = __webpack_require__(84);
 
-	var _i18n = __webpack_require__(73);
+	var _i18n = __webpack_require__(85);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -5739,8 +5616,6 @@
 	        this.validMode = this.options['validMode'] ? this.options['validMode'] : Validate.DEFAULTS.validMode;
 	        //空提示
 	        this.nullMsg = this.options['nullMsg'] ? this.options['nullMsg'] : Validate.NULLMSG[this.validType];
-	        // input输入提示
-	        this.inputMsg = Validate.INPUTMSG;
 	        //是否必填
 	        if (this.required && !this.nullMsg) this.nullMsg = Validate.NULLMSG['required'];
 	        //错误必填
@@ -5763,7 +5638,7 @@
 
 	        // 要求显示成功提示，并没有成功提示dom的id时，则创建成功提示dom
 	        if (this.hasSuccess && !this.successId) {
-	            this.successId = (0, _dom.makeDOM)('<span class="u-form-control-success uf uf-correct" ></span>');
+	            this.successId = (0, _dom.makeDOM)('<span class="u-form-control-success uf uf-checkedsymbol" ></span>');
 
 	            if (this.referDom.nextSibling) {
 	                this.referDom.parentNode.insertBefore(this.successId, this.referDom.nextSibling);
@@ -5773,7 +5648,7 @@
 	        }
 	        //不是默认的tip提示方式并且tipId没有定义时创建默认tipid
 	        if (this.notipFlag && !this.tipId) {
-	            this.tipId = (0, _dom.makeDOM)('<span class="u-form-control-info uf uf-exc-c-o "></span>');
+	            this.tipId = (0, _dom.makeDOM)('<span class="u-form-control-info uf uf-exclamationsign "></span>');
 	            this.referDom.parentNode.appendChild(this.tipId);
 
 	            if (this.referDom.nextSibling) {
@@ -5831,17 +5706,6 @@
 	    "url": (0, _i18n.trans)('validate.error_url', "网址格式不对！"),
 	    "datetime": (0, _i18n.trans)('validate.error_datetime', "日期格式不对！"),
 	    "phoneNumber": (0, _i18n.trans)('validate.error_phoneNumber', "号码格式不对！")
-	};
-
-	Validate.INPUTMSG = {
-	    "minLength": (0, _i18n.trans)('validate.input_minlength', "输入长度不能小于"),
-	    "maxLength": (0, _i18n.trans)('validate.input_maxlength', "输入长度不能大于"),
-	    "unit": (0, _i18n.trans)('validate.input_unit', "位"),
-	    "maxValue": (0, _i18n.trans)('validate.input_maxvalue', "输入值不能大于"),
-	    "minValue": (0, _i18n.trans)('validate.input_minvalue', "输入值不能小于"),
-	    "equalMax": (0, _i18n.trans)('validate.input_equalMax', "输入值不能大于或等于"),
-	    "equalMin": (0, _i18n.trans)('validate.input_equalMin', "输入值不能小于或等于")
-
 	};
 
 	Validate.REG = {
@@ -5972,7 +5836,7 @@
 	    }
 	    if (this.minLength) {
 	        if (value.lengthb() < this.minLength) {
-	            var Msg = this.inputMsg.minLength + this.minLength + this.inputMsg.unit;
+	            var Msg = "输入长度不能小于" + this.minLength + "位";
 	            this.showMsg(Msg);
 	            return {
 	                passed: false,
@@ -5982,7 +5846,7 @@
 	    }
 	    if (this.maxLength) {
 	        if (value.lengthb() > this.maxLength) {
-	            var Msg = this.inputMsg.maxLength + this.maxLength + this.inputMsg.unit;
+	            var Msg = "输入长度不能大于" + this.maxLength + "位";
 	            this.showMsg(Msg);
 	            return {
 	                passed: false,
@@ -5992,7 +5856,7 @@
 	    }
 	    if (this.max != undefined && this.max != null) {
 	        if (parseFloat(value) > this.max) {
-	            var Msg = this.inputMsg.maxValue + this.max;
+	            var Msg = "输入值不能大于" + this.max;
 	            this.showMsg(Msg);
 	            return {
 	                passed: false,
@@ -6002,7 +5866,7 @@
 	    }
 	    if (this.min != undefined && this.min != null) {
 	        if (parseFloat(value) < this.min) {
-	            var Msg = this.inputMsg.minValue + this.min;
+	            var Msg = "输入值不能小于" + this.min;
 	            this.showMsg(Msg);
 	            return {
 	                passed: false,
@@ -6012,7 +5876,7 @@
 	    }
 	    if (this.maxNotEq != undefined && this.maxNotEq != null) {
 	        if (parseFloat(value) >= this.maxNotEq) {
-	            var Msg = this.inputMsg.equalMax + this.maxNotEq;
+	            var Msg = "输入值不能大于或等于" + this.maxNotEq;
 	            this.showMsg(Msg);
 	            return {
 	                passed: false,
@@ -6022,7 +5886,7 @@
 	    }
 	    if (this.minNotEq != undefined && this.minNotEq != null) {
 	        if (parseFloat(value) <= this.minNotEq) {
-	            var Msg = this.inputMsg.equalMin + this.minNotEq;
+	            var Msg = "输入值不能小于或等于" + this.minNotEq;
 	            this.showMsg(Msg);
 	            return {
 	                passed: false,
@@ -6124,10 +5988,6 @@
 	    if (this.showMsgFlag == false || this.showMsgFlag == 'false') {
 	        return;
 	    }
-	    //因为grid中自定义的editType使用的是document.body,只处理校验不现实提示信息
-	    if (this.element == document.body) {
-	        return;
-	    }
 	    var self = this;
 	    if (this.tipId) {
 	        this.referDom.style.borderColor = 'rgb(241,90,74)';
@@ -6168,10 +6028,6 @@
 	                this.referDom = this.$element;
 	            }
 	        }
-	        if (this.tooltip) {
-	            this.tooltip.hide();
-	        }
-
 	        this.tooltip = new _neouiTooltip.Tooltip(this.referDom, tipOptions);
 	        this.tooltip.setTitle(msg);
 	        this.tooltip.show();
@@ -6283,7 +6139,7 @@
 	exports.doValidate = doValidate;
 
 /***/ },
-/* 84 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6422,7 +6278,7 @@
 	exports.BaseComponent = BaseComponent;
 
 /***/ },
-/* 85 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6745,6 +6601,26 @@
 	exports.Tooltip = Tooltip;
 
 /***/ },
+/* 85 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	exports.__esModule = true;
+	/**
+	 * Module : Sparrow i18n
+	 * Author : Kvkens(yueming@yonyou.com)
+	 * Date	  : 2016-07-29 10:16:54
+	 */
+	//import {uuii18n} from '?';//缺失故修改为default值
+	var trans = function trans(key, dftValue) {
+	  //return  uuii18n ?  uuii18n.t('uui-trans:' + key) : dftValue;
+	  return dftValue;
+	};
+
+	exports.trans = trans;
+
+/***/ },
 /* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -6753,7 +6629,7 @@
 	exports.__esModule = true;
 	exports.Checkbox = undefined;
 
-	var _BaseComponent = __webpack_require__(84);
+	var _BaseComponent = __webpack_require__(83);
 
 	var _dom = __webpack_require__(5);
 
@@ -6936,25 +6812,15 @@
 	        this._updateClasses();
 	    },
 
-	    // 点击时查看是否有beforeEdit（从checkboxAdapter那里传来）方法，根据beforeEdit方法判断是否触发check或者uncheck
-	    beforeToggle: function beforeToggle() {
-	        if (typeof this.beforeEdit === 'function') {
-	            return this.beforeEdit();
-	        } else {
-	            return true;
-	        }
-	    },
 	    /**
 	     * Check checkbox.
 	     *
 	     * @public
 	     */
 	    check: function check() {
-	        if (this.beforeToggle()) {
-	            this._inputElement.checked = true;
-	            this._updateClasses();
-	            this.boundInputOnChange();
-	        }
+	        this._inputElement.checked = true;
+	        this._updateClasses();
+	        this.boundInputOnChange();
 	    },
 
 	    /**
@@ -6963,11 +6829,9 @@
 	     * @public
 	     */
 	    uncheck: function uncheck() {
-	        if (this.beforeToggle()) {
-	            this._inputElement.checked = false;
-	            this._updateClasses();
-	            this.boundInputOnChange();
-	        }
+	        this._inputElement.checked = false;
+	        this._updateClasses();
+	        this.boundInputOnChange();
 	    }
 
 	}); /**
@@ -7008,7 +6872,7 @@
 	var _event = __webpack_require__(6);
 
 	var URipple = function URipple(element) {
-	  if (_env.env.isIE8 || _env.env.isMobile || _env.env.isAndroidPAD || _env.env.isIPAD) return;
+	  if (_env.env.isIE8) return;
 	  this._element = element;
 
 	  // Initialize instance.
@@ -7023,7 +6887,7 @@
 	 */
 
 	URipple.prototype._down = function (event) {
-	  if (_env.env.isIE8 || _env.env.isMobile || _env.env.isAndroidPAD || _env.env.isIPAD) return;
+	  if (_env.env.isIE8) return;
 	  if (!this._rippleElement.style.width && !this._rippleElement.style.height) {
 	    var rect = this._element.getBoundingClientRect();
 	    this.rippleSize_ = Math.sqrt(rect.width * rect.width + rect.height * rect.height) * 2 + 2;
@@ -7073,7 +6937,7 @@
 	 * @private
 	 */
 	URipple.prototype._up = function (event) {
-	  if (_env.env.isIE8 || _env.env.isMobile || _env.env.isAndroidPAD || _env.env.isIPAD) return;
+	  if (_env.env.isIE8) return;
 	  var self = this;
 	  // Don't fire for the artificial "mouseup" generated by a double-click.
 	  if (event && event.detail !== 2) {
@@ -7092,7 +6956,7 @@
 	     * @return {number} the frame count.
 	     */
 	URipple.prototype.getFrameCount = function () {
-	  if (_env.env.isIE8 || _env.env.isMobile || _env.env.isAndroidPAD || _env.env.isIPAD) return;
+	  if (_env.env.isIE8) return;
 	  return this.frameCount_;
 	};
 	/**
@@ -7100,7 +6964,7 @@
 	     * @param {number} fC the frame count.
 	     */
 	URipple.prototype.setFrameCount = function (fC) {
-	  if (_env.env.isIE8 || _env.env.isMobile || _env.env.isAndroidPAD || _env.env.isIPAD) return;
+	  if (_env.env.isIE8) return;
 	  this.frameCount_ = fC;
 	};
 
@@ -7109,7 +6973,7 @@
 	     * @return {Element} the ripple element.
 	     */
 	URipple.prototype.getRippleElement = function () {
-	  if (_env.env.isIE8 || _env.env.isMobile || _env.env.isAndroidPAD || _env.env.isIPAD) return;
+	  if (_env.env.isIE8) return;
 	  return this._rippleElement;
 	};
 
@@ -7119,7 +6983,7 @@
 	 * @param  {number} newY the new Y coordinate
 	 */
 	URipple.prototype.setRippleXY = function (newX, newY) {
-	  if (_env.env.isIE8 || _env.env.isMobile || _env.env.isAndroidPAD || _env.env.isIPAD) return;
+	  if (_env.env.isIE8) return;
 	  this.x_ = newX;
 	  this.y_ = newY;
 	};
@@ -7129,7 +6993,7 @@
 	 * @param  {boolean} start whether or not this is the start frame.
 	 */
 	URipple.prototype.setRippleStyles = function (start) {
-	  if (_env.env.isIE8 || _env.env.isMobile || _env.env.isAndroidPAD || _env.env.isIPAD) return;
+	  if (_env.env.isIE8) return;
 	  if (this._rippleElement !== null) {
 	    var transformString;
 	    var scale;
@@ -7162,7 +7026,7 @@
 	   * Handles an animation frame.
 	   */
 	URipple.prototype.animFrameHandler = function () {
-	  if (_env.env.isIE8 || _env.env.isMobile || _env.env.isAndroidPAD || _env.env.isIPAD) return;
+	  if (_env.env.isIE8) return;
 	  if (this.frameCount_-- > 0) {
 	    window.requestAnimationFrame(this.animFrameHandler.bind(this));
 	  } else {
@@ -7174,7 +7038,7 @@
 	 * Initialize element.
 	 */
 	URipple.prototype.init = function () {
-	  if (_env.env.isIE8 || _env.env.isMobile || _env.env.isAndroidPAD || _env.env.isIPAD) return;
+	  if (_env.env.isIE8) return;
 	  var self = this;
 	  if (this._element) {
 	    this._rippleElement = this._element.querySelector('.u-ripple');
@@ -7230,15 +7094,15 @@
 	exports.__esModule = true;
 	exports.CkEditorAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(77);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _valueMixin = __webpack_require__(79);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(80);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(81);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(82);
+	var _validateMixin = __webpack_require__(81);
 
 	var _compMgr = __webpack_require__(4);
 
@@ -7341,15 +7205,15 @@
 	exports.__esModule = true;
 	exports.ComboboxAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(77);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _valueMixin = __webpack_require__(79);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(80);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(81);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(82);
+	var _validateMixin = __webpack_require__(81);
 
 	var _util = __webpack_require__(10);
 
@@ -7483,7 +7347,7 @@
 	exports.__esModule = true;
 	exports.Combo = undefined;
 
-	var _BaseComponent = __webpack_require__(84);
+	var _BaseComponent = __webpack_require__(83);
 
 	var _dom = __webpack_require__(5);
 
@@ -7667,14 +7531,12 @@
 	            // document.removeEventListener('click', callback);
 	            this.hide();
 	        }.bind(this);
-	        this.callback = callback;
 	        (0, _event.on)(document, 'click', callback);
 	        (0, _event.on)(document.body, 'touchend', callback);
 	        // document.addEventListener('click', callback);
 	    },
 
 	    hide: function hide() {
-	        (0, _event.off)(document, 'click', this.callback);
 	        (0, _dom.removeClass)(this._ul, 'is-visible');
 	        this._ul.style.zIndex = -1;
 	        this.trigger('select', { value: this.value, name: this._input.value });
@@ -7927,7 +7789,7 @@
 	exports.__esModule = true;
 	exports.Text = undefined;
 
-	var _BaseComponent = __webpack_require__(84);
+	var _BaseComponent = __webpack_require__(83);
 
 	var _dom = __webpack_require__(5);
 
@@ -8166,15 +8028,15 @@
 	exports.__esModule = true;
 	exports.CurrencyAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(77);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _valueMixin = __webpack_require__(79);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(80);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(81);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(82);
+	var _validateMixin = __webpack_require__(81);
 
 	var _util = __webpack_require__(10);
 
@@ -8343,15 +8205,15 @@
 	exports.__esModule = true;
 	exports.FloatAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(77);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _valueMixin = __webpack_require__(79);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(80);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(81);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(82);
+	var _validateMixin = __webpack_require__(81);
 
 	var _event = __webpack_require__(6);
 
@@ -9030,15 +8892,15 @@
 	exports.__esModule = true;
 	exports.DateTimeAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(77);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _valueMixin = __webpack_require__(79);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(80);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(81);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(82);
+	var _validateMixin = __webpack_require__(81);
 
 	var _event = __webpack_require__(6);
 
@@ -9202,8 +9064,11 @@
 					self.dataModel.ref(self.endField).subscribe(function (value) {
 						if (_env.env.isMobile) {
 							var valueObj = _dateUtils.date.getDateObj(value);
-							if (valueObj) {
-								self.resetDataObj(valueObj);
+							if (valueObj && self.options.format == 'YYYY-MM-DD') {
+								valueObj.setHours(0);
+								valueObj.setMinutes(0);
+								valueObj.setSeconds(0);
+								valueObj.setMilliseconds(0);
 							}
 							self.op.minDate = valueObj;
 							if (self.adapterType == 'date') {
@@ -9212,8 +9077,11 @@
 								$(self.element).mobiscroll().datetime(self.op);
 							}
 							var nowDate = _dateUtils.date.getDateObj(self.dataModel.getValue(self.field));
-							if (nowDate) {
-								self.resetDataObj(nowDate);
+							if (nowDate && self.options.format == 'YYYY-MM-DD') {
+								nowDate.setHours(0);
+								nowDate.setMinutes(0);
+								nowDate.setSeconds(0);
+								nowDate.setMilliseconds(0);
 							}
 							if (nowDate && nowDate.getTime() > valueObj.getTime() && value) {
 								self.dataModel.setValue(self.field, '');
@@ -9221,12 +9089,18 @@
 						} else {
 							self.comp.setEndDate(value);
 							var nowDate = self.comp.date;
-							if (nowDate) {
-								self.resetDataObj(nowDate);
+							if (nowDate && self.options.format == 'YYYY-MM-DD') {
+								nowDate.setHours(0);
+								nowDate.setMinutes(0);
+								nowDate.setSeconds(0);
+								nowDate.setMilliseconds(0);
 							}
 							var valueObj = _dateUtils.date.getDateObj(value);
-							if (valueObj) {
-								self.resetDataObj(valueObj);
+							if (valueObj && self.options.format == 'YYYY-MM-DD') {
+								valueObj.setHours(0);
+								valueObj.setMinutes(0);
+								valueObj.setSeconds(0);
+								valueObj.setMilliseconds(0);
 							}
 							if (nowDate && value && nowDate.getTime() > valueObj.getTime()) {
 								self.dataModel.setValue(self.field, '');
@@ -9262,10 +9136,12 @@
 						if (_env.env.isMobile) {
 							value = _dateUtils.date.getDateObj(value);
 
-							// var valueObj = self.setMobileStartDate(value, self.options.format);
-							var valueObj = value;
-							if (valueObj) {
-								self.resetDataObj(valueObj);
+							var valueObj = self.setMobileStartDate(value, self.options.format);
+							if (valueObj && self.options.format == 'YYYY-MM-DD') {
+								valueObj.setHours(0);
+								valueObj.setMinutes(0);
+								valueObj.setSeconds(0);
+								valueObj.setMilliseconds(0);
 							}
 							self.op.minDate = valueObj;
 							if (self.adapterType == 'date') {
@@ -9274,8 +9150,11 @@
 								$(self.element).mobiscroll().datetime(self.op);
 							}
 							var nowDate = _dateUtils.date.getDateObj(self.dataModel.getValue(self.field));
-							if (nowDate) {
-								self.resetDataObj(nowDate);
+							if (nowDate && self.options.format == 'YYYY-MM-DD') {
+								nowDate.setHours(0);
+								nowDate.setMinutes(0);
+								nowDate.setSeconds(0);
+								nowDate.setMilliseconds(0);
 							}
 							if (nowDate && nowDate.getTime() < valueObj.getTime() && value) {
 								self.dataModel.setValue(self.field, '');
@@ -9283,12 +9162,18 @@
 						} else {
 							self.comp.setStartDate(value, self.options.format);
 							var nowDate = self.comp.date;
-							if (nowDate) {
-								self.resetDataObj(nowDate);
+							if (nowDate && self.options.format == 'YYYY-MM-DD') {
+								nowDate.setHours(0);
+								nowDate.setMinutes(0);
+								nowDate.setSeconds(0);
+								nowDate.setMilliseconds(0);
 							}
 							var valueObj = _dateUtils.date.getDateObj(value);
-							if (valueObj) {
-								self.resetDataObj(valueObj);
+							if (valueObj && self.options.format == 'YYYY-MM-DD') {
+								valueObj.setHours(0);
+								valueObj.setMinutes(0);
+								valueObj.setSeconds(0);
+								valueObj.setMilliseconds(0);
 							}
 							if (nowDate && value && nowDate.getTime() < valueObj.getTime()) {
 								self.dataModel.setValue(self.field, '');
@@ -9355,14 +9240,20 @@
 		setValue: function setValue(value) {
 			if (this.dataModel) {
 				var valueObj = _dateUtils.date.getDateObj(value);
-				if (valueObj) {
-					this.resetDataObj(valueObj);
+				if (valueObj && this.options.format == 'YYYY-MM-DD') {
+					valueObj.setHours(0);
+					valueObj.setMinutes(0);
+					valueObj.setSeconds(0);
+					valueObj.setMilliseconds(0);
 				}
 				if (this.startField) {
 					var startValue = this.dataModel.getValue(this.startField);
 					var startValueObj = _dateUtils.date.getDateObj(startValue);
-					if (startValueObj) {
-						this.resetDataObj(startValueObj);
+					if (startValueObj && this.options.format == 'YYYY-MM-DD') {
+						startValueObj.setHours(0);
+						startValueObj.setMinutes(0);
+						startValueObj.setSeconds(0);
+						startValueObj.setMilliseconds(0);
 					}
 					if (startValueObj && valueObj.getTime() < startValueObj.getTime()) {
 						return;
@@ -9371,8 +9262,11 @@
 				if (this.endField) {
 					var endValue = this.dataModel.getValue(this.endField);
 					var endValueObj = _dateUtils.date.getDateObj(endValue);
-					if (endValueObj) {
-						this.resetDataObj(endValueObj);
+					if (endValueObj && this.options.format == 'YYYY-MM-DD') {
+						endValueObj.setHours(0);
+						endValueObj.setMinutes(0);
+						endValueObj.setSeconds(0);
+						endValueObj.setMilliseconds(0);
 					}
 					if (endValueObj && valueObj.getTime() > endValueObj.getTime()) {
 						return;
@@ -9407,19 +9301,6 @@
 				(0, _dom.addClass)(this.element.parentNode, 'disablecover');
 			}
 			if (!_env.env.isMobile) this.comp.setEnable(enable);
-		},
-
-		resetDataObj: function resetDataObj(dataObj) {
-			if (this.options.format.indexOf('h') < 0 && this.options.format.indexOf('H') < 0) {
-				dataObj.setHours(0);
-			}
-			if (this.options.format.indexOf('m') < 0) {
-				dataObj.setMinutes(0);
-			}
-			if (this.options.format.indexOf('s') < 0) {
-				dataObj.setSeconds(0);
-				dataObj.setMilliseconds(0);
-			}
 		}
 
 	});
@@ -9447,7 +9328,7 @@
 
 	var _extend = __webpack_require__(8);
 
-	var _BaseComponent = __webpack_require__(84);
+	var _BaseComponent = __webpack_require__(83);
 
 	var _env = __webpack_require__(7);
 
@@ -9459,15 +9340,13 @@
 
 	var _dateUtils = __webpack_require__(70);
 
-	var _neouiValidate = __webpack_require__(83);
+	var _neouiValidate = __webpack_require__(82);
 
 	var _compMgr = __webpack_require__(4);
 
 	var _ripple = __webpack_require__(87);
 
 	var _util = __webpack_require__(10);
-
-	var _i18n = __webpack_require__(73);
 
 	var DateTimePicker = _BaseComponent.BaseComponent.extend({});
 
@@ -9881,7 +9760,6 @@
 	        i,
 	        cell,
 	        self = this;
-	    self.timeOpen = false;
 	    type = type || 'current';
 	    if ('current' === type) {
 	        tempDate = this.pickerDate;
@@ -9934,7 +9812,7 @@
 	    weekSpans = datePage.querySelectorAll('.u-date-week span');
 
 	    for (var i = 0; i < 7; i++) {
-	        weekSpans[i].innerHTML = _dateUtils.date._jsonLocale.weekdaysMin[i];
+	        weekSpans[i].innerHTML = _dateUtils.date._dateLocale[language].weekdaysMin[i];
 	    }
 	    dateDiv = datePage.querySelector('.u-date-content-panel');
 	    tempDate = this.startDate;
@@ -9975,8 +9853,11 @@
 	        this.pickerDate.setFullYear(e.target._year);
 	        this.pickerDate.setMonth(e.target._month);
 	        this.pickerDate.setDate(_d);
-	        if (this.pickerDate) {
-	            this.resetDataObj(this.pickerDate);
+	        if (this.pickerDate && this.options.format == 'YYYY-MM-DD') {
+	            this.pickerDate.setHours(0);
+	            this.pickerDate.setMinutes(0);
+	            this.pickerDate.setSeconds(0);
+	            this.pickerDate.setMilliseconds(0);
 	        }
 
 	        var _cell = e.target.parentNode.querySelector('.u-date-cell.current');
@@ -10010,8 +9891,9 @@
 	    //     this._timeMobileScroll()
 	    //     return;
 	    // }
-	    if (this.timeOpen) return;
-	    this.timeOpen = true;
+	    //去除判断防止再次点击时间时，面板弹不出来
+	    // if(this.timeOpen)return;
+	    // this.timeOpen = true;
 	    var year, month, day, date, time, template, timePage, titleDiv, dateDiv, weekSpans, language, tempDate, i, cell, timetemplate;
 	    var self = this;
 	    type = type || 'current';
@@ -10072,7 +9954,7 @@
 	            var value = this.value,
 	                length = value.length,
 	                valueArray = [];
-	            if (length == 8 && value[0] <= 2 && value[0] >= 0 && value[1] <= 3 && value[1] >= 0 && value[3] <= 5 && value[3] >= 0 && value[6] <= 5 && value[6] >= 0) {
+	            if (length == 8) {
 	                valueArray = value.split(':');
 	                obj.pickerDate.setHours(valueArray[0]);
 	                obj.pickerDate.setMinutes(valueArray[1]);
@@ -10535,7 +10417,20 @@
 	    //this._dateContent.style.height =panelHeight - 158 + 'px';   // 106 52
 	};
 
-	var dateTimePickerTemplateArr = ['<div class="u-date-panel">', '<div class="u-date-body">', '<div class="u-date-content"></div>', '</div>', '<div class="u-date-nav">', '<button type="button" class="u-button u-date-ok right primary">', (0, _i18n.trans)('public.confirm', '确定'), '</button>', '<button type="button" class="u-button u-date-cancel right">', (0, _i18n.trans)('public.cancel', '取消'), '</button>', '<button type="button" class="u-button u-date-clean">', (0, _i18n.trans)('public.clear', '清空'), '</button>', '</div>', '</div>'];
+	var dateTimePickerTemplateArr = ['<div class="u-date-panel">', '<div class="u-date-body">',
+	/*'<div class="u-date-header">',
+	    '<span class="u-date-header-year"></span>',
+	     '<div class="u-date-header-h3">',
+	        '<span class="u-date-header-week"></span>',
+	        '<span>,</span>',
+	        '<span class="u-date-header-month"></span>',
+	        '<span> </span>',
+	        '<span class="u-date-header-date"></span>',
+	        '<span> </span>',
+	        '<span class="u-date-header-time"></span>',
+	     '</div>',
+	'</div>',*/
+	'<div class="u-date-content"></div>', '</div>', '<div class="u-date-nav">', '<button type="button" class="u-button u-date-ok right primary">确定</button>', '<button type="button" class="u-button u-date-cancel right">取消</button>', '<button type="button" class="u-button u-date-clean">清空</button>', '</div>', '</div>'];
 
 	/******************************
 	 *  Public method
@@ -10744,9 +10639,6 @@
 	    if (flag) {
 	        this.trigger('select', { value: this.pickerDate });
 	        this.trigger('validate');
-	        if (u.isIE || u.isEdge) {
-	            this.element.querySelector('input').blur();
-	        }
 	    }
 	};
 
@@ -10778,18 +10670,27 @@
 
 	    var _date = _dateUtils.date.getDateObj(value);
 	    if (_date) {
-	        if (_date) {
-	            this.resetDataObj(_date);
+	        if (_date && this.options.format == 'YYYY-MM-DD') {
+	            _date.setHours(0);
+	            _date.setMinutes(0);
+	            _date.setSeconds(0);
+	            _date.setMilliseconds(0);
 	        }
 	        if (this.beginDateObj) {
-	            if (this.beginDateObj) {
-	                this.resetDataObj(this.beginDateObj);
+	            if (this.beginDateObj && this.options.format == 'YYYY-MM-DD') {
+	                this.beginDateObj.setHours(0);
+	                this.beginDateObj.setMinutes(0);
+	                this.beginDateObj.setSeconds(0);
+	                this.beginDateObj.setMilliseconds(0);
 	            }
 	            if (_date.getTime() < this.beginDateObj.getTime()) return;
 	        }
 	        if (this.overDateObj) {
-	            if (this.overDateObj) {
-	                this.resetDataObj(this.overDateObj);
+	            if (this.overDateObj && this.options.format == 'YYYY-MM-DD') {
+	                this.overDateObj.setHours(0);
+	                this.overDateObj.setMinutes(0);
+	                this.overDateObj.setSeconds(0);
+	                this.overDateObj.setMilliseconds(0);
 	            }
 	            if (_date.getTime() > this.overDateObj.getTime()) return;
 	        }
@@ -10809,8 +10710,11 @@
 	DateTimePicker.fn.setStartDate = function (startDate, type) {
 	    if (startDate) {
 	        this.beginDateObj = _dateUtils.date.getDateObj(startDate);
-	        if (this.beginDateObj) {
-	            this.resetDataObj(this.beginDateObj);
+	        if (this.beginDateObj && this.options.format == 'YYYY-MM-DD') {
+	            this.beginDateObj.setHours(0);
+	            this.beginDateObj.setMinutes(0);
+	            this.beginDateObj.setSeconds(0);
+	            this.beginDateObj.setMilliseconds(0);
 	        }
 	        /*if(type){
 	            switch (type) {
@@ -10837,8 +10741,11 @@
 	DateTimePicker.fn.setEndDate = function (endDate) {
 	    if (endDate) {
 	        this.overDateObj = _dateUtils.date.getDateObj(endDate);
-	        if (this.overDateObj) {
-	            this.resetDataObj(this.overDateObj);
+	        if (this.overDateObj && this.options.format == 'YYYY-MM-DD') {
+	            this.overDateObj.setHours(0);
+	            this.overDateObj.setMinutes(0);
+	            this.overDateObj.setSeconds(0);
+	            this.overDateObj.setMilliseconds(0);
 	        }
 	        this.overYear = this.overDateObj.getFullYear();
 	        this.overMonth = this.overDateObj.getMonth();
@@ -10859,26 +10766,11 @@
 	    }
 	};
 
-	DateTimePicker.fn.resetDataObj = function (dataObj) {
-	    if (this.format.indexOf('h') < 0 && this.format.indexOf('H') < 0) {
-	        dataObj.setHours(0);
-	    }
-	    if (this.format.indexOf('m') < 0) {
-	        dataObj.setMinutes(0);
-	    }
-	    if (this.format.indexOf('s') < 0) {
-	        dataObj.setSeconds(0);
-	        dataObj.setMilliseconds(0);
-	    }
-	};
-
-	if (!_env.env.isMobile) {
-	    _compMgr.compMgr.regComp({
-	        comp: DateTimePicker,
-	        compAsString: 'u.DateTimePicker',
-	        css: 'u-datepicker'
-	    });
-	}
+	_compMgr.compMgr.regComp({
+	    comp: DateTimePicker,
+	    compAsString: 'u.DateTimePicker',
+	    css: 'u-datepicker'
+	});
 
 	if (document.readyState && document.readyState === 'complete') {
 	    _compMgr.compMgr.updateComp();
@@ -10906,15 +10798,15 @@
 	                                                                                                                                                                                                                                                                               * Date	  : 2016-08-09 16:17:17
 	                                                                                                                                                                                                                                                                               */
 
-	var _baseAdapter = __webpack_require__(77);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _valueMixin = __webpack_require__(79);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(80);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(81);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(82);
+	var _validateMixin = __webpack_require__(81);
 
 	var _util = __webpack_require__(10);
 
@@ -10940,7 +10832,7 @@
 
 	var _keroaInteger = __webpack_require__(111);
 
-	var _keroaCheckbox = __webpack_require__(78);
+	var _keroaCheckbox = __webpack_require__(77);
 
 	var _keroaCombo = __webpack_require__(89);
 
@@ -10958,13 +10850,13 @@
 
 	var _keroaPercent = __webpack_require__(116);
 
-	var _neouiValidate = __webpack_require__(83);
+	var _neouiValidate = __webpack_require__(82);
 
 	var _neouiMessage = __webpack_require__(117);
 
 	var _compMgr = __webpack_require__(4);
 
-	var _i18n = __webpack_require__(73);
+	var _i18n = __webpack_require__(85);
 
 	var _core = __webpack_require__(71);
 
@@ -11091,31 +10983,22 @@
 						if (comp) comp.modelValueChange(obj.value);
 						obj.gridObj.editComp = comp;
 
-						// form也按照showFix为true处理，如果有问题则调整组件显示
-						// if(obj.gridObj.options.editType == 'form'){
-						// 	//form默认为false
-						// 	try{
-						// 		comp.options.showFix = false;
-						// 	}catch(e){
-
-						// 	}
-						// 	try{
-						// 		comp.comp.options.showFix = false;
-						// 	}catch(e){
-
-						// 	}
-						// }else{
-						// 	try{
-						// 		comp.options.showFix = true;
-						// 	}catch(e){
-
-						// 	}
-						// 	try{
-						// 		comp.comp.options.showFix = true;
-						// 	}catch(e){
-
-						// 	}
-						// }
+						if (obj.gridObj.options.editType == 'form') {
+							//form默认为false
+							try {
+								comp.options.showFix = false;
+							} catch (e) {}
+							try {
+								comp.comp.options.showFix = false;
+							} catch (e) {}
+						} else {
+							try {
+								comp.options.showFix = true;
+							} catch (e) {}
+							try {
+								comp.comp.options.showFix = true;
+							} catch (e) {}
+						}
 
 						// 根据惊道需求增加editype之后的处理,此处只针对grid.js中的默认eType进行处理，非默认通过eType进行处理
 						if (typeof afterEType == 'function') {
@@ -11896,7 +11779,6 @@
 					}
 				};
 			} else if (rType == 'integerRender') {
-				column.dataType = 'Int';
 				var renderType = function renderType(obj) {
 					var grid = obj.gridObj;
 					var column = obj.gridCompColumn;
@@ -11947,7 +11829,6 @@
 					}
 				};
 			} else if (rType == 'floatRender') {
-				column.dataType = 'Float';
 				var renderType = function renderType(obj) {
 					//需要处理精度
 
@@ -12218,7 +12099,7 @@
 					options: eOptions,
 					model: viewModel
 				});
-				column.dataType = 'Int';
+
 				//comp = new $.compManager.plugs.integer(compDiv.find("input")[0],eOptions,viewModel);
 			} else if (eType == 'checkbox') {
 				compDiv = $('<div><input id="' + oThis.id + "_edit_field_" + column['field'] + '" type="checkbox" class="u-grid-edit-item-checkbox"></div>');
@@ -12287,7 +12168,6 @@
 					options: eOptions,
 					model: viewModel
 				});
-				column.dataType = 'Float';
 			} else if (eType == 'currency') {
 				compDiv = $('<div><input type="text" class="u-grid-edit-item-currency"></div>');
 				if (!options.editType || options.editType == "default") {
@@ -12580,64 +12460,62 @@
 				}
 
 				var columnPassedFlag = true,
-				    columnMsg = '',
-				    elel = document.body;
+				    columnMsg = '';
 				if (this.editComponent[field] && this.editComponent[field].element) {
-					elel = this.editComponent[field].element;
-				}
-				var validate = new _neouiValidate.Validate({
-					el: elel,
-					single: true,
-					required: required,
-					validType: validType,
-					placement: placement,
-					tipId: tipId,
-					errorMsg: errorMsg,
-					nullMsg: nullMsg,
-					maxLength: maxLength,
-					minLength: minLength,
-					max: max,
-					min: min,
-					maxNotEq: maxNotEq,
-					minNotEq: minNotEq,
-					reg: reg,
-					showFix: true
-				});
-				for (var i = 0; i < rows.length; i++) {
-					var value = rows[i].value[field];
-					var result = validate.check({ pValue: value, showMsg: false });
-					passed = result.passed && passed;
-					if (!result.passed) {
-						columnPassedFlag = false;
-						if (options.showMsg && columnMsg.indexOf(result.Msg) < 0) {
-							columnMsg += result.Msg + ' ';
+					var validate = new _neouiValidate.Validate({
+						el: this.editComponent[field].element,
+						single: true,
+						required: required,
+						validType: validType,
+						placement: placement,
+						tipId: tipId,
+						errorMsg: errorMsg,
+						nullMsg: nullMsg,
+						maxLength: maxLength,
+						minLength: minLength,
+						max: max,
+						min: min,
+						maxNotEq: maxNotEq,
+						minNotEq: minNotEq,
+						reg: reg,
+						showFix: true
+					});
+					for (var i = 0; i < rows.length; i++) {
+						var value = rows[i].value[field];
+						var result = validate.check({ pValue: value, showMsg: false });
+						passed = result.passed && passed;
+						if (!result.passed) {
+							columnPassedFlag = false;
+							if (options.showMsg && columnMsg.indexOf(result.Msg) < 0) {
+								columnMsg += result.Msg + ' ';
+							}
+							// 设置背景色
+							var index = this.grid.getIndexOfColumn(column);
+							var contentDiv = document.getElementById(this.grid.options.id + '_content_tbody');
+							var row = contentDiv.querySelectorAll('tr')[i];
+							var td = row.querySelectorAll('td')[index];
+							var div = td.querySelector('div');
+							(0, _dom.addClass)(td, 'u-grid-err-td');
+							(0, _dom.addClass)(div, 'u-grid-err-td');
+							var msg = '(' + title + ')' + result.Msg + ';';
+							evalStr = 'if(typeof obj' + i + ' == \'undefined\'){var obj' + i + '= {}; MsgArr.push(obj' + i + ');obj' + i + '.rowNum = ' + i + '; obj' + i + '.arr = new Array();}obj' + i + '.arr.push(msg)';
+							eval(evalStr);
 						}
-						// 设置背景色
-						var index = this.grid.getIndexOfColumn(column);
-						var contentDiv = document.getElementById(this.grid.options.id + '_content_tbody');
-						var row = contentDiv.querySelectorAll('tr')[i];
-						var td = row.querySelectorAll('td')[index];
-						var div = td.querySelector('div');
-						(0, _dom.addClass)(td, 'u-grid-err-td');
-						(0, _dom.addClass)(div, 'u-grid-err-td');
-						var msg = '(' + title + ')' + result.Msg + ';';
-						evalStr = 'if(typeof obj' + i + ' == \'undefined\'){var obj' + i + '= {}; MsgArr.push(obj' + i + ');obj' + i + '.rowNum = ' + i + '; obj' + i + '.arr = new Array();}obj' + i + '.arr.push(msg)';
-						eval(evalStr);
 					}
-				}
-				// 如果存在错误信息并且提示信息
-				if (!columnPassedFlag && options.showMsg) {
-					columnShowMsg += title + ':' + columnMsg + '<br>';
-				}
-				if (!columnPassedFlag) {
-					if (!hasErrow) {
-						// 滚动条要滚动到第一次出现错误的数据列
-						hasErrow = true;
-						var ind = this.grid.getIndexOfColumn(column);
-						var thDom = $('#' + this.grid.options.id + '_header_table th', this.grid.$ele)[ind];
-						var left = thDom.attrLeftTotalWidth;
-						var contentDom = $('#' + this.grid.options.id + '_content_div', this.grid.$ele)[0];
-						contentDom.scrollLeft = left;
+					// 如果存在错误信息并且提示信息
+					if (!columnPassedFlag && options.showMsg) {
+						columnShowMsg += title + ':' + columnMsg + '<br>';
+					}
+					if (!columnPassedFlag) {
+						if (!hasErrow) {
+							// 滚动条要滚动到第一次出现错误的数据列
+							hasErrow = true;
+							var ind = this.grid.getIndexOfColumn(column);
+							var thDom = $('#' + this.grid.options.id + '_header_table th', this.grid.$ele)[ind];
+							var left = thDom.attrLeftTotalWidth;
+							var contentDom = $('#' + this.grid.options.id + '_content_div', this.grid.$ele)[0];
+							contentDom.scrollLeft = left;
+						}
 					}
 				}
 			}
@@ -12659,31 +12537,6 @@
 				comp: this,
 				Msg: wholeMsg
 			};
-		},
-		/**
-	  * [动态的设置下拉框的数据源]
-	  * 只有renderType设置为comboRender，editType为combo的情况才能通过此方式修改datasource
-	  * @param {[object]} data {fieldName:字段名, comboData:下拉的数据源}
-	  */
-		setComboDataByField: function setComboDataByField(data) {
-			// var oThis ,comboboxAdapter,viewModel,column,columnEOption,ds;
-			// oThis = this;
-			// // 如果data不存在则不赋值
-			// if (!data) {
-			// 	return;
-			// }
-			// //获取comboboxAdapter
-			// comboboxAdapter =  oThis.editComponent[data.fieldName];
-			// comboboxAdapter.comp.setComboData(data.comboData);
-
-			// viewModel = oThis.gridOptions['model'];
-			// // 获取列取eOption
-			// column = oThis.grid.getColumnByField(data.fieldName);
-			// // 获取eoption对应的数据源
-			// columnEOption = column.options.editOptions;
-
-			// ds = getJSObject(viewModel, columnEOption['datasource']);
-			// ds = data.comboData;
 		}
 	});
 
@@ -12811,19 +12664,19 @@
 	exports.__esModule = true;
 	exports.YearAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(77);
+	var _baseAdapter = __webpack_require__(76);
 
 	var _neouiYear = __webpack_require__(101);
 
 	var _compMgr = __webpack_require__(4);
 
-	var _valueMixin = __webpack_require__(79);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(80);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(81);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(82);
+	var _validateMixin = __webpack_require__(81);
 
 	var YearAdapter = _baseAdapter.BaseAdapter.extend({
 	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
@@ -12835,7 +12688,7 @@
 
 	        this.comp.on('valueChange', function (event) {
 	            self.slice = true;
-	            self.setValue(event.value);
+	            self.dataModel.setValue(self.field, event.value);
 	            self.slice = false;
 	            //self.setValue(event.value);
 	        });
@@ -12871,7 +12724,7 @@
 	exports.__esModule = true;
 	exports.Year = undefined;
 
-	var _BaseComponent = __webpack_require__(84);
+	var _BaseComponent = __webpack_require__(83);
 
 	var _event = __webpack_require__(6);
 
@@ -13116,19 +12969,19 @@
 	exports.__esModule = true;
 	exports.MonthAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(77);
+	var _baseAdapter = __webpack_require__(76);
 
 	var _neouiMonth = __webpack_require__(103);
 
 	var _compMgr = __webpack_require__(4);
 
-	var _valueMixin = __webpack_require__(79);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(80);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(81);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(82);
+	var _validateMixin = __webpack_require__(81);
 
 	var MonthAdapter = _baseAdapter.BaseAdapter.extend({
 	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
@@ -13138,20 +12991,16 @@
 
 	        this.comp = new _neouiMonth.Month({ el: this.element, showFix: this.options.showFix });
 
-	        // ui影响datatable
 	        this.comp.on('valueChange', function (event) {
-	            // 防止循环
 	            self.slice = true;
 	            self.dataModel.setValue(self.field, event.value);
 	            self.slice = false;
 	            //self.setValue(event.value);
 	        });
-	        // datatable反影响ui
 	        this.dataModel.ref(this.field).subscribe(function (value) {
 	            self.modelValueChange(value);
 	        });
 	    },
-	    // 触发空间
 	    modelValueChange: function modelValueChange(value) {
 	        if (this.slice) return;
 	        this.comp.setValue(value);
@@ -13179,7 +13028,7 @@
 	exports.__esModule = true;
 	exports.Month = undefined;
 
-	var _BaseComponent = __webpack_require__(84);
+	var _BaseComponent = __webpack_require__(83);
 
 	var _event = __webpack_require__(6);
 
@@ -13190,10 +13039,6 @@
 	var _compMgr = __webpack_require__(4);
 
 	var _ripple = __webpack_require__(87);
-
-	var _i18n = __webpack_require__(73);
-
-	var _dateUtils = __webpack_require__(70);
 
 	/**
 	 * Module : neoui-month
@@ -13261,9 +13106,7 @@
 			oldPanel = this.panelContentDiv.querySelector('.u-date-content-page');
 			if (oldPanel) this.panelContentDiv.removeChild(oldPanel);
 			_month = this.month;
-			var _defaultMonth = _month + '月';
-			var monthIndex = _dateUtils.date._jsonLocale.defaultMonth.indexOf(_defaultMonth);
-			template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">' + _dateUtils.date._jsonLocale.monthsShort[monthIndex] + '</div>', '<div class="u-date-content-panel">', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[0] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[1] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[2] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[3] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[4] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[5] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[6] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[7] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[8] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[9] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[10] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[11] + '</div>', '</div>', '</div>'].join("");
+			template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">' + _month + '月</div>', '<div class="u-date-content-panel">', '<div class="u-date-content-year-cell">1月</div>', '<div class="u-date-content-year-cell">2月</div>', '<div class="u-date-content-year-cell">3月</div>', '<div class="u-date-content-year-cell">4月</div>', '<div class="u-date-content-year-cell">5月</div>', '<div class="u-date-content-year-cell">6月</div>', '<div class="u-date-content-year-cell">7月</div>', '<div class="u-date-content-year-cell">8月</div>', '<div class="u-date-content-year-cell">9月</div>', '<div class="u-date-content-year-cell">10月</div>', '<div class="u-date-content-year-cell">11月</div>', '<div class="u-date-content-year-cell">12月</div>', '</div>', '</div>'].join("");
 
 			monthPage = (0, _dom.makeDOM)(template);
 			cells = monthPage.querySelectorAll('.u-date-content-year-cell');
@@ -13431,19 +13274,19 @@
 	exports.__esModule = true;
 	exports.YearMonthAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(77);
+	var _baseAdapter = __webpack_require__(76);
 
 	var _neouiYearmonth = __webpack_require__(105);
 
 	var _compMgr = __webpack_require__(4);
 
-	var _valueMixin = __webpack_require__(79);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(80);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(81);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(82);
+	var _validateMixin = __webpack_require__(81);
 
 	var YearMonthAdapter = _baseAdapter.BaseAdapter.extend({
 	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
@@ -13491,7 +13334,7 @@
 	exports.__esModule = true;
 	exports.YearMonth = undefined;
 
-	var _BaseComponent = __webpack_require__(84);
+	var _BaseComponent = __webpack_require__(83);
 
 	var _event = __webpack_require__(6);
 
@@ -13506,10 +13349,6 @@
 	var _ripple = __webpack_require__(87);
 
 	var _ployfill = __webpack_require__(106);
-
-	var _i18n = __webpack_require__(73);
-
-	var _dateUtils = __webpack_require__(70);
 
 	/**
 	 * Module : neoui-year
@@ -13617,9 +13456,7 @@
 	        oldPanel = this.panelContentDiv.querySelector('.u-date-content-page');
 	        if (oldPanel) this.panelContentDiv.removeChild(oldPanel);
 	        _month = this.month;
-	        var _defaultMonth = _month + '月';
-	        var monthIndex = _dateUtils.date._jsonLocale.defaultMonth.indexOf(_defaultMonth);
-	        template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">' + _dateUtils.date._jsonLocale.monthsShort[monthIndex] + '</div>', '<div class="u-date-content-panel">', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[0] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[1] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[2] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[3] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[4] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[5] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[6] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[7] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[8] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[9] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[10] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[11] + '</div>', '</div>', '</div>'].join("");
+	        template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">' + _month + '月</div>', '<div class="u-date-content-panel">', '<div class="u-date-content-year-cell">1月</div>', '<div class="u-date-content-year-cell">2月</div>', '<div class="u-date-content-year-cell">3月</div>', '<div class="u-date-content-year-cell">4月</div>', '<div class="u-date-content-year-cell">5月</div>', '<div class="u-date-content-year-cell">6月</div>', '<div class="u-date-content-year-cell">7月</div>', '<div class="u-date-content-year-cell">8月</div>', '<div class="u-date-content-year-cell">9月</div>', '<div class="u-date-content-year-cell">10月</div>', '<div class="u-date-content-year-cell">11月</div>', '<div class="u-date-content-year-cell">12月</div>', '</div>', '</div>'].join("");
 
 	        monthPage = (0, _dom.makeDOM)(template);
 	        cells = monthPage.querySelectorAll('.u-date-content-year-cell');
@@ -13863,15 +13700,15 @@
 	exports.__esModule = true;
 	exports.TimeAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(77);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _valueMixin = __webpack_require__(79);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(80);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(81);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(82);
+	var _validateMixin = __webpack_require__(81);
 
 	var _event = __webpack_require__(6);
 
@@ -13918,10 +13755,7 @@
 	                    if (!_date) {
 	                        self.dataModel.setValue(self.field, '');
 	                    } else {
-	                        if (event.value == (_date.getHours() < 10 ? '0' + _date.getHours() : _date.getHours()) + ':' + (_date.getMinutes() < 10 ? '0' + _date.getMinutes() : _date.getMinutes()) + ':' + (_date.getSeconds() < 10 ? '0' + _date.getSeconds() : _date.getSeconds())) {
-	                            self.slice = false;
-	                            return;
-	                        }
+	                        if (event.value == _date.getHours() + ':' + _date.getMinutes() + ':' + _date.getSeconds()) return;
 	                        _date.setHours(valueArr[0]);
 	                        _date.setMinutes(valueArr[1]);
 	                        _date.setSeconds(valueArr[2]);
@@ -13945,7 +13779,7 @@
 	        var compValue = '';
 	        if (this.dataType === 'datetime') {
 	            var _date = _dateUtils.date.getDateObj(value);
-	            if (!_date) compValue = '';else compValue = (_date.getHours() < 10 ? '0' + _date.getHours() : _date.getHours()) + ':' + (_date.getMinutes() < 10 ? '0' + _date.getMinutes() : _date.getMinutes()) + ':' + (_date.getSeconds() < 10 ? '0' + _date.getSeconds() : _date.getSeconds());
+	            if (!_date) compValue = '';else compValue = _date.getHours() + ':' + _date.getMinutes() + ':' + _date.getSeconds();
 	        } else {
 	            compValue = value;
 	        }
@@ -13975,7 +13809,7 @@
 	exports.__esModule = true;
 	exports.ClockPicker = undefined;
 
-	var _BaseComponent = __webpack_require__(84);
+	var _BaseComponent = __webpack_require__(83);
 
 	var _dom = __webpack_require__(5);
 
@@ -13991,7 +13825,11 @@
 
 	var _dateUtils = __webpack_require__(70);
 
-	var _i18n = __webpack_require__(73);
+	/**
+	 * Module : neoui-clockpicker
+	 * Author : liuyk(liuyk@yonyou.com)
+	 * Date	  : 2016-08-11 15:17:07
+	 */
 
 	var ClockPicker = _BaseComponent.BaseComponent.extend({
 		DEFAULTS: {},
@@ -14008,9 +13846,7 @@
 			(0, _dom.addClass)(this.element, 'u-text');
 
 			this.template = '<div class="u-clock-ul popover clockpicker-popover" style="padding:0px;">';
-			this.template += '<div class="popover-title"><button class="u-button u-date-clean u-clock-clean" >';
-			this.template += (0, _i18n.trans)('public.clear', "清空");
-			this.template += '</button><span class="clockpicker-span-hours">02</span> : <span class="clockpicker-span-minutes text-primary">01</span><span class="clockpicker-span-am-pm"></span></div>';
+			this.template += '<div class="popover-title"><button class="u-button u-date-clean u-clock-clean" >清空</button><span class="clockpicker-span-hours">02</span> : <span class="clockpicker-span-minutes text-primary">01</span><span class="clockpicker-span-am-pm"></span></div>';
 			this.template += '<div class="popover-content">';
 			this.template += '	<div class="clockpicker-plate">';
 			this.template += '		<div class="clockpicker-canvas">';
@@ -14246,12 +14082,11 @@
 
 		setValue: function setValue(value) {
 			value = value ? value : '';
-			var oldShowValue;
+
 			if (value == '') {
-				if (this.input.value != '') {
-					this.input.value = '';
-					this.trigger('valueChange', { value: '' });
-				}
+				this.input.value = '';
+
+				this.trigger('valueChange', { value: '' });
 				return;
 			}
 
@@ -14278,11 +14113,9 @@
 			_date.setMinutes(this.min);
 			_date.setSeconds(this.sec);
 			var showValue = _dateUtils.date.format(_date, this.format);
-			oldShowValue = this.input.value;
 			this.input.value = showValue;
-			if (oldShowValue != showValue) {
-				this.trigger('valueChange', { value: value });
-			}
+
+			this.trigger('valueChange', { value: value });
 		},
 
 		focusEvent: function focusEvent() {
@@ -14414,20 +14247,13 @@
 				} catch (e) {}
 			}
 		}
-	}); /**
-	     * Module : neoui-clockpicker
-	     * Author : liuyk(liuyk@yonyou.com)
-	     * Date	  : 2016-08-11 15:17:07
-	     */
+	});
 
-	if (!_env.env.isIE8) {
-		_compMgr.compMgr.regComp({
-			comp: ClockPicker,
-			compAsString: 'u.ClockPicker',
-			css: 'u-clockpicker'
-		});
-	}
-
+	_compMgr.compMgr.regComp({
+		comp: ClockPicker,
+		compAsString: 'u.ClockPicker',
+		css: 'u-clockpicker'
+	});
 	if (document.readyState && document.readyState === 'complete') {
 		_compMgr.compMgr.updateComp();
 	} else {
@@ -14449,7 +14275,7 @@
 
 	var _extend = __webpack_require__(8);
 
-	var _BaseComponent = __webpack_require__(84);
+	var _BaseComponent = __webpack_require__(83);
 
 	var _env = __webpack_require__(7);
 
@@ -14687,17 +14513,17 @@
 	exports.__esModule = true;
 	exports.StringAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(77);
+	var _baseAdapter = __webpack_require__(76);
 
 	var _extend = __webpack_require__(8);
 
-	var _valueMixin = __webpack_require__(79);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(80);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(81);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(82);
+	var _validateMixin = __webpack_require__(81);
 
 	var _event = __webpack_require__(6);
 
@@ -14763,15 +14589,15 @@
 	exports.__esModule = true;
 	exports.IntegerAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(77);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _valueMixin = __webpack_require__(79);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(80);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(81);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(82);
+	var _validateMixin = __webpack_require__(81);
 
 	var _util = __webpack_require__(10);
 
@@ -14876,15 +14702,15 @@
 	exports.__esModule = true;
 	exports.RadioAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(77);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _valueMixin = __webpack_require__(79);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(80);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(81);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(82);
+	var _validateMixin = __webpack_require__(81);
 
 	var _util = __webpack_require__(10);
 
@@ -15076,8 +14902,6 @@
 	                            fetch = true;
 	                            (0, _dom.addClass)(comp.element, 'is-checked');
 	                            comp._btnElement.click();
-	                        } else {
-	                            (0, _dom.removeClass)(comp.element, 'is-checked');
 	                        }
 	                    }
 	                });
@@ -15112,9 +14936,6 @@
 	        this.enable = enable === true || enable === 'true';
 	        if (this.dynamic) {
 	            if (this.datasource) {
-	                if (this.otherInput && !this.enable) {
-	                    this.otherInput.setAttribute('disabled', true);
-	                }
 	                this.element.querySelectorAll('.u-radio').forEach(function (ele) {
 	                    var comp = ele['u.Radio'];
 	                    if (comp) {
@@ -15151,7 +14972,7 @@
 	exports.__esModule = true;
 	exports.Radio = undefined;
 
-	var _BaseComponent = __webpack_require__(84);
+	var _BaseComponent = __webpack_require__(83);
 
 	var _dom = __webpack_require__(5);
 
@@ -15581,87 +15402,65 @@
 	/**
 	 * Module : neoui-message
 	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date      : 2016-08-02 19:40:59
+	 * Date	  : 2016-08-02 19:40:59
 	 */
 
-	var messageTemplate = '<div class="u-message"><span class="u-msg-close uf uf-close"></span>{msg}</div>';
+	var messageTemplate = '<div class="u-message"><span class="u-msg-close uf uf-removesymbol"></span>{msg}</div>';
 
 	var showMessage = function showMessage(options) {
-	    var msg, position, width, height, showSeconds, msgType, template;
-	    //新增深色
-	    var darkType;
-	    if (typeof options === 'string') {
-	        options = {
-	            msg: options
-	        };
-	    }
-	    msg = options['msg'] || "";
-	    position = options['position'] || "bottom"; //center. top-left, top-center, top-right, bottom-left, bottom-center, bottom-right,
-	    //TODO 后面改规则：没设宽高时，自适应
-	    width = options['width'] || "";
-	    // height = options['height'] || "100px";
-	    msgType = options['msgType'] || 'info';
-	    //默认为当用户输入的时间，当用户输入的时间为false并且msgType=='info'时，默认显示时间为2s
-	    showSeconds = parseInt(options['showSeconds']) || (msgType == 'info' ? 2 : 0);
+		var msg, position, width, height, showSeconds, msgType, template;
+		if (typeof options === 'string') {
+			options = {
+				msg: options
+			};
+		}
+		msg = options['msg'] || "";
+		position = options['position'] || "bottom-right"; //center. top-left, top-center, top-right, bottom-left, bottom-center, bottom-right,
+		//TODO 后面改规则：没设宽高时，自适应
+		width = options['width'] || "";
+		// height = options['height'] || "100px";
+		msgType = options['msgType'] || 'info';
+		//默认为当用户输入的时间，当用户输入的时间为false并且msgType=='info'时，默认显示时间为2s
+		showSeconds = parseInt(options['showSeconds']) || (msgType == 'info' ? 2 : 0);
 
-	    darkType = options['darkType'] || "";
+		template = options['template'] || messageTemplate;
 
-	    template = options['template'] || messageTemplate;
+		template = template.replace('{msg}', msg);
+		var msgDom = (0, _dom.makeDOM)(template);
+		(0, _dom.addClass)(msgDom, 'u-mes' + msgType);
+		msgDom.style.width = width;
+		// msgDom.style.height = height;
+		// msgDom.style.lineHeight = height;
+		if (position == 'bottom-right') {
+			msgDom.style.bottom = '10px';
+		}
 
-	    template = template.replace('{msg}', msg);
-	    var msgDom = (0, _dom.makeDOM)(template);
-	    (0, _dom.addClass)(msgDom, 'u-mes' + msgType);
+		if (position == 'center') {
+			msgDom.style.bottom = '50%';
+			msgDom.style.transform = 'translateY(50%)';
+		}
+		var closeBtn = msgDom.querySelector('.u-msg-close');
+		//new Button({el:closeBtn});
+		var closeFun = function closeFun() {
+			(0, _dom.removeClass)(msgDom, "active");
+			setTimeout(function () {
+				try {
+					document.body.removeChild(msgDom);
+				} catch (e) {}
+			}, 500);
+		};
+		(0, _event.on)(closeBtn, 'click', closeFun);
+		document.body.appendChild(msgDom);
 
-	    if (!darkType == "") {
-	        (0, _dom.addClass)(msgDom, darkType);
-	    }
+		if (showSeconds > 0) {
+			setTimeout(function () {
+				closeFun();
+			}, showSeconds * 1000);
+		}
 
-	    msgDom.style.width = width;
-	    // msgDom.style.height = height;
-	    // msgDom.style.lineHeight = height;
-	    if (position == 'bottom' || position == 'top' || position == 'center') {
-	        //msgDom.style.bottom = '10px';
-	        (0, _dom.addClass)(msgDom, 'u-mes-' + position);
-	    }
-
-	    if (position == 'topleft' || position == 'bottomleft') {
-	        if (width == "") {
-	            msgDom.style.right = '2.4rem';
-	            (0, _dom.addClass)(msgDom, 'u-mes-' + position);
-	        } else {
-	            (0, _dom.addClass)(msgDom, 'u-mes-' + position);
-	        }
-	    }
-	    if (position == 'topright' || position == 'bottomright') {
-	        if (width == "") {
-	            msgDom.style.left = '2.4rem';
-	            (0, _dom.addClass)(msgDom, 'u-mes-' + position);
-	        } else {
-	            (0, _dom.addClass)(msgDom, 'u-mes-' + position);
-	        }
-	    }
-	    var closeBtn = msgDom.querySelector('.u-msg-close');
-	    //new Button({el:closeBtn});
-	    var closeFun = function closeFun() {
-	        (0, _dom.removeClass)(msgDom, "active");
-	        setTimeout(function () {
-	            try {
-	                document.body.removeChild(msgDom);
-	            } catch (e) {}
-	        }, 500);
-	    };
-	    (0, _event.on)(closeBtn, 'click', closeFun);
-	    document.body.appendChild(msgDom);
-
-	    if (showSeconds > 0) {
-	        setTimeout(function () {
-	            closeFun();
-	        }, showSeconds * 1000);
-	    }
-
-	    setTimeout(function () {
-	        (0, _dom.addClass)(msgDom, "active");
-	    }, showSeconds * 1);
+		setTimeout(function () {
+			(0, _dom.addClass)(msgDom, "active");
+		}, showSeconds * 1);
 	};
 
 	var showMessageDialog = showMessage;
@@ -15678,7 +15477,7 @@
 	exports.__esModule = true;
 	exports.PaginationAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(77);
+	var _baseAdapter = __webpack_require__(76);
 
 	var _extend = __webpack_require__(8);
 
@@ -15741,13 +15540,7 @@
 	        if (this.comp.options.pageList.length > 0) {
 	            this.comp.options.pageSize = this.comp.options.pageList[0];
 	            ///this.comp.trigger('sizeChange', options.pageList[0])
-	            var checkIndex = 0;
-	            var defalutPageSize = this.comp.dataModel.pageSize();
-	            if (defalutPageSize > 0) {
-	                checkIndex = this.comp.options.pageList.indexOf(defalutPageSize);
-	            }
-	            checkIndex = checkIndex < 0 ? 0 : checkIndex;
-	            this.dataModel.pageSize(this.comp.options.pageList[checkIndex]);
+	            this.dataModel.pageSize(this.comp.options.pageList[0]);
 	        }
 
 	        // 如果datatable已经创建则根据datatable设置分页组件
@@ -15804,7 +15597,7 @@
 	                                                                                                                                                                                                                                                                               * Date	  : 2016-08-03 08:45:49
 	                                                                                                                                                                                                                                                                               */
 
-	var _BaseComponent = __webpack_require__(84);
+	var _BaseComponent = __webpack_require__(83);
 
 	var _extend = __webpack_require__(8);
 
@@ -15815,8 +15608,6 @@
 	var _event = __webpack_require__(6);
 
 	var _compMgr = __webpack_require__(4);
-
-	var _i18n = __webpack_require__(73);
 
 	var pagination = _BaseComponent.BaseComponent.extend({});
 
@@ -15904,12 +15695,7 @@
 		last: '&raquo;',
 		gap: '···',
 		//totalText: '合计:',
-		totalText: (0, _i18n.trans)('pagination.totalText', '共'),
-		listText: (0, _i18n.trans)('pagination.listText', '条'),
-		showText: (0, _i18n.trans)('pagination.showText', '显示'),
-		pageText: (0, _i18n.trans)('pagination.pageText', '页'),
-		toText: (0, _i18n.trans)('pagination.toText', '到'),
-		okText: (0, _i18n.trans)('public.ok', '确定'),
+		totalText: '共',
 		truncate: false,
 		showState: true,
 		showTotal: true, //初始默认显示总条数 “共xxx条”
@@ -16022,27 +15808,15 @@
 			var htmlTmp = '';
 			//分别得到分页条后“共xxx条”、“显示xx条”、“到xx页 确定”三个html片段
 			if (options.showTotal) {
-				htmlTmp += '<div class="pagination-state">' + options.totalText + '&nbsp;' + options.totalCount + '&nbsp;' + options.listText + '</div>';
+				htmlTmp += '<div class="pagination-state">' + options.totalText + '&nbsp;' + options.totalCount + '&nbsp;条</div>';
 			}
 			if (options.showColumn) {
-
-				if ((0, _dom.hasClass)(this.$ul, 'pagination-sm')) {
-					htmlTmp += '<div class="pagination-state">' + options.showText + '<select  class="page_z page_z_sm">' + pageOption + '</select>' + options.listText + '</div>';
-				} else if ((0, _dom.hasClass)(this.$ul, 'pagination-lg')) {
-					htmlTmp += '<div class="pagination-state">' + options.showText + '<select  class="page_z page_z_lg">' + pageOption + '</select>' + options.listText + '</div>';
-				} else {
-					htmlTmp += '<div class="pagination-state">' + options.showText + '<select  class="page_z">' + pageOption + '</select>' + options.listText + '</div>';
-				}
+				htmlTmp += '<div class="pagination-state">显示<select  class="page_z">' + pageOption + '</select>条</div>';
 			}
 			if (options.showJump) {
-				if ((0, _dom.hasClass)(this.$ul, 'pagination-sm')) {
-					htmlTmp += '<div class="pagination-state">' + options.toText + '<input class="page_j page_j_sm" value=' + options.currentPage + '>' + options.pageText + '<input class="pagination-jump pagination-jump-sm" type="button" value="' + options.okText + '"/></div>';
-				} else if ((0, _dom.hasClass)(this.$ul, 'pagination-lg')) {
-					htmlTmp += '<div class="pagination-state">' + options.toText + '<input class="page_j page_j_lg" value=' + options.currentPage + '>' + options.pageText + '<input class="pagination-jump pagination-jump-lg" type="button" value="' + options.okText + '"/></div>';
-				} else {
-					htmlTmp += '<div class="pagination-state">' + options.toText + '<input class="page_j" value=' + options.currentPage + '>' + options.pageText + '<input class="pagination-jump" type="button" value="' + options.okText + '"/></div>';
-				}
+				htmlTmp += '<div class="pagination-state">到<input class="page_j" value=' + options.currentPage + '>页<input class="pagination-jump" type="button" value="确定"/></div>';
 			}
+
 			htmlArr.push(htmlTmp);
 		}
 
@@ -16093,7 +15867,7 @@
 		});
 		(0, _util.each)(this.$ul.querySelectorAll('[role="page"] a'), function (i, node) {
 			(0, _event.on)(node, 'click', function () {
-				var pz = me.$element.querySelector(".page_z") && $(this).val() || options.pageSize;
+				var pz = me.$element.querySelector(".page_z") && me.$element.querySelector(".page_z").value || options.pageSize;
 				me.page(parseInt(this.innerHTML), options.totalPages, pz);
 				//me.$element.trigger('pageChange', parseInt($(this).html()) - 1)
 
@@ -16101,7 +15875,7 @@
 			});
 		});
 		(0, _event.on)(this.$ul.querySelector('.page_z'), 'change', function () {
-			var pz = me.$element.querySelector(".page_z") && $(this).val() || options.pageSize;
+			var pz = me.$element.querySelector(".page_z") && me.$element.querySelector(".page_z").value || options.pageSize;
 			me.trigger('sizeChange', pz);
 		});
 	};
@@ -16132,8 +15906,8 @@
 		// }
 
 		if (options.page(pageIndex)) {
-			if (pageIndex <= 0) {
-				pageIndex = 1;
+			if (pageIndex < 0) {
+				pageIndex = 0;
 			}
 
 			if (pageIndex > totalPages) {
@@ -16145,11 +15919,10 @@
 			options.totalPages = totalPages;
 			this.render();
 		}
-		var temppageIndex = pageIndex - 1 < 0 ? 0 : pageIndex - 1;
 		if (pageSize != oldPageSize) {
-			this.trigger('sizeChange', [pageSize, temppageIndex]);
+			this.trigger('sizeChange', [pageSize, pageIndex - 1]);
 		} else {
-			this.trigger('pageChange', temppageIndex);
+			this.trigger('pageChange', pageIndex - 1);
 		}
 
 		//this.$element.trigger('pageChange', pageIndex)
@@ -16332,7 +16105,7 @@
 	exports.__esModule = true;
 	exports.ProgressAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(77);
+	var _baseAdapter = __webpack_require__(76);
 
 	var _neouiProgress = __webpack_require__(123);
 
@@ -16376,7 +16149,7 @@
 	exports.__esModule = true;
 	exports.Progress = undefined;
 
-	var _BaseComponent = __webpack_require__(84);
+	var _BaseComponent = __webpack_require__(83);
 
 	var _dom = __webpack_require__(5);
 
@@ -16501,7 +16274,7 @@
 	exports.__esModule = true;
 	exports.SwitchAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(77);
+	var _baseAdapter = __webpack_require__(76);
 
 	var _neouiSwitch = __webpack_require__(125);
 
@@ -16580,7 +16353,7 @@
 	exports.__esModule = true;
 	exports.Switch = undefined;
 
-	var _BaseComponent = __webpack_require__(84);
+	var _BaseComponent = __webpack_require__(83);
 
 	var _dom = __webpack_require__(5);
 
@@ -16768,15 +16541,15 @@
 	exports.__esModule = true;
 	exports.TextAreaAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(77);
+	var _baseAdapter = __webpack_require__(76);
 
-	var _valueMixin = __webpack_require__(79);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(80);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(81);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(82);
+	var _validateMixin = __webpack_require__(81);
 
 	var _event = __webpack_require__(6);
 
@@ -16825,7 +16598,7 @@
 	exports.__esModule = true;
 	exports.TextFieldAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(77);
+	var _baseAdapter = __webpack_require__(76);
 
 	var _extend = __webpack_require__(8);
 
@@ -16907,19 +16680,19 @@
 	exports.__esModule = true;
 	exports.MonthDateAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(77);
+	var _baseAdapter = __webpack_require__(76);
 
 	var _neouiMonthdate = __webpack_require__(129);
 
 	var _compMgr = __webpack_require__(4);
 
-	var _valueMixin = __webpack_require__(79);
+	var _valueMixin = __webpack_require__(78);
 
-	var _enableMixin = __webpack_require__(80);
+	var _enableMixin = __webpack_require__(79);
 
-	var _requiredMixin = __webpack_require__(81);
+	var _requiredMixin = __webpack_require__(80);
 
-	var _validateMixin = __webpack_require__(82);
+	var _validateMixin = __webpack_require__(81);
 
 	var MonthDateAdapter = _baseAdapter.BaseAdapter.extend({
 	    mixins: [_valueMixin.ValueMixin, _enableMixin.EnableMixin, _requiredMixin.RequiredMixin, _validateMixin.ValidateMixin],
@@ -16967,7 +16740,7 @@
 	exports.__esModule = true;
 	exports.MonthDate = undefined;
 
-	var _BaseComponent = __webpack_require__(84);
+	var _BaseComponent = __webpack_require__(83);
 
 	var _env = __webpack_require__(7);
 
@@ -16985,7 +16758,11 @@
 
 	var _ripple = __webpack_require__(87);
 
-	var _i18n = __webpack_require__(73);
+	/**
+	 * Module : neoui-year
+	 * Author : wanghao(wanghaoo@yonyou.com)
+	 * Date   : 2016-11-09
+	 */
 
 	var MonthDate = _BaseComponent.BaseComponent.extend({
 	    DEFAULTS: {},
@@ -17051,9 +16828,7 @@
 	    _fillMonth: function _fillMonth() {
 	        var oldPanel, template, monthPage, _month, cells, i;
 	        _month = this.month;
-	        var _defaultMonth = _month + '月';
-	        var monthIndex = _dateUtils.date._jsonLocale.defaultMonth.indexOf(_defaultMonth);
-	        template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">' + _dateUtils.date._jsonLocale.monthsShort[monthIndex] + '</div>', '<div class="u-date-content-panel">', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[0] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[1] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[2] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[3] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[4] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[5] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[6] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[7] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[8] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[9] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[10] + '</div>', '<div class="u-date-content-year-cell">' + _dateUtils.date._jsonLocale.monthsShort[11] + '</div>', '</div>', '</div>'].join("");
+	        template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">' + _month + '月</div>', '<div class="u-date-content-panel">', '<div class="u-date-content-year-cell">1月</div>', '<div class="u-date-content-year-cell">2月</div>', '<div class="u-date-content-year-cell">3月</div>', '<div class="u-date-content-year-cell">4月</div>', '<div class="u-date-content-year-cell">5月</div>', '<div class="u-date-content-year-cell">6月</div>', '<div class="u-date-content-year-cell">7月</div>', '<div class="u-date-content-year-cell">8月</div>', '<div class="u-date-content-year-cell">9月</div>', '<div class="u-date-content-year-cell">10月</div>', '<div class="u-date-content-year-cell">11月</div>', '<div class="u-date-content-year-cell">12月</div>', '</div>', '</div>'].join("");
 
 	        monthPage = (0, _dom.makeDOM)(template);
 	        cells = monthPage.querySelectorAll('.u-date-content-year-cell');
@@ -17109,12 +16884,12 @@
 	        oldPanel = this.panelContentDiv.querySelector('.u-date-content-page');
 	        if (oldPanel) this.panelContentDiv.removeChild(oldPanel);
 	        language = _core.core.getLanguages();
-	        template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">', this.date + (0, _i18n.trans)('public.day', '日'), '</div>', '<div class="u-date-week"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>', '<div class="u-date-content-panel"></div>', '</div>'].join("");
+	        template = ['<div class="u-date-content-page">', '<div class="u-date-content-title">', this.date + '日', '</div>', '<div class="u-date-week"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>', '<div class="u-date-content-panel"></div>', '</div>'].join("");
 	        datePage = (0, _dom.makeDOM)(template);
 	        weekSpans = datePage.querySelectorAll('.u-date-week span');
 
 	        for (var i = 0; i < 7; i++) {
-	            weekSpans[i].innerHTML = _dateUtils.date._jsonLocale.weekdaysMin[i];
+	            weekSpans[i].innerHTML = _dateUtils.date._dateLocale[language].weekdaysMin[i];
 	        }
 	        dateDiv = datePage.querySelector('.u-date-content-panel');
 	        // tempDate = this.startDate;
@@ -17302,11 +17077,7 @@
 	        (0, _dom.removeClass)(this.panelDiv, 'is-visible');
 	        this.panelDiv.style.zIndex = -1;
 	    }
-	}); /**
-	     * Module : neoui-year
-	     * Author : wanghao(wanghaoo@yonyou.com)
-	     * Date   : 2016-11-09
-	     */
+	});
 
 	_compMgr.compMgr.regComp({
 	    comp: MonthDate,
@@ -17332,7 +17103,7 @@
 	exports.__esModule = true;
 	exports.TreeAdapter = undefined;
 
-	var _baseAdapter = __webpack_require__(77);
+	var _baseAdapter = __webpack_require__(76);
 
 	var _neouiYear = __webpack_require__(101);
 
@@ -17774,439 +17545,6 @@
 	});
 
 	exports.TreeAdapter = TreeAdapter;
-
-/***/ },
-/* 131 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.MultilangAdapter = undefined;
-
-	var _baseAdapter = __webpack_require__(77);
-
-	var _neouiMultilang = __webpack_require__(132);
-
-	var _compMgr = __webpack_require__(4);
-
-	var _core = __webpack_require__(71);
-
-	var _valueMixin = __webpack_require__(79);
-
-	var _enableMixin = __webpack_require__(80);
-
-	var _requiredMixin = __webpack_require__(81);
-
-	var _validateMixin = __webpack_require__(82);
-
-	/**
-	 * Module : Kero multilang adapter
-	 * Author : Kvkens(yueming@yonyou.com)
-	 * Date	  : 2016-08-10 14:11:50
-	 */
-	var MultilangAdapter = _baseAdapter.BaseAdapter.extend({
-	    // mixins: [ValueMixin],
-	    init: function init() {
-
-	        // 1.创建控件
-	        // 2.控件valueChange监听（ui ---》datatable）
-
-	        // datatable--》ui
-	        // 1、dattatable。on valuechange 添加监听（需要对多个字段进行监听），在监听中调用modelValueChange
-
-	        // 初始化调用modelValueChange赋值给ui
-
-	        var self = this;
-	        var multinfo;
-	        if (this.options) {
-	            multinfo = this.options.multinfo;
-	        } else {
-	            multinfo = _core.core.getLanguages(); //暂时不支持
-	        };
-	        multinfo = multinfo.split(',');
-
-	        self.multiLen = multinfo.length;
-	        var multidata = [];
-	        this.field = this.options.field;
-
-	        if (parseInt(this.options.rowIndex) > -1) {
-	            if ((this.options.rowIndex + '').indexOf('.') > 0) {
-	                // 主子表的情况
-	                var childObj = _valueMixin.ValueMixin.methods.getChildVariable.call(this);
-	                var lastRow = childObj.lastRow;
-	                var lastField = childObj.lastField;
-	                this.field = lastField;
-	            }
-	        }
-
-	        // 创建组件 - 此处不加el?
-	        this.comp = new _neouiMultilang.Multilang({ el: this.element, "multinfo": multinfo, "field": this.field });
-
-	        if (parseInt(this.options.rowIndex) > -1) {
-	            if ((this.options.rowIndex + '').indexOf('.') > 0) {
-	                // 主子表的情况
-	                var childObj = _valueMixin.ValueMixin.methods.getChildVariable.call(this);
-	                var lastRow = childObj.lastRow;
-	                var lastField = childObj.lastField;
-
-	                this.dataModel.on(DataTable.ON_VALUE_CHANGE, function (opt) {
-	                    var id = opt.rowId;
-	                    var field = opt.field;
-	                    var value = opt.newValue;
-	                    var obj = {
-	                        fullField: self.options.field,
-	                        index: self.options.rowIndex
-	                    };
-	                    var selfRow = self.dataModel.getChildRow(obj);
-	                    var row = opt.rowObj;
-	                    if (selfRow == row && field.indexOf(lastField) == 0) {
-	                        self.modelValueChange(field, value);
-	                    }
-	                });
-
-	                this.dataModel.on(DataTable.ON_INSERT, function (opt) {
-	                    var obj = {
-	                        fullField: self.options.field,
-	                        index: self.options.rowIndex
-	                    };
-	                    var field,
-	                        value,
-	                        row = self.dataModel.getChildRow(obj);
-	                    if (row) {
-	                        for (var i = 0; i < self.multiLen; i++) {
-	                            if (i == 0) {
-	                                field = lastField;
-	                            } else {
-	                                field = lastField + (i + 1);
-	                            }
-	                            value = row.getValue(field);
-	                            self.modelValueChange(field, value);
-	                        }
-	                    }
-	                });
-
-	                if (lastRow) {
-	                    var field, value;
-	                    for (var i = 0; i < self.multiLen; i++) {
-	                        if (i == 0) {
-	                            field = lastField;
-	                        } else {
-	                            field = lastField + (i + 1);
-	                        }
-	                        value = lastRow.getValue(field);
-	                        self.modelValueChange(field, value);
-	                    }
-	                }
-	            } else {
-
-	                this.dataModel.on(DataTable.ON_VALUE_CHANGE, function (opt) {
-	                    var id = opt.rowId;
-	                    var field = opt.field;
-	                    var value = opt.newValue;
-	                    var row = opt.rowObj;
-	                    var rowIndex = self.dataModel.getRowIndex(row);
-	                    if (rowIndex == self.options.rowIndex && field.indexOf(self.field) == 0) {
-	                        self.modelValueChange(field, value);
-	                    }
-	                });
-
-	                this.dataModel.on(DataTable.ON_INSERT, function (opt) {
-	                    var field,
-	                        value,
-	                        row = self.dataModel.getRow(self.options.rowIndex);
-	                    if (row) {
-	                        for (var i = 0; i < self.multiLen; i++) {
-	                            if (i == 0) {
-	                                field = self.field;
-	                            } else {
-	                                field = self.field + (i + 1);
-	                            }
-	                            value = row.getValue(field);
-	                            self.modelValueChange(field, value);
-	                        }
-	                    }
-	                });
-
-	                var rowObj = this.dataModel.getRow(this.options.rowIndex);
-	                var field, value;
-	                if (rowObj) {
-	                    for (var i = 0; i < self.multiLen; i++) {
-	                        if (i == 0) {
-	                            field = self.field;
-	                        } else {
-	                            field = self.field + (i + 1);
-	                        }
-	                        value = rowObj.getValue(field);
-	                        self.modelValueChange(field, value);
-	                    }
-	                }
-	            }
-	        } else {
-	            // datatable传值到UI - 初始化 & 监听
-	            this.dataModel.on(DataTable.ON_VALUE_CHANGE, function (opt) {
-	                var id = opt.rowId;
-	                var field = opt.field;
-	                var value = opt.newValue;
-	                var row = opt.rowObj;
-	                if (field.indexOf(self.field) == 0) {
-	                    self.modelValueChange(field, value);
-	                }
-	            });
-
-	            this.dataModel.on(DataTable.ON_INSERT, function (opt) {
-	                var field,
-	                    value,
-	                    row = opt.rows[0];
-	                for (var i = 0; i < self.multiLen; i++) {
-	                    if (i == 0) {
-	                        field = self.field;
-	                    } else {
-	                        field = self.field + (i + 1);
-	                    }
-	                    value = row.getValue(field);
-	                    self.modelValueChange(field, value);
-	                }
-	            });
-	            var field, value;
-	            for (var i = 0; i < self.multiLen; i++) {
-	                if (i == 0) {
-	                    field = self.field;
-	                } else {
-	                    field = self.field + (i + 1);
-	                }
-	                value = self.dataModel.getValue(field);
-	                self.modelValueChange(field, value);
-	            }
-	        }
-
-	        // meta标签写入方式
-	        // var rowObj = this.dataModel.getRow(this.options.rowIndex);
-	        // if (rowObj) {
-	        //     this.modelValueChange(rowObj.getValue(this.field));
-	        // }
-
-	        // UI传值到datatable
-	        this.comp.on('change.u.multilang', function (object) {
-	            self.slice = true;
-	            self.setValue(object.field, object.newValue);
-	            self.slide = false;
-	        });
-	    },
-	    modelValueChange: function modelValueChange(field, value) {
-	        this.comp.setDataValue(field, value);
-	    },
-	    setValue: function setValue(field, value) {
-	        this.slice = true;
-	        if (parseInt(this.options.rowIndex) > -1) {
-	            if ((this.options.rowIndex + '').indexOf('.') > 0) {
-	                var childObj = _valueMixin.ValueMixin.methods.getChildVariable.call(this);
-	                var lastRow = childObj.lastRow;
-	                var lastField = childObj.lastField;
-	                if (lastRow) lastRow.setValue(field, value);
-	            } else {
-	                var rowObj = this.dataModel.getRow(this.options.rowIndex);
-	                if (rowObj) rowObj.setValue(field, value);
-	            }
-	        } else {
-	            this.dataModel.setValue(field, value);
-	        }
-	        this.slice = false;
-	    }
-
-	});
-	// import {MonthDate} from 'tinper-neoui/js/neoui-monthdate';
-
-
-	_compMgr.compMgr.addDataAdapter({
-	    adapter: MultilangAdapter,
-	    name: 'u-multilang'
-	});
-
-	exports.MultilangAdapter = MultilangAdapter;
-
-/***/ },
-/* 132 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.Multilang = undefined;
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                                               * Module : neoui-multilang
-	                                                                                                                                                                                                                                                                               * Author : Kvkens(yueming@yonyou.com)
-	                                                                                                                                                                                                                                                                               * Date	  : 2016-08-02 20:19:37
-	                                                                                                                                                                                                                                                                               */
-
-	var _BaseComponent = __webpack_require__(84);
-
-	var _extend = __webpack_require__(8);
-
-	var _util = __webpack_require__(10);
-
-	var _dom = __webpack_require__(5);
-
-	var _event = __webpack_require__(6);
-
-	var _compMgr = __webpack_require__(4);
-
-	var Multilang = _BaseComponent.BaseComponent.extend({
-		init: function init() {
-			var self = this;
-			var element = this.element;
-			this.options = (0, _extend.extend)({}, this.DEFAULTS, this.options);
-			this.field = this.options.field || 'name';
-			this.multinfo(this.options.multinfo);
-			this.addData(this.options.multidata);
-		}
-	});
-	Multilang.fn = Multilang.prototype;
-	Multilang.fn.addData = function (val) {
-		var target = this.element,
-		    tmparray,
-		    target_div = target.parentNode;
-		if (val === null || typeof val === 'undefined') {
-			tmparray = [];
-		} else if ((typeof val === 'undefined' ? 'undefined' : _typeof(val)) == "object") {
-			tmparray = val;
-		} else {
-			tmparray = val.split(",");
-		}
-		target_div.value = tmparray;
-		(0, _util.each)(tmparray, function (i, node) {
-			target_div.querySelectorAll(".m_context")[i].innerHTML = node;
-		});
-	};
-	Multilang.fn.multinfo = function (sort) {
-
-		var target = this.element,
-		    self = this,
-		    tmplabel = "",
-		    close_menu = false;
-		if ((0, _util.isArray)(sort)) {
-
-			(0, _dom.wrap)(target, "<div class='multilang_body'><input class='lang_value' contenteditable='true'><span class='uf uf-caretdown lang_icon'><span class='m_icon'></span></span>");
-			(0, _dom.css)(target, "display", "none");
-
-			(0, _util.each)(sort, function (i, node) {
-				if (i) {
-					tmplabel += "<label attr='" + self.field + (i + 1) + "'><span class='m_context'></span><span class='m_icon'>" + node + "</span></label>";
-				} else {
-					tmplabel += "<label attr='" + self.field + "'><span class='m_context'></span><span class='m_icon'>" + node + "</span></label>";
-				}
-			});
-			var target_div = target.parentNode;
-
-			target_div.insertAdjacentHTML("beforeEnd", "<div class='multilang_menu '>" + tmplabel + "</div>");
-			var tmpIconv = target_div.querySelector(".lang_icon"),
-			    target_menu = target_div.querySelector(".multilang_menu"),
-			    target_labels = target_menu.querySelectorAll('label'),
-			    tmpvaluebox = target_div.querySelector(".lang_value");
-			(0, _event.on)(tmpIconv, "click", function () {
-				var target_icon = this;
-				target_div.querySelector(".lang_value").focus();
-				if ((0, _dom.css)(target_menu, "display") == "block") {
-					(0, _dom.css)(target_menu, "display", "none");
-				} else {
-					(0, _dom.css)(target_menu, "display", "block");
-				}
-			});
-			(0, _event.on)(target_menu, "mouseenter", function () {
-				close_menu = false;
-			});
-			(0, _event.on)(target_menu, "mouseleave", function () {
-				close_menu = true;
-			});
-
-			(0, _event.on)(tmpvaluebox, "blur", function (e) {
-				var target_input = $(this),
-				    target_div = target_input.parents(".multilang_body"),
-				    target = e.target,
-				    tmpkey = target.className.split(" ")[2],
-				    tmptext = target.value;
-
-				if ((0, _dom.hasClass)(target, "ready_change")) {
-					self.changeData(target_div[0], tmpkey, tmptext);
-				}
-				// if(close_menu) {
-				// 	css(target_menu, "display", "none")
-				// }
-			});
-
-			target_labels.forEach(function (ele) {
-				(0, _event.on)(ele, "click", function () {
-					var target_label = this,
-					    tempField = target_label.getAttribute("attr"),
-					    tmptext = target_label.querySelector(".m_context").innerHTML,
-					    tmpicon = target_label.querySelector(".m_icon").cloneNode(true);
-
-					tmpvaluebox.setAttribute("class", "ready_change lang_value " + tempField);
-					tmpvaluebox.value = tmptext;
-					tmpvaluebox.focus();
-					var tmpicom = target_div.querySelector(".lang_icon"),
-					    oldicon = target_div.querySelector(".m_icon");
-					(0, _dom.removeClass)(tmpicom, "uf-caretdown");
-					tmpicom.replaceChild(tmpicon, oldicon);
-				});
-			});
-		} else {
-			console.error('Not object');
-		}
-	};
-	Multilang.fn.changeData = function (target_div, field, text) {
-		var tmpdata = target_div.value,
-		    tmplabel = target_div.querySelector("label[attr='" + field + "']"),
-		    tmpcontext = tmplabel.querySelector(".m_context");
-		tmpcontext.innerHTML = text;
-		tmpcontext.value = text;
-		(0, _util.each)(target_div.querySelectorAll(".m_context"), function (i, node) {
-			tmpdata[i] = node.innerHTML;
-		});
-
-		this.trigger('change.u.multilang', {
-			newValue: text,
-			field: field
-		});
-	};
-	Multilang.fn.getData = function () {
-		var target = $(multilang.target).next(".multilang_body")[0],
-		    multilang_data = target.value;
-
-		return multilang_data;
-	};
-
-	Multilang.fn.setDataValue = function (field, value) {
-		var target_div = this.element.closest('.multilang_body'),
-		    tmplabel = target_div.querySelector("label[attr='" + field + "']"),
-		    tmpcontext = tmplabel.querySelector(".m_context");
-		tmpcontext.innerHTML = value;
-		tmpcontext.value = value;
-
-		var tmpdata = [];
-		(0, _util.each)(this.element.closest('.multilang_body').querySelectorAll(".m_context"), function (i, node) {
-			tmpdata[i] = node.innerHTML;
-		});
-		this.element.closest('.multilang_body').value = tmpdata;
-	};
-
-	_compMgr.compMgr.regComp({
-		comp: Multilang,
-		compAsString: 'u.Multilang',
-		css: 'u-multilang'
-	});
-
-	if (document.readyState && document.readyState === 'complete') {
-		_compMgr.compMgr.updateComp();
-	} else {
-		(0, _event.on)(window, 'load', function () {
-			//扫描并生成控件
-			_compMgr.compMgr.updateComp();
-		});
-	}
-
-	exports.Multilang = Multilang;
 
 /***/ }
 /******/ ]);
