@@ -63,8 +63,6 @@ define(['text!pages/wuliuquanxian/wuliuquanxian.html', 'css!pages/wuliuquanxian/
                 search: function () {//弹出框查询按钮事件
                     viewModel.pagination1InitAndEvent();
                     viewModel.fetchData();
-                    $('.paginationHook').show();
-
                 },
                 add: function () {
                     var row = new Row({parent: viewModel.wuliu});
@@ -111,8 +109,7 @@ define(['text!pages/wuliuquanxian/wuliuquanxian.html', 'css!pages/wuliuquanxian/
                             dataType: 'json',
                             contentType: 'application/json;charset=utf-8'
                         }).done(function (res) {
-                            console.log(params);
-                            viewModel.wuliu.removeRows(selectedIndexs);
+                            viewModel.initPageLoad();
                         })
                     } else {
                         viewModel.wuliu.removeRows(selectedIndexs);
@@ -132,8 +129,7 @@ define(['text!pages/wuliuquanxian/wuliuquanxian.html', 'css!pages/wuliuquanxian/
                             contentType: 'application/json;charset=utf-8'
                         }).done(function (res) {
                             if (res.result == 1) {
-                                viewModel.wuliu.removeRow(index);
-                                console.log(params);
+                                viewModel.initPageLoad();
                             }
                         })
                     } else {
@@ -166,7 +162,9 @@ define(['text!pages/wuliuquanxian/wuliuquanxian.html', 'css!pages/wuliuquanxian/
                             contentType: 'application/json;charset=utf-8'
                         }).done(function (res) {
                             if (res.result == 1) {
-                                viewModel.wuliu.setSimpleData(viewModel.wuliu.getSimpleData(), {unSelect: true});
+                                viewModel.willTurnToLastPage = true;
+                                viewModel.mainPage.currentPage = 1;
+                                viewModel.initPageLoad();
                             }
                         });
                     }
@@ -184,6 +182,8 @@ define(['text!pages/wuliuquanxian/wuliuquanxian.html', 'css!pages/wuliuquanxian/
                         }
                     });
                     viewModel.search.clear();
+                    viewModel.pagination1InitAndEvent();
+                    viewModel.fetchData();
                 },
                 addSearchData: function (rowIndex) {
                     var rowId = viewModel.rowId;
@@ -307,7 +307,7 @@ define(['text!pages/wuliuquanxian/wuliuquanxian.html', 'css!pages/wuliuquanxian/
                     viewModel.fetchData()
                 });
             },
-            fetchData: function () {
+            fetchData: function () {//获取弹框表格数据
 
                 var params = {
                     disCode: viewModel.disCode(),
@@ -325,28 +325,27 @@ define(['text!pages/wuliuquanxian/wuliuquanxian.html', 'css!pages/wuliuquanxian/
                     dataType: 'json',
                     contentType: 'application/json;charset=utf-8'
                 }).done(function (res) {
-                    viewModel.currentPage = res.pageIndex;
-                    viewModel.totalPages = Math.ceil(res.total / res.pageSize);
-                    viewModel.pageSize = res.pageSize;
-                    viewModel.totalCount = res.total;
-                    viewModel.pagination1Comp.update({
-                        totalPages: viewModel.totalPages,
-                        pageSize: viewModel.pageSize,
-                        currentPage: viewModel.currentPage,
-                        totalCount: viewModel.totalCount
-                    });
+
                     if (res.result == 1) {
-                        //模拟数据
+                        viewModel.currentPage = res.pageIndex;
+                        viewModel.totalPages = Math.ceil(res.total / res.pageSize);
+                        viewModel.pageSize = res.pageSize;
+                        viewModel.totalCount = res.total;
+                        viewModel.pagination1Comp.update({
+                            totalPages: viewModel.totalPages,
+                            pageSize: viewModel.pageSize,
+                            currentPage: viewModel.currentPage,
+                            totalCount: viewModel.totalCount
+                        });
                         var willAppendData = res.data;
                         viewModel.search.setSimpleData(willAppendData, {unSelect: true});
-                    } else {
-                        alert('fail');
+                        $('.paginationHook').show();
                     }
                 }).fail(function (res) {
                     console.log('error', res);
                 });
             },
-            initPageLoad:function () {
+            initPageLoad:function () {//初始化主页面表格数据
                 var params = {
                     pageIndex:viewModel.mainPage.currentPage,
                     pageSize:viewModel.mainPage.pageSize
@@ -376,6 +375,10 @@ define(['text!pages/wuliuquanxian/wuliuquanxian.html', 'css!pages/wuliuquanxian/
                         setTimeout(function () {
                             viewModel.setCanEditRenderType();
                         },300)
+                        if(res.data.length == 0){
+                            viewModel.mainPage.currentPage = viewModel.mainPage.currentPage - 1;
+                            viewModel.initPageLoad();
+                        }
                     }
                 });
                 return x;

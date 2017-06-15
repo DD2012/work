@@ -66,6 +66,7 @@ define(['text!pages/handleCycleMaintain/handleCycleMaintain.html', 'css!pages/ha
                             data: JSON.stringify(params)
                         }).done(function (res) {
                             console.log(params);
+                            viewModel.initLoadData();
                             viewModel.handleCycleMaintain.removeRow(rowIndex);
 
                         });
@@ -93,6 +94,7 @@ define(['text!pages/handleCycleMaintain/handleCycleMaintain.html', 'css!pages/ha
                             if (res.result == 1) {
                                 var selectedIndexs = viewModel.handleCycleMaintain.getSelectedIndexs();
                                 viewModel.handleCycleMaintain.removeRows(selectedIndexs);
+                                viewModel.initLoadData();
                             }
                         })
                     }
@@ -122,6 +124,8 @@ define(['text!pages/handleCycleMaintain/handleCycleMaintain.html', 'css!pages/ha
                         data: JSON.stringify(params)
                     }).done(function (res) {
                         if (res.result == 1) {
+                            viewModel.willTurnToLastPage = true;
+                            viewModel.currentPage = 1;
                             var data = res.data;
                             viewModel.initLoadData();
                         }
@@ -231,7 +235,7 @@ define(['text!pages/handleCycleMaintain/handleCycleMaintain.html', 'css!pages/ha
                     viewModel.willTurnToLastPage = true;
                     viewModel.pageSize = pageSize;
                     viewModel.currentPage = 1;
-                    viewModel.initPageTable();
+                    viewModel.initLoadData();
                 });
             }
 

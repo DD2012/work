@@ -1273,9 +1273,12 @@ define(['text!pages/BillFinshedDeclare/BillFinshedDeclare.html', 'css!pages/Bill
 
                 viewModel.initDialog1MaterialPagnition();
                 viewModel.fetchOrderNumSearchDialog1Material();
-
             }
-
+        });
+        viewModel.BillFinshedDeclare.on('valueChange',function (obj) {
+            if (obj.field == 'logisticsMode'){
+                console.log(obj.newValue);
+            }
         });
 
 

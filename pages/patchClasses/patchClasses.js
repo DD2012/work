@@ -103,7 +103,8 @@ define(['text!pages/patchType/patchType.html', 'css!pages/patchType/patchType', 
                             contentType: 'application/json;charset=utf-8'
                         }).done(function (res) {
                             if (res.result == 1) {
-                                viewModel.fetchData();
+                                viewModel.currentPage = 1;
+                                viewModel.willFetchBeforeAdd = true;
                                 viewModel.fetchData();
                             }
                         });

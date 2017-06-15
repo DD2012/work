@@ -81,7 +81,6 @@ define(['text!pages/BillAuditFirst/BillAuditFirst.html', 'css!pages/BillAuditFir
                     picAddress:{},
                     quAppraisal:{},
                     reportModel:{}
-
                 }
             }),
             //定制件grid数据

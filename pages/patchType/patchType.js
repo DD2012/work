@@ -105,6 +105,8 @@ define(['text!pages/patchType/patchType.html', 'css!pages/patchType/patchType', 
                         }).done(function (res) {
 
                             if (res.result == 1) {
+                                viewModel.willFetchBeforeAdd = true;
+                                viewModel.currentPage = 1;
                                 viewModel.fetchData();
                             }
                         }).fail(function (res) {
@@ -126,7 +128,7 @@ define(['text!pages/patchType/patchType.html', 'css!pages/patchType/patchType', 
                             contentType: 'application/json;charset=utf-8'
                         }).done(function (res) {
                             if (res.result == 1) {
-                                viewModel.patchType.removeRow(index);
+                                viewModel.fetchData();
                             }
                         })
                     } else {

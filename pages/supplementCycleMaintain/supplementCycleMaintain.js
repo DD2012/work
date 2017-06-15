@@ -99,14 +99,14 @@ define(['text!pages/supplementCycleMaintain/supplementCycleMaintain.html', 'css!
                     }).done(function (res) {
                         //保存后重新设置不可编辑
                         if (res.result == 1) {
-                            // viewModel.supplementCycleMaintain.setSimpleData(willSendData, {unSelect: true});
+                            viewModel.willTurnToLastPage = true;
+                            viewModel.mainPage.currentPage = 1;
                             viewModel.mainPagination.update({
                                 totalPages: viewModel.mainPage.totalPages,
                                 pageSize: viewModel.mainPage.pageSize,
                                 currentPage: viewModel.mainPage.currentPage,
                                 totalCount: viewModel.mainPage.totalCount
                             });
-                            // viewModel.initMainPage();
                             viewModel.initPageTable();
                         }
                     }).fail(function (res) {
@@ -163,33 +163,42 @@ define(['text!pages/supplementCycleMaintain/supplementCycleMaintain.html', 'css!
                             viewModel.currentPage = 1;
                         }
                     });
-                },
-                search: function () {//弹出框点击搜索事件
                     $('.paginationHook').show();
                     viewModel.initPagination();
+                    viewModel.fetchData();
+                },
+                search: function () {//弹出框点击搜索事件
+                    viewModel.dialogPage.currentPage = 1;
+
                     viewModel.fetchData();
                 },
                 del1: function (rowId) {
                     var rowIndex = viewModel.supplementCycleMaintain.getIndexByRowId(rowId);
                     var id = viewModel.supplementCycleMaintain.getRow(rowIndex).getSimpleData().id;
                     var params = [{id: id}];
-                    $.ajax({
-                        type: 'post',
-                        dataType: 'json',
-                        contentType: 'application/json;charset=utf-8',
-                        // url: listUrl,
-                        url: del,
-                        data: JSON.stringify(params)
-                    }).done(function (res) {
-                        //保存后重新设置不可编辑
-                        console.log(params);
-                        if (res.result == 1) {
-                            viewModel.supplementCycleMaintain.removeRow(rowIndex);
-                        }
-                    }).fail(function (res) {
-                        console.log(res);
+                    if(id){
+                        $.ajax({
+                            type: 'post',
+                            dataType: 'json',
+                            contentType: 'application/json;charset=utf-8',
+                            // url: listUrl,
+                            url: del,
+                            data: JSON.stringify(params)
+                        }).done(function (res) {
+                            //保存后重新设置不可编辑
+                            console.log(params);
+                            if (res.result == 1) {
+                                viewModel.supplementCycleMaintain.removeRow(rowIndex);
+                                viewModel.initPageTable();
+                            }
+                        }).fail(function (res) {
+                            console.log(res);
 
-                    })
+                        })
+                    }else {
+                        viewModel.supplementCycleMaintain.removeRow(rowIndex);
+                    }
+
                 },
                 edit1: function (rowId) {
                     var row = viewModel.supplementCycleMaintain.getRowByRowId(rowId);
